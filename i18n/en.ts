@@ -1,0 +1,231 @@
+/**
+ * English translations for 369 Smoke-Free Path
+ * Context: Smoking cessation through daily affirmations
+ */
+export const en: Record<string, string> = {
+    // ===== App-wide =====
+    'app.name': '369 Smoke-Free Path',
+    'app.bismillah': 'Bismillahir Rahmanir Rahim',
+    'app.loading': 'Loading...',
+
+    // ===== Tabs =====
+    'tabs.home': 'Home',
+    'tabs.history': 'History',
+
+    // ===== Dashboard =====
+    'dashboard.mashaAllah': '🎉 MashaAllah! 🎉',
+    'dashboard.journeyComplete': '369-day smoke-free journey complete!',
+    'dashboard.journeyCompleteMsg': 'You are growing stronger every day on the smoke-free path',
+    'dashboard.streak': '🔥 Streak:',
+    'dashboard.day': 'day',
+    'dashboard.days': 'days',
+    'dashboard.todayComplete': '✅ Today Complete!',
+    'dashboard.startFresh': 'Start fresh today! ✨',
+    'dashboard.dayLabel': 'Day',
+    'dashboard.tagline': 'Break free. Write it. Live it.',
+    'dashboard.viewProgress': 'View My Progress',
+    'dashboard.completedNiyyah': "Today's Completed Affirmation",
+    'dashboard.close': 'Close',
+    'dashboard.journeyStart': 'Journey Start: Day {{day}}',
+    'dashboard.cycle': 'Cycle {{cycle}}',
+    'dashboard.restPeriod': '😴 Rest time (5–8 AM). Morning slot opens at 8:00 AM.',
+
+    // ===== Buttons =====
+    'button.next': 'Continue',
+    'button.getStarted': 'Begin Journey',
+    'button.skip': 'Skip',
+
+    // ===== Onboarding =====
+    'onboarding.slide1.title': 'Bismillah',
+    'onboarding.slide1.description': 'Welcome to 369 Smoke-Free Path. A companion for your journey to quit smoking through the power of daily affirmations and intentions. Break free with faith.',
+    'onboarding.slide2.title': 'The 3-6-9 Method',
+    'onboarding.slide2.description': 'Write your affirmation 3 times in the morning, 6 times in the afternoon, and 9 times at night to rewire your mind away from smoking and toward a healthier life.',
+    'onboarding.slide3.title': 'A 41-Day Transformation',
+    'onboarding.slide3.description': 'Embark on a 41-day journey covering health, family, faith, and willpower themes to build an unbreakable smoke-free identity. Trust in Allah and take the first step.',
+    'onboarding.getStarted': 'Get Started',
+    'onboarding.next': 'Next',
+    'onboarding.skip': 'Skip',
+    'onboarding.slide4.title': 'Your Daily Schedule',
+    'onboarding.slide4.description': 'Three sessions unlock at set times. Complete all three each day to build your streak.',
+    'onboarding.slide4.morning': '8:00 AM — Morning (3×)',
+    'onboarding.slide4.noon': '1:00 PM — Afternoon (6×)',
+    'onboarding.slide4.night': '6:00 PM — Evening (9×)',
+
+    // ===== Guide =====
+    'guide.title': 'How It Works',
+    'guide.whatIs.title': '🌿 What is 369 Smoke-Free Path?',
+    'guide.whatIs.body': '369 Smoke-Free Path is your daily companion for quitting smoking through the power of written affirmations. Based on the 369 method, this app helps you internalize the determination to live smoke-free by writing affirmations repeatedly throughout the day.',
+    'guide.method.title': '✨ The 369 Method',
+    'guide.method.intro': 'The method is simple but powerful:',
+    'guide.method.morning.title': 'Morning Affirmation (8 AM – 1 PM)',
+    'guide.method.morning.desc': 'Write your affirmation 3 times to set your intention for a smoke-free day.',
+    'guide.method.noon.title': 'Afternoon Affirmation (1 PM – 6 PM)',
+    'guide.method.noon.desc': 'Write it 6 times to reinforce your resolve when cravings may peak.',
+    'guide.method.night.title': 'Evening Affirmation (6 PM – 5 AM)',
+    'guide.method.night.desc': 'Write it 9 times to end the day with gratitude for staying smoke-free.',
+    'guide.howToWrite.title': '✍️ How to Write',
+    'guide.howToWrite.body': 'Each session shows you an affirmation at the top of the screen. Type it exactly as shown. The text will highlight in real-time:\n\n🟢 Green = You\'re typing correctly\n🔴 Red = There\'s a mismatch\n⚪ Gray = Not yet typed\n\nWhen you reach 80% accuracy, the Submit button becomes active. At 100%, it auto-submits. After all repetitions are done, you\'ll see a beautiful "Alhamdulillah, Complete!" animation.',
+    'guide.rules.title': 'Rules & Time Slots',
+    'guide.rules.intro': 'Follow the time slots to practice effectively:',
+    'guide.rules.morning': '🌅 Morning:',
+    'guide.rules.morningTime': '8 AM to 1 PM',
+    'guide.rules.noon': '☀️ Afternoon:',
+    'guide.rules.noonTime': '1 PM to 6 PM',
+    'guide.rules.night': '🌙 Evening:',
+    'guide.rules.nightTime': '6 PM to 5 AM',
+    'guide.rules.rest': '😴 Rest:',
+    'guide.rules.restTime': '5 AM to 8 AM',
+    'guide.rules.restDesc': '💤 The app is locked during rest time. This is for your relaxation.',
+    'guide.rules.lockDesc': '⏰ Each slot automatically unlocks at the specific time. It remains locked beforehand.',
+    'guide.rules.streakDesc': '✅ Completing 3 slots a day increases your streak!',
+    'guide.themes.title': '📖 Daily Themes',
+    'guide.themes.body': 'The app contains 41 days of unique affirmations covering themes like health, family responsibility, financial savings, faith, willpower, self-love, and environmental impact. After Day 41, the cycle repeats with fresh perspective.',
+    'guide.streaks.title': '🔥 Streaks & Progress',
+    'guide.streaks.body': 'Complete all three sessions (Morning, Afternoon, Evening) to mark a day as complete. Build your streak by completing consecutive days. Check your progress in the calendar view to see your smoke-free journey.',
+    'guide.dua': '"Verily, with hardship comes ease."\n— Quran 94:6',
+    'guide.encouragement': '🌟 Remember, every small step is part of a great victory. We are with you on this journey. May Allah be your guide and strength.',
+
+    // ===== History =====
+    'history.title': 'My Progress',
+    'history.complete': 'Complete',
+    'history.partial': 'Partial',
+    'history.totalDays': 'Total Days',
+    'history.missed': 'Missed',
+    'history.pending': 'Pending',
+    'history.noProgress': 'No progress recorded for this day.',
+    'history.close': 'Close',
+    'history.month.january': 'January',
+    'history.month.february': 'February',
+    'history.month.march': 'March',
+    'history.month.april': 'April',
+    'history.month.may': 'May',
+    'history.month.june': 'June',
+    'history.month.july': 'July',
+    'history.month.august': 'August',
+    'history.month.september': 'September',
+    'history.month.october': 'October',
+    'history.month.november': 'November',
+    'history.month.december': 'December',
+    'history.weekday.sun': 'SUN',
+    'history.weekday.mon': 'MON',
+    'history.weekday.tue': 'TUE',
+    'history.weekday.wed': 'WED',
+    'history.weekday.thu': 'THU',
+    'history.weekday.fri': 'FRI',
+    'history.weekday.sat': 'SAT',
+    'history.morningAffirmation': 'Morning Affirmation',
+    'history.afternoonAffirmation': 'Afternoon Affirmation',
+    'history.eveningAffirmation': 'Evening Affirmation',
+    'history.legend.title': 'Legend',
+    'history.midnightNotice': '🌙 Tasks completed between midnight and 5 AM count toward the previous day',
+    'history.emptyState': 'Start your journey to see progress here',
+
+    // ===== Task Input =====
+    'task.morningAffirmation': 'Morning Affirmation',
+    'task.afternoonAffirmation': 'Afternoon Affirmation',
+    'task.eveningAffirmation': 'Evening Affirmation',
+    'task.todaysAffirmation': "Today's Affirmation",
+    'task.placeholder': 'Type the affirmation here...',
+    'task.instruction': 'Type the affirmation above exactly as shown',
+    'task.accuracy': 'Accuracy:',
+    'task.errorHint': 'Error detected — please correct',
+    'task.autoSubmitting': 'Auto-submitting...',
+    'task.readyToSubmit': 'Ready to submit!',
+    'task.needPercent': 'Need {{n}}% to submit',
+    'task.accuracyHint': '80% accuracy is enough — small mistakes are okay!',
+    'task.submit': 'Submit',
+    'task.alhamdulillahComplete': 'Alhamdulillah, Complete!',
+    'task.completeDua': 'May Allah strengthen your resolve and reward your patience.\nStay strong on the smoke-free path.',
+    'task.backToDashboard': 'Back to Dashboard',
+    'task.mashaAllah': 'MashaAllah!',
+    'task.timesComplete': '{{current}}/{{total}} completed today',
+    'task.timesLabel': 'times completed',
+    'task.milestone.halfway': 'Halfway there! 💪',
+    'task.milestone.almost': 'Almost done! 🎯',
+
+    // ===== Task Card =====
+    'taskCard.completedTapToView': 'Completed — Tap to view',
+    'taskCard.write': 'Write',
+    'taskCard.timeEnded': "Today's time has ended",
+    'taskCard.opensAt': 'Opens at {{time}}',
+    'taskCard.opensInMin': 'Opens in {{n}} min',
+    'taskCard.opensTonight': 'Opens tonight at {{time}}',
+    'taskCard.lockedMorning': 'Morning slot opens at 8:00 AM',
+    'taskCard.lockedNoon': 'Noon slot opens at 1:00 PM',
+    'taskCard.lockedNight': 'Night slot opens at 6:00 PM',
+
+    // ===== Slot Labels =====
+    'slot.morning.label': 'Morning Affirmation',
+    'slot.noon.label': 'Afternoon Affirmation',
+    'slot.night.label': 'Evening Affirmation',
+    'slot.morning.timeRange': '8:00 AM – 1:00 PM',
+    'slot.noon.timeRange': '1:00 PM – 6:00 PM',
+    'slot.night.timeRange': '6:00 PM – 5:00 AM',
+
+    // ===== Notifications =====
+    'notification.morning.title': '🌅 Morning Affirmation',
+    'notification.morning.body': 'Time for your Morning Affirmation. Start your smoke-free day with faith and intention. Bismillah!',
+    'notification.noon.title': '☀️ Afternoon Affirmation',
+    'notification.noon.body': 'Afternoon Affirmation awaits. Stay strong, remember your resolve, and write your affirmation.',
+    'notification.night.title': '🌙 Evening Affirmation',
+    'notification.night.body': 'Evening Affirmation time. End your smoke-free day with gratitude and peace. Alhamdulillah.',
+
+    // ===== Achievements =====
+    'achievements.title': 'Milestones of Strength',
+    'achievements.empty': 'Your journey of smoke-free living is just beginning. Keep writing.',
+
+    'badge.first_step.name': 'The Awakening',
+    'badge.first_step.desc': 'You took the very first step toward a smoke-free life.',
+
+    'badge.three_days.name': 'Breaking the Habit',
+    'badge.three_days.desc': 'A powerful 3-day smoke-free streak. The hardest part is over.',
+
+    'badge.seven_days.name': 'One Week Strong',
+    'badge.seven_days.desc': 'A full week without smoking. Your body is already healing.',
+
+    'badge.twenty_one_days.name': 'The New Normal',
+    'badge.twenty_one_days.desc': '21 days of persistence. The habit is being rewired.',
+
+    'badge.forty_one_days.name': 'The Transformed Life',
+    'badge.forty_one_days.desc': 'A magnificent milestone. An entire 41-day cycle, sealed with grace.',
+
+    'badge.morning_person.name': 'The Dawn Warrior',
+    'badge.morning_person.desc': '10 morning affirmations fulfilled. You start each day with purpose.',
+
+    'badge.night_owl.name': 'The Night Guardian',
+    'badge.night_owl.desc': '10 evening affirmations completed. You end each day victorious.',
+
+    'badge.perfectionist.name': 'The Flawless Writer',
+    'badge.perfectionist.desc': 'You wrote 5 consecutive affirmations without a single error.',
+
+    'badge.weekend_warrior.name': 'The Weekend Champion',
+    'badge.weekend_warrior.desc': 'You maintained your discipline perfectly over a weekend.',
+
+    'badge.cycle_two.name': 'The Deeper Journey',
+    'badge.cycle_two.desc': 'You chose to start a second cycle. The commitment deepens.',
+
+    // ===== Donation =====
+    'donation.bannerTitle': 'Support 369 Smoke-Free Path',
+    'donation.tapToSupport': 'Tap to support →',
+    'donation.completionMessage': 'Your effort is witnessed by Allah. If this app aids your journey, a small Sadaqah can help it reach more hearts.',
+    'donation.supportButton': 'Support This App',
+    'donation.sheetTitle': 'Support 369 Smoke-Free Path',
+    'donation.sheetDescription': 'This app is built with love and kept completely free and ad-free. Your voluntary Sadaqah helps cover development costs and reach more souls. JazakAllahu Khairan.',
+    'donation.howToSend': 'Please "Send Money" to the number above. Long press the number to copy it.',
+    'donation.dua': '"Whoever guides someone to goodness will have a reward like the one who did it." — Sahih Muslim',
+    'donation.close': 'May Allah Reward You',
+    'donation.title': 'Support Us',
+    'donation.message': 'This app is completely free. Your small support inspires us.',
+    'donation.numberLabel': 'Bkash/Nagad Number (tap to copy):',
+    'donation.dismiss': 'Dismiss',
+    'donation.copied': 'Copied!',
+    'donation.copiedMessage': '{{number}} has been copied to clipboard.',
+
+    // ===== Daily Quote =====
+    'quote.title': 'Daily Inspiration',
+
+    // ===== Toast =====
+    'toast.languageChanged': 'Language changed to {{lang}}',
+    'toast.english': 'English',
+    'toast.bengali': 'বাংলা',
+};

@@ -1,0 +1,233 @@
+/**
+ * Bengali (বাংলা) translations for 369 Smoke-Free Path / ৩৬৯ ধোঁয়া-মুক্ত পথ
+ * All hardcoded Bengali text migrated to key-based i18n
+ */
+export const bn: Record<string, string> = {
+    // ===== অ্যাপ-ব্যাপী =====
+    'app.name': '৩৬৯ ধোঁয়া-মুক্ত পথ',
+    'app.bismillah': 'বিসমিল্লাহির রাহমানির রাহিম',
+    'app.loading': 'লোড হচ্ছে...',
+
+    // ===== ট্যাব =====
+    'tabs.home': 'হোম',
+    'tabs.history': 'ইতিহাস',
+
+    // ===== ড্যাশবোর্ড =====
+    'dashboard.mashaAllah': '🎉 মাশাআল্লাহ! 🎉',
+    'dashboard.journeyComplete': '৩৬৯ দিনের ধোঁয়া-মুক্ত যাত্রা সম্পন্ন!',
+    'dashboard.journeyCompleteMsg': 'আপনি ধোঁয়া-মুক্ত জীবনের পথে এগিয়ে যাচ্ছেন',
+    'dashboard.streak': '🔥 ধারাবাহিকতা:',
+    'dashboard.day': 'দিন',
+    'dashboard.days': 'দিন',
+    'dashboard.todayComplete': '✅ আজ সম্পন্ন!',
+    'dashboard.startFresh': 'আজ থেকে নতুন করে শুরু করুন! ✨',
+    'dashboard.dayLabel': 'দিন',
+    'dashboard.tagline': 'মুক্ত হোন। লিখুন। জীবনে প্রতিফলিত করুন।',
+    'dashboard.viewProgress': 'আমার অগ্রগতি দেখুন',
+    'dashboard.completedNiyyah': 'আজকের সম্পন্ন শপথ',
+    'dashboard.close': 'বন্ধ করুন',
+    'dashboard.journeyStart': 'যাত্রা শুরু: দিন {{day}}',
+    'dashboard.cycle': 'সাইকেল {{cycle}}',
+    'dashboard.restPeriod': '😴 বিশ্রামের সময় (ভোর ৫টা–সকাল ৮টা)। সকালের স্লট সকাল ৮টায় খুলবে।',
+
+    // ===== বাটন =====
+    'button.next': 'চালিয়ে যান',
+    'button.getStarted': 'যাত্রা শুরু করুন',
+    'button.skip': 'এড়িয়ে যান',
+
+    // ===== অনবোর্ডিং =====
+    'onboarding.slide1.title': 'বিসমিল্লাহ',
+    'onboarding.slide1.description': 'ধোঁয়া মুক্ত জীবনের পথে আপনাকে স্বাগতম। এই অ্যাপ আপনাকে ধূমপান ছাড়তে সাহায্য করবে ইতিবাচক চিন্তা ও নিয়মিত অভ্যাসের মাধ্যমে। আল্লাহর উপর ভরসা রাখুন।',
+    'onboarding.slide2.title': '৩-৬-৯ পদ্ধতি',
+    'onboarding.slide2.description': 'প্রতিদিন ৩ বার সকালে, ৬ বার দুপুরে, এবং ৯ বার রাতে ইতিবাচক বাক্য লিখুন। এই পুনরাবৃত্তি আপনার মনকে ধূমপানমুক্ত জীবনের জন্য প্রোগ্রাম করবে।',
+    'onboarding.slide3.title': '৪১ দিনের রূপান্তর',
+    'onboarding.slide3.description': 'স্বাস্থ্য, পরিবার, ঈমান এবং ইচ্ছাশক্তির থিমে ৪১ দিনের যাত্রায় বেরিয়ে পড়ুন। একটি অটুট ধোঁয়া-মুক্ত পরিচয় গড়ে তুলুন।',
+    'onboarding.getStarted': 'শুরু করুন',
+    'onboarding.next': 'পরবর্তী',
+    'onboarding.skip': 'স্কিপ',
+    'onboarding.slide4.title': 'আপনার দৈনিক সময়সূচি',
+    'onboarding.slide4.description': 'প্রতিদিন তিনটি সেশন নির্দিষ্ট সময়ে খুলবে। তিনটি সম্পন্ন করলে স্ট্রিক বাড়বে।',
+    'onboarding.slide4.morning': 'সকাল ৮:০০ — সকাল (৩×)',
+    'onboarding.slide4.noon': 'দুপুর ১:০০ — দুপুর (৬×)',
+    'onboarding.slide4.night': 'সন্ধ্যা ৬:০০ — রাত (৯×)',
+
+    // ===== গাইড =====
+    'guide.title': 'কীভাবে কাজ করে',
+    'guide.whatIs.title': '🌿 ৩৬৯ ধোঁয়া-মুক্ত পথ কী?',
+    'guide.whatIs.body': 'এই অ্যাপটি আপনাকে ধূমপান ছাড়তে সাহায্য করবে ইতিবাচক অ্যাফার্মেশনের মাধ্যমে। প্রতিদিন নির্দিষ্ট সময়ে ইতিবাচক বাক্য লিখে আপনি আপনার মনকে ধূমপান-মুক্ত জীবনের জন্য প্রস্তুত করবেন।\n\nনিয়মিত অনুশীলনের মাধ্যমে আপনার অবচেতন মন ধীরে ধীরে ধূমপানের প্রতি আকর্ষণ হারাবে এবং স্বাস্থ্যকর অভ্যাস গড়ে উঠবে।',
+    'guide.method.title': '✨ ৩৬৯ মেথড',
+    'guide.method.intro': 'পদ্ধতিটি সহজ কিন্তু শক্তিশালী:',
+    'guide.method.morning.title': 'সকালের অ্যাফার্মেশন (সকাল ৮টা – দুপুর ১টা)',
+    'guide.method.morning.desc': 'দিনের শুরুতে মনকে সেট করতে ৩ বার লিখুন।',
+    'guide.method.noon.title': 'দুপুরের অ্যাফার্মেশন (দুপুর ১টা – সন্ধ্যা ৬টা)',
+    'guide.method.noon.desc': 'মধ্যদিনে মনোযোগ ধরে রাখতে ৬ বার লিখুন।',
+    'guide.method.night.title': 'রাতের অ্যাফার্মেশন (সন্ধ্যা ৬টা – ভোর ৫টা)',
+    'guide.method.night.desc': 'ঘুমানোর আগে অবচেতন মনে গেঁথে দিতে ৯ বার লিখুন।',
+    'guide.howToWrite.title': '✍️ কীভাবে লিখবেন',
+    'guide.howToWrite.body': 'প্রতিটি সেশনে স্ক্রিনের উপরে একটি অ্যাফার্মেশন দেখানো হবে। হুবহু সেইভাবে টাইপ করুন। টেক্সট রিয়েল-টাইমে হাইলাইট হবে:\n\n🟢 সবুজ = আপনি সঠিকভাবে টাইপ করছেন\n🔴 লাল = ভুল আছে\n⚪ ধূসর = এখনও টাইপ করা হয়নি\n\n৮০% সঠিক হলে সাবমিট বাটন সক্রিয় হবে। ১০০% হলে অটো-সাবমিট হবে। সব পুনরাবৃত্তি শেষ হলে, "আলহামদুলিল্লাহ, সম্পন্ন!" অ্যানিমেশন দেখবেন।',
+    'guide.rules.title': 'নিয়মাবলী',
+    'guide.rules.intro': 'সঠিক সময়ে অনুশীলন করতে টাইম স্লট সিস্টেম অনুসরণ করুন:',
+    'guide.rules.morning': '🌅 সকাল:',
+    'guide.rules.morningTime': 'সকাল ৮টা থেকে দুপুর ১টা',
+    'guide.rules.noon': '☀️ দুপুর:',
+    'guide.rules.noonTime': 'দুপুর ১টা থেকে সন্ধ্যা ৬টা',
+    'guide.rules.night': '🌙 রাত:',
+    'guide.rules.nightTime': 'সন্ধ্যা ৬টা থেকে ভোর ৫টা',
+    'guide.rules.rest': '😴 বিশ্রাম:',
+    'guide.rules.restTime': 'ভোর ৫টা থেকে সকাল ৮টা',
+    'guide.rules.restDesc': '💤 বিশ্রামের সময় অ্যাপের সকল কার্যক্রম বন্ধ থাকে। এই সময়টুকু আপনার বিশ্রামের জন্য।',
+    'guide.rules.lockDesc': '⏰ প্রতিটি স্লট নির্দিষ্ট সময়ে স্বয়ংক্রিয়ভাবে আনলক হয়। সময়ের আগে স্লট লক থাকবে।',
+    'guide.rules.streakDesc': '✅ প্রতিদিন তিনটি স্লট সম্পন্ন করলে আপনার স্ট্রিক বাড়বে!',
+    'guide.themes.title': '📖 দৈনিক থিম',
+    'guide.themes.body': 'অ্যাপটিতে ৪১ দিনের অনন্য অ্যাফার্মেশন রয়েছে — স্বাস্থ্য, পরিবার, অর্থ, ঈমান, ইচ্ছাশক্তি, আত্মবিশ্বাস, পরিবেশ এবং আরও অনেক থিমে। ৪১ দিন পর নতুন দৃষ্টিভঙ্গি নিয়ে আবার শুরু হবে।',
+    'guide.streaks.title': '🔥 ধারাবাহিকতা ও অগ্রগতি',
+    'guide.streaks.body': 'একটি দিন সম্পূর্ণ হিসেবে চিহ্নিত করতে তিনটি সেশন (সকাল, দুপুর, রাত) সম্পন্ন করুন। পরপর দিনগুলো সম্পন্ন করে আপনার ধারাবাহিকতা গড়ুন। ক্যালেন্ডার ভিউতে আপনার ধোঁয়া-মুক্ত যাত্রার অগ্রগতি দেখুন।',
+    'guide.dua': '"নিশ্চয়ই কষ্টের সাথে স্বস্তি আছে।"\n— সূরা আল-ইনশিরাহ ৯৪:৬',
+    'guide.encouragement': '🌟 মনে রাখবেন, প্রতিটি ছোট পদক্ষেপই একটি বড় বিজয়ের অংশ। আপনার এই যাত্রায় আমরা আছি আপনার সাথে। আল্লাহ আপনার সহায় হোন।',
+
+    // ===== ইতিহাস =====
+    'history.title': 'আমার অগ্রগতি',
+    'history.complete': 'সম্পূর্ণ',
+    'history.partial': 'আংশিক',
+    'history.totalDays': 'মোট দিন',
+    'history.missed': 'মিস',
+    'history.pending': 'বাকি',
+    'history.noProgress': 'এই দিনের কোনো অগ্রগতি নেই।',
+    'history.close': 'বন্ধ করুন',
+    'history.month.january': 'জানুয়ারি',
+    'history.month.february': 'ফেব্রুয়ারি',
+    'history.month.march': 'মার্চ',
+    'history.month.april': 'এপ্রিল',
+    'history.month.may': 'মে',
+    'history.month.june': 'জুন',
+    'history.month.july': 'জুলাই',
+    'history.month.august': 'আগস্ট',
+    'history.month.september': 'সেপ্টেম্বর',
+    'history.month.october': 'অক্টোবর',
+    'history.month.november': 'নভেম্বর',
+    'history.month.december': 'ডিসেম্বর',
+    'history.weekday.sun': 'রবি',
+    'history.weekday.mon': 'সোম',
+    'history.weekday.tue': 'মঙ্গল',
+    'history.weekday.wed': 'বুধ',
+    'history.weekday.thu': 'বৃহঃ',
+    'history.weekday.fri': 'শুক্র',
+    'history.weekday.sat': 'শনি',
+    'history.morningAffirmation': 'সকালের শপথ',
+    'history.afternoonAffirmation': 'দুপুরের শপথ',
+    'history.eveningAffirmation': 'রাতের শপথ',
+    'history.legend.title': 'রঙের অর্থ',
+    'history.midnightNotice': '🌙 রাত ১২টা-ভোর ৫টার মধ্যে সম্পন্ন কাজ আগের দিনের হিসাবে গণনা হয়',
+    'history.emptyState': 'আপনার যাত্রা শুরু করুন — এখানে অগ্রগতি দেখা যাবে',
+    'history.todayBorder': 'সবুজ বর্ডার = আজকের দিন',
+    'history.streak': 'ধারাবাহিক',
+
+    // ===== টাস্ক ইনপুট =====
+    'task.morningAffirmation': 'সকালের অ্যাফার্মেশন',
+    'task.afternoonAffirmation': 'দুপুরের অ্যাফার্মেশন',
+    'task.eveningAffirmation': 'রাতের অ্যাফার্মেশন',
+    'task.todaysAffirmation': 'আজকের অ্যাফার্মেশন',
+    'task.placeholder': 'উপরের বাক্যটি হুবহু লিখুন...',
+    'task.instruction': 'উপরের বাক্যটি হুবহু টাইপ করুন',
+    'task.accuracy': 'সঠিকতা:',
+    'task.errorHint': 'ভুল আছে - সংশোধন করুন',
+    'task.autoSubmitting': 'অটো-সাবমিট হচ্ছে...',
+    'task.readyToSubmit': 'সাবমিট করতে প্রস্তুত!',
+    'task.needPercent': '{{n}}% দরকার সাবমিটের জন্য',
+    'task.accuracyHint': '৮০% সঠিক হলেই যথেষ্ট — ছোট ভুল হলে সমস্যা নেই!',
+    'task.submit': 'দাখিল করুন',
+    'task.alhamdulillahComplete': 'আলহামদুলিল্লাহ, সম্পন্ন!',
+    'task.completeDua': 'আল্লাহ আপনার ধৈর্য ও সংকল্পকে কবুল করুন।\nধোঁয়া-মুক্ত জীবনের পথে এগিয়ে যান।',
+    'task.backToDashboard': 'ড্যাশবোর্ডে ফিরুন',
+    'task.mashaAllah': 'মাশাআল্লাহ!',
+    'task.timesComplete': '{{current}}/{{total}} আজকের সম্পন্ন',
+    'task.timesLabel': 'বার সম্পন্ন',
+    'task.milestone.halfway': 'অর্ধেক হয়ে গেছে! 💪',
+    'task.milestone.almost': 'প্রায় শেষ! 🎯',
+
+    // ===== টাস্ক কার্ড =====
+    'taskCard.completedTapToView': 'সম্পন্ন — দেখতে ট্যাপ করুন',
+    'taskCard.write': 'লিখুন',
+    'taskCard.timeEnded': 'আজকের সময় শেষ',
+    'taskCard.opensAt': 'আজ {{time}}-এ খুলবে',
+    'taskCard.opensInMin': '{{n}} মিনিটে খুলবে',
+    'taskCard.opensTonight': 'আজ রাতে {{time}}-এ খুলবে',
+    'taskCard.lockedMorning': 'সকালের স্লট সকাল ৮:০০-এ খুলবে',
+    'taskCard.lockedNoon': 'দুপুরের স্লট দুপুর ১:০০-এ খুলবে',
+    'taskCard.lockedNight': 'রাতের স্লট সন্ধ্যা ৬:০০-এ খুলবে',
+
+    // ===== স্লট লেবেল =====
+    'slot.morning.label': 'সকালের অ্যাফার্মেশন',
+    'slot.noon.label': 'দুপুরের অ্যাফার্মেশন',
+    'slot.night.label': 'রাতের অ্যাফার্মেশন',
+    'slot.morning.timeRange': 'সকাল ৮:০০ – দুপুর ১:০০',
+    'slot.noon.timeRange': 'দুপুর ১:০০ – সন্ধ্যা ৬:০০',
+    'slot.night.timeRange': 'সন্ধ্যা ৬:০০ – ভোর ৫:০০',
+
+    // ===== নোটিফিকেশন =====
+    'notification.morning.title': '🌅 সকালের শপথ',
+    'notification.morning.body': 'আজকের দিনের শুরুটা হোক পবিত্র। ৩ বার শপথ নেওয়ার সময় হয়েছে।',
+    'notification.noon.title': '☀️ দুপুরের শপথ',
+    'notification.noon.body': 'আল্লাহ দেখছেন। দুপুরের ৬টি শপথ পূর্ণ করো।',
+    'notification.night.title': '🌙 রাতের শপথ',
+    'notification.night.body': 'সারাদিন সফল ছিলে, আলহামদুলিল্লাহ। ঘুমানোর আগে ৯ বার শুকরিয়া আদায় করো।',
+
+    // ===== Achievements =====
+    'achievements.title': 'শক্তির মাইলফলকসমূহ',
+    'achievements.empty': 'আপনার ধোঁয়া-মুক্ত যাত্রা সবেমাত্র শুরু হয়েছে। লেখা চালিয়ে যান।',
+
+    'badge.first_step.name': 'প্রথম পদক্ষেপ',
+    'badge.first_step.desc': 'আপনি ধোঁয়া-মুক্ত জীবনের দিকে প্রথম পা ফেলেছেন।',
+
+    'badge.three_days.name': 'অভ্যাস ভাঙার শুরু',
+    'badge.three_days.desc': 'টানা ৩ দিন ধোঁয়া-মুক্ত। কঠিনতম অংশ শেষ।',
+
+    'badge.seven_days.name': 'এক সপ্তাহ শক্তিশালী',
+    'badge.seven_days.desc': 'এক সপ্তাহ ধূমপান ছাড়া। আপনার শরীর ইতিমধ্যে সেরে উঠছে।',
+
+    'badge.twenty_one_days.name': 'নতুন স্বাভাবিক',
+    'badge.twenty_one_days.desc': 'টানা ২১ দিনের অধ্যবসায়। অভ্যাস বদলে যাচ্ছে।',
+
+    'badge.forty_one_days.name': 'রূপান্তরিত জীবন',
+    'badge.forty_one_days.desc': 'একটি অভাবনীয় মাইলফলক। একটি সম্পূর্ণ ৪১ দিনের চক্র শেষ।',
+
+    'badge.morning_person.name': 'ভোরের যোদ্ধা',
+    'badge.morning_person.desc': '১০টি সকালের অ্যাফার্মেশন সম্পন্ন।',
+
+    'badge.night_owl.name': 'রাত্রির প্রহরী',
+    'badge.night_owl.desc': '১০টি রাতের অ্যাফার্মেশন সম্পন্ন।',
+
+    'badge.perfectionist.name': 'নিখুঁত লেখক',
+    'badge.perfectionist.desc': 'একটি ভুল ছাড়া টানা ৫টি অ্যাফার্মেশন লিখেছেন।',
+
+    'badge.weekend_warrior.name': 'সপ্তাহান্তের চ্যাম্পিয়ন',
+    'badge.weekend_warrior.desc': 'ছুটির দিনেও শৃঙ্খলা বজায় রেখেছেন।',
+
+    'badge.cycle_two.name': 'গভীরতর যাত্রা',
+    'badge.cycle_two.desc': 'আপনি নতুন একটি সাইকেল শুরু করেছেন।',
+
+    // ===== ডোনেশন =====
+    'donation.bannerTitle': '৩৬৯ ধোঁয়া-মুক্ত পথ-কে সহযোগিতা করুন',
+    'donation.tapToSupport': 'সহযোগিতা করতে ট্যাপ করুন →',
+    'donation.completionMessage': 'আপনার প্রচেষ্টা আল্লাহ দেখছেন। এই অ্যাপটি যদি আপনার পথচলায় সাহায্য করে, একটি ছোট সাদাকাহ আরও মানুষের হৃদয়ে পৌঁছাতে পারে।',
+    'donation.supportButton': 'এই অ্যাপকে সহযোগিতা করুন',
+    'donation.sheetTitle': '৩৬৯ ধোঁয়া-মুক্ত পথ-কে সহযোগিতা',
+    'donation.sheetDescription': 'এই অ্যাপটি সম্পূর্ণ বিনামূল্যে ও বিজ্ঞাপনমুক্ত। আপনার স্বেচ্ছায় দেওয়া সাদাকাহ এই অ্যাপ পরিচালনা ও আরও মানুষের কাছে পৌঁছাতে সাহায্য করে। জাযাকাল্লাহু খাইরান।',
+    'donation.howToSend': 'উক্ত নাম্বারে "Send Money" করুন। নাম্বারটি কপি করতে নাম্বারের উপর চেপে ধরুন।',
+    'donation.dua': '"যে কাউকে ভালো কাজের দিকে পথ দেখায়, সে সেই কাজকারীর সমান সওয়াব পায়।" — সহীহ মুসলিম',
+    'donation.close': 'আল্লাহ আপনাকে উত্তম প্রতিদান দিন',
+    'donation.title': 'সহযোগিতা করুন',
+    'donation.message': 'এই অ্যাপটি সম্পূর্ণ বিনামূল্যে। আপনার ছোট সহযোগিতা আমাদের অনুপ্রাণিত করবে।',
+    'donation.numberLabel': 'বিকাশ/নগদ নম্বর (ট্যাপ করে কপি করুন):',
+    'donation.dismiss': 'বন্ধ করুন',
+    'donation.copied': 'কপি হয়েছে!',
+    'donation.copiedMessage': '{{number}} ক্লিপবোর্ডে কপি করা হয়েছে।',
+
+    // ===== দৈনিক উক্তি =====
+    'quote.title': 'প্রতিদিনের অনুপ্রেরণা',
+
+    // ===== Toast =====
+    'toast.languageChanged': 'ভাষা পরিবর্তন হয়েছে: {{lang}}',
+    'toast.english': 'English',
+    'toast.bengali': 'বাংলা',
+};
