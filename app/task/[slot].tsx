@@ -17,7 +17,8 @@
  * - Haptic feedback on completion
  */
 
-import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import {
+ useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -30,6 +31,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
 import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
@@ -57,7 +59,7 @@ import { DonationPrompt } from '../../components/DonationPrompt';
 import { TimeSlot } from '../../types';
 import { formatNumberByLanguage } from '../../utils/bengaliNumber';
 import { getFontFamily } from '../../utils/fonts';
-import { COLORS, GRADIENTS, SLOT_EMOJIS, SLOT_ACCENT_COLORS, SHADOWS } from '../../utils/theme';
+import {  COLORS, GRADIENTS, SLOT_EMOJIS, SLOT_ACCENT_COLORS, SHADOWS , SPACING } from "../../utils/theme";
 import { SPRING_CONFIG, AUTO_SUBMIT_DELAY, BRIEF_SUCCESS_DURATION, CONFETTI_PARTICLES, BRIEF_CONFETTI_DURATION, FINAL_CONFETTI_DURATION } from '../../utils/animations';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -273,7 +275,7 @@ export default function TaskInputScreen() {
           </View>
 
           <KeyboardAvoidingView
-            behavior="padding"
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={{ flex: 1 }}
             keyboardVerticalOffset={0}
           >
@@ -492,7 +494,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING.md,
     paddingVertical: 12,
   },
   backButton: {
@@ -567,7 +569,7 @@ const styles = StyleSheet.create({
 
   // ===== PROGRESS FEEDBACK =====
   progressFeedback: {
-    paddingHorizontal: 24,
+    paddingHorizontal: SPACING.lg,
     paddingTop: 8,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -626,14 +628,14 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.96 }],
   },
   submitGradient: {
-    paddingVertical: 16,
+    paddingVertical: SPACING.md,
     alignItems: 'center',
     borderRadius: 16,
     minHeight: 52,
     justifyContent: 'center',
   },
   submitGradientDisabled: {
-    paddingVertical: 16,
+    paddingVertical: SPACING.md,
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.1)',
     borderRadius: 16,
@@ -654,7 +656,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: SPACING.lg,
   },
   successCircle: {
     width: 100,
@@ -666,7 +668,7 @@ const styles = StyleSheet.create({
   successTitle: {
     fontSize: 28,
     color: COLORS.textWhite,
-    marginTop: 24,
+    marginTop: SPACING.lg,
     textAlign: 'center',
   },
   successMessage: {
@@ -683,7 +685,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   dashboardButtonGradient: {
-    paddingVertical: 16,
+    paddingVertical: SPACING.md,
     alignItems: 'center',
     borderRadius: 16,
   },
