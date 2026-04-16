@@ -179,7 +179,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
         try {
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         } catch (error) {
-            console.error('Failed to persist progress:', error);
+            // Silently fail in production or use a proper logging service
         }
     }, []);
 
@@ -209,7 +209,6 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
                         setStartDate(normalizedStartDate);
                         setDailyProgress(parsed.dailyProgress || {});
                     } catch (parseError) {
-                        console.error('Failed to parse saved progress, data might be corrupted:', parseError);
                         // Back up the corrupted data before any reset
                         try {
                             await AsyncStorage.setItem('@smoke_free_path_corrupted_backup', savedData);
@@ -242,7 +241,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
                     await persistData(newData);
                 }
             } catch (error) {
-                console.error('Failed to load progress:', error);
+                // Silently fail or use a proper logging service
             } finally {
                 setIsLoading(false);
             }
@@ -268,7 +267,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
             };
             await persistData(newData);
         } catch (error) {
-            console.error('Failed to complete onboarding:', error);
+            // Silently fail or use a proper logging service
         }
     }, [persistData]);
 
