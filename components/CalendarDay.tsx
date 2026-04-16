@@ -93,6 +93,8 @@ function CalendarDayComponent({ day, status, isToday, onPress, index = 0 }: Cale
         <Animated.View
             entering={FadeIn.delay(index * 12).duration(300)}
             style={[styles.container, rStyle]}
+            accessible={!onPress}
+            accessibilityLabel={!onPress ? `Day ${day}, status: ${status}` : undefined}
         >
             <View style={[styles.circle, { backgroundColor: bg }]}>
                 {isToday && <Animated.View style={rGlowStyle} />}
@@ -118,6 +120,9 @@ function CalendarDayComponent({ day, status, isToday, onPress, index = 0 }: Cale
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}
                 style={styles.pressable}
+                accessible={true}
+                accessibilityLabel={`Day ${day}, status: ${status}`}
+                accessibilityRole="button"
             >
                 {content}
             </Pressable>

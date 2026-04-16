@@ -230,12 +230,12 @@ describe('Accessibility Concern #1: CalendarDay — Color-Only Status Indicator'
         expect(source).toContain('HEATMAP_STYLES');
     });
 
-    test('CalendarDay has no accessibilityLabel for status — color-only indicator', () => {
-        expect(source).not.toContain('accessibilityLabel');
+    test('CalendarDay has accessibilityLabel for status — color-only indicator fixed', () => {
+        expect(source).toContain('accessibilityLabel');
     });
 
-    test('CalendarDay has no accessibilityRole — screen reader concern', () => {
-        expect(source).not.toContain('accessibilityRole');
+    test('CalendarDay has accessibilityRole — screen reader concern fixed', () => {
+        expect(source).toContain('accessibilityRole');
     });
 });
 
@@ -249,8 +249,8 @@ describe('Accessibility Concern #2: Error State — Color-Only Indicator', () =>
         expect(taskSource).toContain('COLORS.error');
     });
 
-    test('task screen has no accessibilityLabel on error text segments', () => {
-        expect(taskSource).not.toContain('accessibilityLabel');
+    test('task screen has accessibilityHint on error text segments fixed', () => {
+        expect(taskSource).toContain('accessibilityHint');
     });
 });
 
