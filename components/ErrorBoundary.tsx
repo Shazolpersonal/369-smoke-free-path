@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS } from '../utils/theme';
 import { translate } from '../i18n';
+import { logError } from '../utils/logger';
 
 interface Props {
     children: ReactNode;
@@ -25,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.error('ErrorBoundary caught an error:', error, errorInfo);
+        logError('ErrorBoundary caught an error:', error, errorInfo);
     }
 
     handleReload = async () => {
@@ -60,7 +61,7 @@ export class ErrorBoundary extends Component<Props, State> {
                                 this.setState({ hasError: false, error: null });
                             }
                         } catch (e) {
-                            console.error('Failed to reset app:', e);
+                            logError('Failed to reset app:', e);
                             this.setState({ hasError: false, error: null });
                         }
                     },
