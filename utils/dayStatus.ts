@@ -25,7 +25,7 @@ export const getDayStatus = (
   if (startDate && dateKey && dateKey < startDate) return 'future';
   if (!progress) return isToday ? 'pending' : 'missed';
 
-  const completed = [progress.morning, progress.noon, progress.night].filter(Boolean).length;
+  const completed = (progress.morning ? 1 : 0) + (progress.noon ? 1 : 0) + (progress.night ? 1 : 0);
   if (completed === 3) return 'complete';
   if (completed > 0) return isToday ? 'pending' : 'partial';
   return isToday ? 'pending' : 'missed';

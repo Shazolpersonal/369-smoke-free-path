@@ -280,7 +280,7 @@ export default function HistoryScreen() {
             total++;
             const progress = dailyProgress[dateKey];
             if (progress) {
-                const count = [progress.morning, progress.noon, progress.night].filter(Boolean).length;
+                const count = (progress.morning ? 1 : 0) + (progress.noon ? 1 : 0) + (progress.night ? 1 : 0);
                 if (count === 3) complete++;
                 else if (count > 0) partial++;
             }
