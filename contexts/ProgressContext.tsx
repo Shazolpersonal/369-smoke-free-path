@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logError } from '../utils/logger';
 import { DailyProgress, TimeSlot } from '../types';
 import {
     getEffectiveDateKey,
@@ -179,7 +180,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
         try {
             await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         } catch (error) {
-            console.error('Failed to persist progress:', error);
+            logError('Failed to persist progress:', error);
         }
     }, []);
 
@@ -209,7 +210,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
                         setStartDate(normalizedStartDate);
                         setDailyProgress(parsed.dailyProgress || {});
                     } catch (parseError) {
-                        console.error('Failed to parse saved progress, data might be corrupted:', parseError);
+                        logError('Failed to parse saved progress, data might be corrupted:', parseError);
                         // Back up the corrupted data before any reset
                         try {
                             await AsyncStorage.setItem('@smoke_free_path_corrupted_backup', savedData);
@@ -242,7 +243,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
                     await persistData(newData);
                 }
             } catch (error) {
-                console.error('Failed to load progress:', error);
+                logError('Failed to load progress:', error);
             } finally {
                 setIsLoading(false);
             }
@@ -268,7 +269,7 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
             };
             await persistData(newData);
         } catch (error) {
-            console.error('Failed to complete onboarding:', error);
+            logError('Failed to complete onboarding:', error);
         }
     }, [persistData]);
 
