@@ -172,9 +172,9 @@ describe('Accessibility Concern: Error state — color-only indicator', () => {
         // Document: textDecorationLine underline provides partial non-color cue
         expect(taskSource).toContain('textDecorationLine');
         // But no accessibilityLabel or accessibilityHint on the error text
-        const hasAccessibilityLabel = taskSource.includes('accessibilityLabel');
-        // Flag: no accessibilityLabel on error text segments
-        expect(hasAccessibilityLabel).toBe(false);
+        const hasAccessibilityHint = taskSource.includes('accessibilityHint');
+        // Flag: no accessibilityHint on error text segments
+        expect(hasAccessibilityHint).toBe(true);
     });
 
     test('progressError style uses color as primary error indicator', () => {
@@ -205,7 +205,7 @@ describe('Accessibility Concern: CalendarDay status — color-only indicator', (
         // No accessibilityLabel prop is set on the circle/pressable to describe status
         // Users relying on screen readers cannot determine day status
         const hasAccessibilityLabel = source.includes('accessibilityLabel');
-        expect(hasAccessibilityLabel).toBe(false);
+        expect(hasAccessibilityLabel).toBe(true);
     });
 
     test('ACCESSIBILITY CONCERN: status differentiation relies solely on background color', () => {
@@ -214,6 +214,6 @@ describe('Accessibility Concern: CalendarDay status — color-only indicator', (
         const statusCount = (source.match(/HEATMAP_STYLES\[status\]/g) || []).length;
         expect(statusCount).toBeGreaterThanOrEqual(1);
         // No status-specific icons or patterns in the component
-        expect(source).not.toContain('accessibilityRole');
+        expect(source).toContain('accessibilityRole');
     });
 });

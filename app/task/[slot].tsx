@@ -305,7 +305,14 @@ export default function TaskInputScreen() {
                         {inputText.length > 0 ? (
                           <Text style={[styles.affirmationText, { fontFamily: getFontFamily('medium', language) }]}>
                             <Text style={styles.correctText}>{highlightSegments.correct}</Text>
-                            <Text style={styles.incorrectText}>{highlightSegments.incorrect}</Text>
+                            {highlightSegments.incorrect ? (
+                              <Text
+                                style={styles.incorrectText}
+                                accessibilityHint={t('task.errorHint')}
+                              >
+                                {highlightSegments.incorrect}
+                              </Text>
+                            ) : null}
                             <Text style={styles.remainingText}>{highlightSegments.remaining}</Text>
                           </Text>
                         ) : (
