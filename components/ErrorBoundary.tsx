@@ -2,6 +2,7 @@ import React, { Component, ReactNode, ErrorInfo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 import { COLORS } from '../utils/theme';
 import { translate } from '../i18n';
 import { logError } from '../utils/logger';
@@ -72,13 +73,14 @@ export class ErrorBoundary extends Component<Props, State> {
 
     render() {
         if (this.state.hasError) {
+            const isProduction = Constants.appOwnership !== 'expo';
             return (
                 <SafeAreaView style={styles.container}>
                     <View style={styles.content}>
                         <Text style={styles.emoji}>😔</Text>
                         <Text style={styles.title}>Something went wrong / কিছু একটা সমস্যা হয়েছে</Text>
                         <Text style={styles.description}>
-                            {this.state.error?.message || 'An unexpected error occurred. / একটি অপ্রত্যাশিত ত্রুটি ঘটেছে।'}
+                            {(!isProduction && this.state.error?.message) ? this.state.error.message : 'An unexpected error occurred. / একটি অপ্রত্যাশিত ত্রুটি ঘটেছে।'}
                         </Text>
 
                         <View style={styles.buttonContainer}>
