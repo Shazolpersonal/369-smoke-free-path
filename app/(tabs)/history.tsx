@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions, AppState } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, AppState, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { ChevronLeft, ChevronRight, Flame, TrendingUp, Calendar } from 'lucide-react-native';
@@ -35,9 +35,9 @@ import { getEffectiveTodayDate, formatLocalDateKey, formatDateKeyHumanReadable }
 import { getDayStatus } from '../../utils/dayStatus';
 import { DayStatus, DailyProgress } from '../../types';
 import { getFontFamily } from '../../utils/fonts';
-import { COLORS, GRADIENTS, SHADOWS } from '../../utils/theme';
+import {   COLORS, GRADIENTS, SHADOWS , TYPOGRAPHY , SPACING } from "../../utils/theme";
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -188,6 +188,7 @@ function StatCard({
 // MAIN SCREEN
 // ═══════════════════════════════════════════════════════════════
 export default function HistoryScreen() {
+    const { width: SCREEN_WIDTH } = useWindowDimensions();
     const router = useRouter();
     const { dailyProgress, startDate, trueStreak } = useProgress();
     const { t, language } = useLanguage();
@@ -563,7 +564,7 @@ const styles = StyleSheet.create({
     header: {
         paddingTop: 8,
         paddingBottom: 16,
-        paddingHorizontal: 24,
+        paddingHorizontal: SPACING.lg,
         position: 'relative',
         overflow: 'hidden',
     },
@@ -615,7 +616,7 @@ const styles = StyleSheet.create({
     statsRow: {
         flexDirection: 'row',
         gap: 10,
-        marginBottom: 24,
+        marginBottom: SPACING.lg,
     },
     statCard: {
         flex: 1,
@@ -634,7 +635,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 16,
+        paddingVertical: SPACING.md,
         paddingHorizontal: 8,
     },
     statIconContainer: {
@@ -753,7 +754,7 @@ const styles = StyleSheet.create({
     // ─── Empty State ───
     emptyState: {
         alignItems: 'center',
-        paddingVertical: 24,
+        paddingVertical: SPACING.lg,
     },
     emptyStateEmoji: {
         fontSize: 40,
@@ -782,7 +783,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        padding: 16,
+        padding: SPACING.md,
         borderRadius: 16,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.1)',
@@ -829,9 +830,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     modalCloseBtn: {
-        marginTop: 24,
+        marginTop: SPACING.lg,
         borderRadius: 14,
-        padding: 16,
+        padding: SPACING.md,
         alignItems: 'center',
         overflow: 'hidden',
     },

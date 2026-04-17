@@ -19,7 +19,7 @@ export default function Guide() {
 
   return (
     <SafeAreaView style={s.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0F172A" />
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.darkBg} />
       <Stack.Screen
         options={{
           headerShown: false,
@@ -165,7 +165,7 @@ export default function Guide() {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
+    backgroundColor: COLORS.darkBg,
   },
   section: {
     paddingHorizontal: 24,
@@ -285,7 +285,7 @@ const s = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#0F172A',
+    backgroundColor: COLORS.darkBg,
   },
   backBtn: {
     width: 44,

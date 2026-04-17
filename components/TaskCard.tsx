@@ -13,7 +13,7 @@ import Animated, {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Check, Lock, ArrowRight } from 'lucide-react-native';
 import { getFontFamily } from '../utils/fonts';
-import { COLORS, GRADIENTS } from '../utils/theme';
+import {   COLORS, GRADIENTS , TYPOGRAPHY , SPACING } from "../utils/theme";
 import { TimeSlot } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { showToast } from '../components/Toast';
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'rgba(255,255,255,0.2)',
-        paddingHorizontal: 16,
+        paddingHorizontal: SPACING.md,
         paddingVertical: 10,
         borderRadius: 12,
         gap: 6,

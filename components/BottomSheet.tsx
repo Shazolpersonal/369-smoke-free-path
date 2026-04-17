@@ -1,3 +1,4 @@
+import { COLORS } from "../utils/theme";
 import React, { useEffect, useState, useRef, Children } from 'react';
 import { View, StyleSheet, Modal, Pressable, Dimensions, KeyboardAvoidingView, Platform, PanResponder } from 'react-native';
 import Animated, {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(15, 23, 42, 0.6)',
     },
     sheet: {
-        backgroundColor: '#0F172A',
+        backgroundColor: COLORS.darkBg,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         paddingBottom: 40,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, StatusBar, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StatusBar, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, Redirect } from 'expo-router';
 import { HelpCircle, Globe, Flame } from 'lucide-react-native';
@@ -21,11 +21,11 @@ import { isSlotActive, getTodayEffectiveDateKey, getDisplayDay, isJourneyComplet
 import { getAffirmationByLanguage } from '../../utils/contentCycler';
 import { TimeSlot } from '../../types';
 import { getFontFamily } from '../../utils/fonts';
-import { COLORS, GRADIENTS, SHADOWS } from '../../utils/theme';
+import {   COLORS, GRADIENTS, SHADOWS , TYPOGRAPHY , SPACING } from "../../utils/theme";
 import { useStaggeredEntry } from '../../utils/useStaggeredEntry';
 import { useReducedMotion } from '../../utils/animations';
 
-const { width } = Dimensions.get('window');
+
 
 function StaggeredView({ children, index, delay = 0 }: { children: React.ReactNode, index: number, delay?: number }) {
     const { animatedStyle } = useStaggeredEntry(index, delay, 100, 20);
@@ -33,6 +33,7 @@ function StaggeredView({ children, index, delay = 0 }: { children: React.ReactNo
 }
 
 export default function Dashboard() {
+    const { width } = useWindowDimensions();
     const router = useRouter();
     const { dailyProgress, totalElapsedDays, currentDayInCycle, currentCycle, trueStreak, isTodayComplete, isLoading, isFirstLaunch } = useProgress();
     const { t, language, setLanguage } = useLanguage();
@@ -121,10 +122,10 @@ export default function Dashboard() {
                     <View style={styles.skeletonProgressSection}>
                         <SkeletonLoader variant="progressRing" />
                     </View>
-                    <View style={{ paddingHorizontal: 24 }}>
+                    <View style={{ paddingHorizontal: SPACING.lg }}>
                         <SkeletonLoader variant="taskCard" count={3} />
                     </View>
-                    <View style={{ paddingHorizontal: 24, marginTop: 8 }}>
+                    <View style={{ paddingHorizontal: SPACING.lg, marginTop: 8 }}>
                         <SkeletonLoader variant="quote" />
                     </View>
                 </Animated.View>
@@ -254,7 +255,7 @@ export default function Dashboard() {
                 )}
 
                 {/* ─── Task Cards ─── */}
-                <View style={{ paddingHorizontal: 24 }}>
+                <View style={{ paddingHorizontal: SPACING.lg }}>
                     <StaggeredView index={1}>
                         <TaskCard slot="morning" isActive={isSlotActive('morning')} isCompleted={todayProgress.morning} onPress={() => handleTaskPress('morning')} />
                     </StaggeredView>
@@ -313,14 +314,14 @@ const styles = StyleSheet.create({
     skeletonProgressSection: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 24,
+        paddingVertical: SPACING.lg,
     },
 
     // ─── Header ───
     header: {
         paddingTop: 16,
         paddingBottom: 24,
-        paddingHorizontal: 24,
+        paddingHorizontal: SPACING.lg,
         position: 'relative',
         overflow: 'hidden',
     },
@@ -391,8 +392,8 @@ const styles = StyleSheet.create({
 
     // ─── Progress Section ───
     progressSection: {
-        paddingHorizontal: 24,
-        paddingVertical: 24,
+        paddingHorizontal: SPACING.lg,
+        paddingVertical: SPACING.lg,
         alignItems: 'center',
     },
     mashaAllah: {
@@ -425,7 +426,7 @@ const styles = StyleSheet.create({
     },
     todayCompleteBadge: {
         backgroundColor: 'rgba(16, 185, 129, 0.15)',
-        paddingHorizontal: 24,
+        paddingHorizontal: SPACING.lg,
         paddingVertical: 12,
         borderRadius: 16,
         borderWidth: 1,
@@ -444,11 +445,11 @@ const styles = StyleSheet.create({
 
     // ─── Rest Banner ───
     restBanner: {
-        marginHorizontal: 24,
+        marginHorizontal: SPACING.lg,
         marginBottom: 8,
         backgroundColor: 'rgba(255,255,255,0.05)',
         borderRadius: 16,
-        padding: 16,
+        padding: SPACING.md,
         borderWidth: 1,
         borderColor: 'rgba(255,255,255,0.08)',
     },
@@ -473,10 +474,10 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'rgba(16, 185, 129, 0.08)',
         borderRadius: 16,
-        padding: 24,
+        padding: SPACING.lg,
         borderWidth: 1,
         borderColor: 'rgba(16, 185, 129, 0.15)',
-        marginBottom: 24,
+        marginBottom: SPACING.lg,
     },
     modalQuoteText: {
         fontSize: 17,
@@ -486,7 +487,7 @@ const styles = StyleSheet.create({
     },
     modalCloseBtn: {
         width: '100%',
-        padding: 16,
+        padding: SPACING.md,
         borderRadius: 14,
         alignItems: 'center',
         overflow: 'hidden',
