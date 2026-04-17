@@ -29,6 +29,8 @@ export const bn: Record<string, string> = {
     'dashboard.journeyStart': 'যাত্রা শুরু: দিন {{day}}',
     'dashboard.cycle': 'সাইকেল {{cycle}}',
     'dashboard.restPeriod': '😴 বিশ্রামের সময় (ভোর ৫টা–সকাল ৮টা)। সকালের স্লট সকাল ৮টায় খুলবে।',
+    'dashboard.languageToggle': 'ভাষা পরিবর্তন করুন',
+    'dashboard.helpGuide': 'সাহায্য গাইড',
 
     // ===== বাটন =====
     'button.next': 'চালিয়ে যান',
@@ -121,6 +123,8 @@ export const bn: Record<string, string> = {
     'history.emptyState': 'আপনার যাত্রা শুরু করুন — এখানে অগ্রগতি দেখা যাবে',
     'history.todayBorder': 'সবুজ বর্ডার = আজকের দিন',
     'history.streak': 'ধারাবাহিক',
+    'history.prevMonth': 'আগের মাস',
+    'history.nextMonth': 'পরের মাস',
 
     // ===== টাস্ক ইনপুট =====
     'task.morningAffirmation': 'সকালের অ্যাফার্মেশন',
