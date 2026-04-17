@@ -1,5 +1,20 @@
 jest.mock("@react-native-async-storage/async-storage", () => require("@react-native-async-storage/async-storage/jest/async-storage-mock"));
 // Feature: ui-ux-production-ready, Property 8: Notification permission denial graceful handling
+jest.mock('expo-task-manager', () => ({
+    defineTask: jest.fn(),
+    isTaskRegisteredAsync: jest.fn(),
+}));
+
+jest.mock('expo-background-fetch', () => ({
+    registerTaskAsync: jest.fn(),
+    unregisterTaskAsync: jest.fn(),
+    BackgroundFetchResult: {
+        NoData: 1,
+        NewData: 2,
+        Failed: 3
+    }
+}));
+
 import { initNotifications } from '../utils/notifications';
 
 jest.mock('expo-notifications', () => ({
