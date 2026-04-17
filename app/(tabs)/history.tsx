@@ -399,7 +399,13 @@ export default function HistoryScreen() {
                     >
                         {/* Month Navigation */}
                         <View style={styles.monthNav}>
-                            <TouchableOpacity onPress={handlePrevMonth} style={styles.navButton} activeOpacity={0.6}>
+                            <TouchableOpacity
+                                onPress={handlePrevMonth}
+                                style={styles.navButton}
+                                activeOpacity={0.6}
+                                accessibilityRole="button"
+                                accessibilityLabel={t('history.prevMonth')}
+                            >
                                 <ChevronLeft size={22} color="#D4A847" />
                             </TouchableOpacity>
                             <View style={styles.monthTitleContainer}>
@@ -412,6 +418,8 @@ export default function HistoryScreen() {
                                 style={styles.navButton}
                                 disabled={!canGoNext}
                                 activeOpacity={0.6}
+                                accessibilityRole="button"
+                                accessibilityLabel={t('history.nextMonth')}
                             >
                                 <ChevronRight size={22} color={canGoNext ? '#D4A847' : '#334155'} />
                             </TouchableOpacity>

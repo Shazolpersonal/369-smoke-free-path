@@ -29,6 +29,8 @@ export const en: Record<string, string> = {
     'dashboard.journeyStart': 'Journey Start: Day {{day}}',
     'dashboard.cycle': 'Cycle {{cycle}}',
     'dashboard.restPeriod': '😴 Rest time (5–8 AM). Morning slot opens at 8:00 AM.',
+    'dashboard.languageToggle': 'Toggle Language',
+    'dashboard.helpGuide': 'Help Guide',
 
     // ===== Buttons =====
     'button.next': 'Continue',
@@ -119,6 +121,8 @@ export const en: Record<string, string> = {
     'history.legend.title': 'Legend',
     'history.midnightNotice': '🌙 Tasks completed between midnight and 5 AM count toward the previous day',
     'history.emptyState': 'Start your journey to see progress here',
+    'history.prevMonth': 'Previous Month',
+    'history.nextMonth': 'Next Month',
 
     // ===== Task Input =====
     'task.morningAffirmation': 'Morning Affirmation',
