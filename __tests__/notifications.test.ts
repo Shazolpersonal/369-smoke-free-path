@@ -1,3 +1,5 @@
+jest.mock("expo-task-manager");
+jest.mock("expo-background-fetch");
 jest.mock("@react-native-async-storage/async-storage", () => require("@react-native-async-storage/async-storage/jest/async-storage-mock"));
 // Feature: ui-ux-production-ready, Property 8: Notification permission denial graceful handling
 import { initNotifications } from '../utils/notifications';
