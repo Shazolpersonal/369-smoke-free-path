@@ -15,9 +15,18 @@ export function getAchievements(
     trueStreak: number,
     totalElapsedDays: number
 ): Badge[] {
-    const hasAnyProgress = Object.keys(dailyProgress).length > 0;
-    const morningsCompleted = Object.values(dailyProgress).filter(p => p.morning).length;
-    const nightsCompleted = Object.values(dailyProgress).filter(p => p.night).length;
+    let hasAnyProgress = false;
+    let morningsCompleted = 0;
+    let nightsCompleted = 0;
+
+    // ⚡ Bolt: Single pass iteration using ternary addition replaces
+    // multiple array allocations (Object.keys, Object.values) and filter chains
+    for (const key in dailyProgress) {
+        hasAnyProgress = true;
+        const p = dailyProgress[key];
+        morningsCompleted += p.morning ? 1 : 0;
+        nightsCompleted += p.night ? 1 : 0;
+    }
 
     return [
         {
