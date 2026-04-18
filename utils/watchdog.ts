@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { scheduleDailyReminders, getScheduledNotificationCount, getLastScheduledTimestamp } from './scheduler';
 import { Language } from '../i18n';
+import { logWarn } from './logger';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -59,7 +60,7 @@ export async function registerWatchdog(): Promise<void> {
       startOnBoot: true,
     });
   } catch (error) {
-    console.warn('[Watchdog] registerWatchdog error:', error);
+    logWarn('[Watchdog] registerWatchdog error:', error);
   }
 }
 
@@ -76,7 +77,7 @@ export async function unregisterWatchdog(): Promise<void> {
       await BackgroundFetch.unregisterTaskAsync(TASK_NAME);
     }
   } catch (error) {
-    console.warn('[Watchdog] unregisterWatchdog error:', error);
+    logWarn('[Watchdog] unregisterWatchdog error:', error);
   }
 }
 
@@ -90,7 +91,7 @@ export async function isWatchdogRegistered(): Promise<boolean> {
   try {
     return await TaskManager.isTaskRegisteredAsync(TASK_NAME);
   } catch (error) {
-    console.warn('[Watchdog] isWatchdogRegistered error:', error);
+    logWarn('[Watchdog] isWatchdogRegistered error:', error);
     return false;
   }
 }

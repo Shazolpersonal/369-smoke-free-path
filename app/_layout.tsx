@@ -23,6 +23,7 @@ import { ProgressProvider, useProgress } from "../contexts/ProgressContext";
 import { LanguageProvider, useLanguage } from "../contexts/LanguageContext";
 import { ToastProvider, showToast } from '../components/Toast';
 import { initNotificationSystem, teardownNotificationSystem } from '../utils/notificationService';
+import { logWarn } from '../utils/logger';
 
 // Keep splash screen visible while loading fonts
 SplashScreen.preventAutoHideAsync();
@@ -49,7 +50,7 @@ if (!IS_EXPO_GO && Platform.OS !== 'web') {
             },
         });
     } catch (e) {
-        console.warn("Failed to configure expo-notifications", e);
+        logWarn("Failed to configure expo-notifications", e);
     }
 }
 
@@ -98,7 +99,7 @@ export default function RootLayout() {
                 responseListener.remove();
             };
         } catch (e) {
-            console.warn("Failed to attach notification listener", e);
+            logWarn("Failed to attach notification listener", e);
         }
     }, []);
 
