@@ -55,6 +55,10 @@ export const getDisplayText = (text: string): string => {
     .trim();
 };
 
+// ⚡ Bolt: Instantiate GraphemeSplitter once at the module level to avoid
+// object creation and GC overhead on every keystroke
+const splitter = new GraphemeSplitter();
+
 /**
  * Splits text into grapheme clusters using grapheme-splitter library.
  * This correctly handles Bengali conjuncts (যুক্তাক্ষর) and combining characters.
@@ -64,7 +68,6 @@ export const getDisplayText = (text: string): string => {
  * @returns Array of grapheme strings
  */
 export const splitIntoGraphemes = (text: string): string[] => {
-  const splitter = new GraphemeSplitter();
   return splitter.splitGraphemes(text);
 };
 
