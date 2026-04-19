@@ -26,7 +26,13 @@ export default function Guide() {
         }}
       />
       <View style={s.customHeader}>
-        <TouchableOpacity onPress={() => router.back()} style={s.backBtn} activeOpacity={0.7}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={s.backBtn}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel={t('common.back')}
+        >
           <ArrowLeft size={22} color={COLORS.goldLight} />
         </TouchableOpacity>
         <Text style={[s.headerTitle, { fontFamily: getFontFamily('bold', language) }]}>

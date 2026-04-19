@@ -7,6 +7,7 @@ export const en: Record<string, string> = {
     'app.name': '369 Smoke-Free Path',
     'app.bismillah': 'Bismillahir Rahmanir Rahim',
     'app.loading': 'Loading...',
+    'common.back': 'Go back',
 
     // ===== Tabs =====
     'tabs.home': 'Home',

@@ -258,7 +258,12 @@ export default function TaskInputScreen() {
         <SafeAreaView style={{ flex: 1 }}>
           {/* ===== CUSTOM HEADER ===== */}
           <View style={styles.header}>
-            <TouchableOpacity onPress={navigateBack} style={styles.backButton}>
+            <TouchableOpacity
+              onPress={navigateBack}
+              style={styles.backButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('common.back')}
+            >
               <ArrowLeft size={24} color={COLORS.goldLight} />
             </TouchableOpacity>
             <View style={styles.headerCenter}>
@@ -455,6 +460,8 @@ export default function TaskInputScreen() {
                   style={styles.dashboardButton}
                   onPress={navigateBack}
                   activeOpacity={0.8}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('task.backToDashboard')}
                 >
                   <LinearGradient
                     colors={GRADIENTS.emerald}

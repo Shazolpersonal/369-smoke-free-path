@@ -7,6 +7,7 @@ export const bn: Record<string, string> = {
     'app.name': '৩৬৯ ধোঁয়া-মুক্ত পথ',
     'app.bismillah': 'বিসমিল্লাহির রাহমানির রাহিম',
     'app.loading': 'লোড হচ্ছে...',
+    'common.back': 'ফিরে যান',
 
     // ===== ট্যাব =====
     'tabs.home': 'হোম',
