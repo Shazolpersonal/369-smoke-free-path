@@ -44,6 +44,10 @@ export function Accordion({ title, children, initiallyExpanded = false }: Accord
         <View style={styles.container}>
             <Pressable
                 onPress={toggle}
+                accessibilityRole="button"
+                accessibilityState={{ expanded }}
+                accessibilityLabel={title}
+                accessibilityHint={expanded ? "Collapses content" : "Expands content"}
                 style={({ pressed }) => [
                     styles.header,
                     pressed && styles.headerPressed,
