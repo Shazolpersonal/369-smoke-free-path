@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
+import { logWarn } from './logger';
 
 export type PermissionStatus = 'granted' | 'denied' | 'undetermined';
 
@@ -29,7 +30,7 @@ export async function requestNotificationPermission(): Promise<PermissionStatus>
     await savePermissionStatus(permissionStatus);
     return permissionStatus;
   } catch (error) {
-    console.warn('[PermissionManager] requestNotificationPermission error:', error);
+    logWarn('[PermissionManager] requestNotificationPermission error:', error);
     return 'undetermined';
   }
 }
@@ -45,7 +46,7 @@ export async function getStoredPermissionStatus(): Promise<PermissionStatus> {
     const parsed: PermissionState = JSON.parse(raw);
     return parsed.status ?? 'undetermined';
   } catch (error) {
-    console.warn('[PermissionManager] getStoredPermissionStatus error:', error);
+    logWarn('[PermissionManager] getStoredPermissionStatus error:', error);
     return 'undetermined';
   }
 }
@@ -58,7 +59,7 @@ export async function savePermissionStatus(status: PermissionStatus): Promise<vo
     const state: PermissionState = { status, checkedAt: Date.now() };
     await AsyncStorage.setItem(PERMISSION_STATUS_KEY, JSON.stringify(state));
   } catch (error) {
-    console.warn('[PermissionManager] savePermissionStatus error:', error);
+    logWarn('[PermissionManager] savePermissionStatus error:', error);
   }
 }
 
@@ -92,7 +93,7 @@ export async function checkAndRequestPermission(): Promise<PermissionStatus> {
     // Not granted — request again
     return await requestNotificationPermission();
   } catch (error) {
-    console.warn('[PermissionManager] checkAndRequestPermission error:', error);
+    logWarn('[PermissionManager] checkAndRequestPermission error:', error);
     return 'undetermined';
   }
 }

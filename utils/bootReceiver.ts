@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import { scheduleDailyReminders } from './scheduler';
 import { getStoredPermissionStatus } from './permissionManager';
 import { Language } from '../i18n';
+import { logWarn } from './logger';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -72,7 +73,7 @@ export async function getBootRecoveryLog(): Promise<BootRecoveryLogEntry[]> {
     if (!raw) return [];
     return JSON.parse(raw) as BootRecoveryLogEntry[];
   } catch (error) {
-    console.warn('[BootReceiver] getBootRecoveryLog error:', error);
+    logWarn('[BootReceiver] getBootRecoveryLog error:', error);
     return [];
   }
 }
