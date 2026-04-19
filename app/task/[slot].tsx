@@ -369,6 +369,15 @@ export default function TaskInputScreen() {
                         textAlignVertical="top"
                         autoFocus
                         editable={!showSuccess}
+                        // Security/Integrity props to prevent bypassing the core typing task
+                        // and to prevent sensitive affirmation phrasing from leaking to keyboard learning algorithms
+                        autoComplete="off"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        contextMenuHidden={true}
+                        spellCheck={false}
+                        importantForAutofill="no"
+                        dataDetectorTypes="none"
                       />
                     </Animated.View>
                   </View>
