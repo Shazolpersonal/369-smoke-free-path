@@ -201,6 +201,15 @@ export function TaskCard({ slot, isActive, isCompleted, onPress }: TaskCardProps
         transform: [{ scale: checkmarkScale.value }],
     }));
 
+    const getAccessibilityLabel = () => {
+        const slotName = getSlotLabel();
+        if (isCompleted) return `${slotName}. ${t('taskCard.completedTapToView')}`;
+        if (isActive) return `${slotName}. ${t('taskCard.write') || 'Write'}`;
+        const minutesUntil = getMinutesUntilSlot(slot);
+        if (minutesUntil <= 60) return `${slotName}. ${t('taskCard.opensInMin').replace('{{n}}', String(minutesUntil))}`;
+        return `${slotName}. ${t('taskCard.opensAt').replace('{{time}}', getSlotOpenTimeString(slot))}`;
+    };
+
     return (
         <AnimatedTouchable
             activeOpacity={0.8}
@@ -208,6 +217,9 @@ export function TaskCard({ slot, isActive, isCompleted, onPress }: TaskCardProps
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             style={[styles.container, containerAnimStyle]}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: !isActive && !isCompleted }}
+            accessibilityLabel={getAccessibilityLabel()}
         >
             <LinearGradient
                 colors={getCardGradients() as readonly [string, string, ...string[]]}
