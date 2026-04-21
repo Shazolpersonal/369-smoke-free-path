@@ -88,7 +88,12 @@ export default function RootLayout() {
             const responseListener = Notifications.addNotificationResponseReceivedListener((response: any) => {
                 const data = response.notification.request.content.data;
                 const url = data?.url;
-                if (url && typeof url === 'string' && url.length > 0) {
+
+                // Security: Validate the incoming URL to prevent arbitrary navigation/deep link hijacking.
+                // We ensure the URL is a relative path to keep navigation internal.
+                const isSafeRelativeRoute = typeof url === 'string' && url.startsWith('/') && !url.startsWith('//');
+
+                if (isSafeRelativeRoute) {
                     router.push(url as any);
                 } else {
                     router.push('/' as any);
