@@ -224,7 +224,12 @@ export default function OnboardingScreen() {
         {/* Language Toggle */}
         <View style={styles.langRow}>
           <Animated.View style={langAnimStyle}>
-            <TouchableOpacity onPress={toggleLanguage} activeOpacity={0.7}>
+            <TouchableOpacity
+              onPress={toggleLanguage}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel={language === 'en' ? 'Switch to Bengali' : 'Switch to English'}
+            >
               <View style={styles.langToggle}>
                 <Text style={[styles.langText, { fontFamily: getFontFamily('semibold', language) }]}>
                   {language === 'en' ? 'বাংলা' : 'English'}
@@ -263,6 +268,8 @@ export default function OnboardingScreen() {
             onPressIn={handleButtonPressIn}
             onPressOut={handleButtonPressOut}
             activeOpacity={1}
+            accessibilityRole="button"
+            accessibilityLabel={isLastSlide ? t('onboarding.getStarted') || 'Start' : t('onboarding.next') || 'Next'}
             style={[styles.primaryButton, buttonAnimStyle]}
           >
             <Text style={[styles.primaryButtonText, { fontFamily: getFontFamily('semibold', language) }]}>
@@ -271,7 +278,12 @@ export default function OnboardingScreen() {
           </AnimatedTouchable>
 
           {!isLastSlide && (
-            <TouchableOpacity onPress={handleSkip} style={styles.skipButton}>
+            <TouchableOpacity
+              onPress={handleSkip}
+              style={styles.skipButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('onboarding.skip') || 'Skip'}
+            >
               <Text style={[styles.skipButtonText, { fontFamily: getFontFamily('regular', language) }]}>
                 {t('onboarding.skip') || 'Skip'}
               </Text>
