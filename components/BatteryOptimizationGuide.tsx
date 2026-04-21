@@ -241,6 +241,8 @@ export default function BatteryOptimizationGuide({ language, onSkip, onDone }: P
           style={styles.openSettingsButton}
           onPress={handleOpenSettings}
           activeOpacity={0.8}
+          accessibilityRole="button"
+          accessibilityLabel={UI_TEXT.openSettings[language]}
         >
           <Text style={styles.openSettingsText}>{UI_TEXT.openSettings[language]}</Text>
         </TouchableOpacity>
@@ -250,6 +252,8 @@ export default function BatteryOptimizationGuide({ language, onSkip, onDone }: P
             style={styles.skipButton}
             onPress={onSkip}
             activeOpacity={0.7}
+            accessibilityRole="button"
+            accessibilityLabel={UI_TEXT.skip[language]}
           >
             <Text style={styles.skipText}>{UI_TEXT.skip[language]}</Text>
           </TouchableOpacity>
@@ -258,6 +262,8 @@ export default function BatteryOptimizationGuide({ language, onSkip, onDone }: P
             style={styles.doneButton}
             onPress={onDone}
             activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel={UI_TEXT.done[language]}
           >
             <Text style={styles.doneText}>{UI_TEXT.done[language]}</Text>
           </TouchableOpacity>
