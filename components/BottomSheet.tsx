@@ -79,7 +79,13 @@ export function BottomSheet({ visible, onClose, children, snapPoint = height * 0
             >
                 {/* Backdrop */}
                 <Animated.View style={[StyleSheet.absoluteFill, styles.backdrop, rBackdropStyle]}>
-                    <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
+                    <Pressable
+                        style={StyleSheet.absoluteFill}
+                        onPress={onClose}
+                        accessibilityRole="button"
+                        accessibilityLabel="Close bottom sheet"
+                        accessibilityHint="Closes the currently open bottom sheet"
+                    />
                 </Animated.View>
 
                 {/* Bottom Sheet Content */}
