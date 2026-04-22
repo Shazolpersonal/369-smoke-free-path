@@ -274,8 +274,10 @@ export default function HistoryScreen() {
         for (const cell of calendarDays) {
             if (!cell) continue;
             const { dateKey } = cell;
-            const date = new Date(viewYear, viewMonth, cell.day);
-            if (date > effectiveToday) continue;
+
+            // ⚡ Bolt: Use lexicographical string comparison for dates instead of
+            // new Date() allocation inside the loop to avoid GC overhead
+            if (dateKey > todayKey) continue;
             if (startDate && dateKey < startDate) continue;
 
             total++;
@@ -288,7 +290,7 @@ export default function HistoryScreen() {
         }
 
         return { complete, partial, total };
-    }, [calendarDays, dailyProgress, startDate, effectiveToday]);
+    }, [calendarDays, dailyProgress, startDate, todayKey]);
 
     // Legend items
     const legendItems = [
@@ -453,7 +455,7 @@ export default function HistoryScreen() {
                                             status={getDayStatus(
                                                 dailyProgress[cell.dateKey] || null,
                                                 cell.dateKey === todayKey,
-                                                new Date(viewYear, viewMonth, cell.day) > effectiveToday,
+                                                cell.dateKey > todayKey, // ⚡ Bolt: String comparison avoids object allocation in render loop
                                                 cell.dateKey,
                                                 startDate
                                             )}
