@@ -5,3 +5,7 @@
 ## 2025-04-19 - Object Creation Overhead in `utils/textValidator.ts`
 **Learning:** Creating instances of `GraphemeSplitter` inside a frequently called function (like `splitIntoGraphemes` during text input) causes high memory allocation and garbage collection overhead. Since `GraphemeSplitter` has no state, it can be instantiated once globally.
 **Action:** Always lift heavy or state-independent object instantiations to the module scope so they are reused across function calls.
+
+## 2025-04-23 - Date Instantiation Overhead in Render Loops
+**Learning:** Instantiating `new Date()` within render loops (e.g., `calendarDays.map` generating 31+ `Date` objects per render) and heavily calculated `useMemo` hooks causes significant garbage collection overhead and potential frame drops.
+**Action:** When comparing date boundaries, utilize lexicographical string comparisons (e.g. `dateKey > todayKey` with format `YYYY-MM-DD`) instead of allocating new `Date` objects.
