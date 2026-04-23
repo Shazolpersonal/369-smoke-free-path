@@ -274,13 +274,16 @@ export default function HistoryScreen() {
         for (const cell of calendarDays) {
             if (!cell) continue;
             const { dateKey } = cell;
-            const date = new Date(viewYear, viewMonth, cell.day);
-            if (date > effectiveToday) continue;
+
+            // ⚡ Bolt: Use lexicographical string comparison instead of `new Date()` allocation
+            // Reduces garbage collection overhead in this frequently calculated useMemo
+            if (dateKey > todayKey) continue;
             if (startDate && dateKey < startDate) continue;
 
             total++;
             const progress = dailyProgress[dateKey];
             if (progress) {
+                // ⚡ Bolt: Using ternary addition for counting (truthy boolean summation)
                 const count = (progress.morning ? 1 : 0) + (progress.noon ? 1 : 0) + (progress.night ? 1 : 0);
                 if (count === 3) complete++;
                 else if (count > 0) partial++;
@@ -288,7 +291,7 @@ export default function HistoryScreen() {
         }
 
         return { complete, partial, total };
-    }, [calendarDays, dailyProgress, startDate, effectiveToday]);
+    }, [calendarDays, dailyProgress, startDate, todayKey]);
 
     // Legend items
     const legendItems = [
@@ -453,7 +456,8 @@ export default function HistoryScreen() {
                                             status={getDayStatus(
                                                 dailyProgress[cell.dateKey] || null,
                                                 cell.dateKey === todayKey,
-                                                new Date(viewYear, viewMonth, cell.day) > effectiveToday,
+                                                // ⚡ Bolt: Use string comparison to avoid 31 `new Date()` allocations per render
+                                                cell.dateKey > todayKey,
                                                 cell.dateKey,
                                                 startDate
                                             )}
