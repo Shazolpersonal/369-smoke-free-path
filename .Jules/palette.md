@@ -1,3 +1,6 @@
 ## 2026-04-20 - Add accessibility to TaskCard
 **Learning:** Discovered a missing accessibility label pattern on an interactive custom card component (TaskCard) using AnimatedTouchable. Because the card has different visual states (Completed, Active, Locked), screen reader users wouldn't know the card's current status.
 **Action:** Added an `accessibilityRole="button"` to the container component along with a dynamic `accessibilityLabel` and `accessibilityState={{ disabled: !isActive && !isCompleted }}` to inform screen reader users of the current interaction state.
+## 2024-05-18 - Missing Accessibility on Modals and Banners
+**Learning:** Found a pattern where interactive custom views (like `TouchableOpacity` wrappers for banners or modal actions) lack explicit `accessibilityRole="button"`, causing screen readers to improperly announce them as generic containers or simply read the inner text without conveying interactivity. This is particularly prevalent in ad-hoc custom components across the application.
+**Action:** When working on generic interactable wrappers or views acting as buttons (e.g., `TouchableOpacity`, `Pressable`), proactively verify and add `accessibilityRole="button"` along with appropriate `accessibilityLabel` or `accessibilityHint` properties to ensure clear intent for assistive technologies.
