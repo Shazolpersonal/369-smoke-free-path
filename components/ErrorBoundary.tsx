@@ -87,6 +87,8 @@ export class ErrorBoundary extends Component<Props, State> {
                             <TouchableOpacity
                                 style={styles.primaryButton}
                                 onPress={this.handleReload}
+                                accessibilityRole="button"
+                                accessibilityLabel="Reload / আবার চেষ্টা করুন"
                             >
                                 <Text style={styles.primaryButtonText}>Reload / আবার চেষ্টা করুন</Text>
                             </TouchableOpacity>
@@ -94,6 +96,8 @@ export class ErrorBoundary extends Component<Props, State> {
                             <TouchableOpacity
                                 style={styles.secondaryButton}
                                 onPress={this.handleReset}
+                                accessibilityRole="button"
+                                accessibilityLabel="Reset Data / ডেটা রিসেট করুন"
                             >
                                 <Text style={styles.secondaryButtonText}>Reset Data / ডেটা রিসেট করুন</Text>
                             </TouchableOpacity>
