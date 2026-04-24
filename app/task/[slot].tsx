@@ -378,6 +378,8 @@ export default function TaskInputScreen() {
                         spellCheck={false}
                         importantForAutofill="no"
                         dataDetectorTypes="none"
+                        // Prevent DoS risks or application crashes via excessive input length
+                        maxLength={500}
                       />
                     </Animated.View>
                   </View>
