@@ -70,7 +70,9 @@ const parseToLocalDate = (dateStr: string): Date => {
         const d = new Date(dateStr);
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     }
-    const [year, month, day] = dateStr.split('-').map(Number);
+    const year = Number(dateStr.substring(0, 4));
+    const month = Number(dateStr.substring(5, 7));
+    const day = Number(dateStr.substring(8, 10));
     return new Date(year, month - 1, day);
 };
 

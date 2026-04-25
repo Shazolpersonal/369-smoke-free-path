@@ -249,7 +249,9 @@ export const DAY_BOUNDARY_HOUR = 5;
  * @returns Timestamp (ms) representing 5:00 AM on the NEXT calendar day
  */
 export const getNextDayBoundaryTimestamp = (dateKey: string): number => {
-  const [year, month, day] = dateKey.split('-').map(Number);
+  const year = Number(dateKey.substring(0, 4));
+  const month = Number(dateKey.substring(5, 7));
+  const day = Number(dateKey.substring(8, 10));
   // Create date at 5:00 AM on the NEXT calendar day
   // This is when the effective day transitions
   const nextDay = new Date(year, month - 1, day + 1, DAY_BOUNDARY_HOUR, 0, 0, 0);
@@ -280,10 +282,14 @@ export const calculateEffectiveElapsedDays = (startDateKey: string): number => {
   const currentEffectiveDateKey = getTodayEffectiveDateKey();
   
   // Parse start date
-  const [startYear, startMonth, startDay] = startDateKey.split('-').map(Number);
+  const startYear = Number(startDateKey.substring(0, 4));
+  const startMonth = Number(startDateKey.substring(5, 7));
+  const startDay = Number(startDateKey.substring(8, 10));
   
   // Parse current effective date
-  const [currentYear, currentMonth, currentDay] = currentEffectiveDateKey.split('-').map(Number);
+  const currentYear = Number(currentEffectiveDateKey.substring(0, 4));
+  const currentMonth = Number(currentEffectiveDateKey.substring(5, 7));
+  const currentDay = Number(currentEffectiveDateKey.substring(8, 10));
   
   // Create Date objects at noon (12:00) to avoid any DST edge cases during comparison
   // Using noon ensures we're safely in the middle of the day regardless of DST transitions
@@ -335,7 +341,9 @@ export const isJourneyComplete = (totalElapsedDays: number): boolean => {
  * @returns e.g. "January 15, 2025" for 'en'
  */
 export const formatDateKeyHumanReadable = (dateKey: string, language: string): string => {
-  const [year, month, day] = dateKey.split('-').map(Number);
+  const year = Number(dateKey.substring(0, 4));
+  const month = Number(dateKey.substring(5, 7));
+  const day = Number(dateKey.substring(8, 10));
   const date = new Date(year, month - 1, day);
   if (language === 'bn') {
     const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
