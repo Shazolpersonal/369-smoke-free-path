@@ -5,3 +5,7 @@
 ## 2025-04-19 - Object Creation Overhead in `utils/textValidator.ts`
 **Learning:** Creating instances of `GraphemeSplitter` inside a frequently called function (like `splitIntoGraphemes` during text input) causes high memory allocation and garbage collection overhead. Since `GraphemeSplitter` has no state, it can be instantiated once globally.
 **Action:** Always lift heavy or state-independent object instantiations to the module scope so they are reused across function calls.
+
+## 2025-05-18 - Array Allocation and String Split Overhead in Date Parsing
+**Learning:** Parsing `YYYY-MM-DD` date strings using `.split('-').map(Number)` creates intermediate array allocations and closures, causing unnecessary garbage collection overhead when called frequently (e.g., in date calculations or render loops).
+**Action:** Use manual `.substring` extraction and `Number()` conversion (e.g., `Number(dateKey.substring(0, 4))`) to avoid intermediate arrays and improve performance in hot paths.
