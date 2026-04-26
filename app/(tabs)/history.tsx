@@ -453,7 +453,8 @@ export default function HistoryScreen() {
                                             status={getDayStatus(
                                                 dailyProgress[cell.dateKey] || null,
                                                 cell.dateKey === todayKey,
-                                                new Date(viewYear, viewMonth, cell.day) > effectiveToday,
+                                                // Optimization: Lexicographical string comparison avoids creating up to 31 Date objects per render
+                                                cell.dateKey > todayKey,
                                                 cell.dateKey,
                                                 startDate
                                             )}
