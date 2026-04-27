@@ -546,6 +546,8 @@ export default function HistoryScreen() {
                         onPress={() => setModalVisible(false)}
                         activeOpacity={0.8}
                         style={styles.modalCloseBtn}
+                        accessibilityRole="button"
+                        accessibilityLabel={t('history.close')}
                     >
                         <LinearGradient
                             colors={GRADIENTS.emerald as any}
