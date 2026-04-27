@@ -28,6 +28,8 @@ export function DonationBanner() {
                     onPress={() => setSheetVisible(true)}
                     activeOpacity={0.8}
                     style={styles.banner}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('donation.bannerTitle')}
                 >
                     <View style={styles.bannerInner}>
                         <View style={styles.iconWrap}>
@@ -97,6 +99,8 @@ export function DonationBanner() {
                         onPress={() => setSheetVisible(false)}
                         activeOpacity={0.8}
                         style={styles.closeButton}
+                        accessibilityRole="button"
+                        accessibilityLabel={t('donation.close')}
                     >
                         <Text style={[styles.closeButtonText, { fontFamily: f('bold') }]}>
                             {t('donation.close')}
