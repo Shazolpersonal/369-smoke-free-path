@@ -274,8 +274,10 @@ export default function HistoryScreen() {
         for (const cell of calendarDays) {
             if (!cell) continue;
             const { dateKey } = cell;
-            const date = new Date(viewYear, viewMonth, cell.day);
-            if (date > effectiveToday) continue;
+
+            // ⚡ Bolt: Use lexicographical string comparisons on ISO-formatted dates
+            // instead of instantiating new Date objects inside the loop
+            if (dateKey > todayKey) continue;
             if (startDate && dateKey < startDate) continue;
 
             total++;
@@ -288,7 +290,7 @@ export default function HistoryScreen() {
         }
 
         return { complete, partial, total };
-    }, [calendarDays, dailyProgress, startDate, effectiveToday]);
+    }, [calendarDays, dailyProgress, startDate, todayKey]);
 
     // Legend items
     const legendItems = [
