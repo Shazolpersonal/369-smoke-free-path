@@ -229,6 +229,21 @@ export const getEffectiveStartDateFromTime = (referenceTime: Date): string => {
 };
 
 /**
+ * Helper to parse YYYY-MM-DD date keys into numeric components.
+ * Optimized parsing: avoid split() and map() array allocations.
+ *
+ * @param dateKey Date string in YYYY-MM-DD format
+ * @returns Object with year, month, and day as numbers
+ */
+const parseDateKey = (dateKey: string): { year: number; month: number; day: number } => {
+  return {
+    year: Number(dateKey.substring(0, 4)),
+    month: Number(dateKey.substring(5, 7)),
+    day: Number(dateKey.substring(8, 10)),
+  };
+};
+
+/**
  * DAY_BOUNDARY_HOUR defines when a new "effective day" begins.
  * Days transition at 5:00 AM local time, not midnight.
  * This means:
@@ -249,7 +264,8 @@ export const DAY_BOUNDARY_HOUR = 5;
  * @returns Timestamp (ms) representing 5:00 AM on the NEXT calendar day
  */
 export const getNextDayBoundaryTimestamp = (dateKey: string): number => {
-  const [year, month, day] = dateKey.split('-').map(Number);
+  const { year, month, day } = parseDateKey(dateKey);
+
   // Create date at 5:00 AM on the NEXT calendar day
   // This is when the effective day transitions
   const nextDay = new Date(year, month - 1, day + 1, DAY_BOUNDARY_HOUR, 0, 0, 0);
@@ -279,11 +295,9 @@ export const calculateEffectiveElapsedDays = (startDateKey: string): number => {
   // Get the current effective date key (respects 5:00 AM boundary)
   const currentEffectiveDateKey = getTodayEffectiveDateKey();
   
-  // Parse start date
-  const [startYear, startMonth, startDay] = startDateKey.split('-').map(Number);
-  
-  // Parse current effective date
-  const [currentYear, currentMonth, currentDay] = currentEffectiveDateKey.split('-').map(Number);
+  // Parse dates using optimized helper
+  const { year: startYear, month: startMonth, day: startDay } = parseDateKey(startDateKey);
+  const { year: currentYear, month: currentMonth, day: currentDay } = parseDateKey(currentEffectiveDateKey);
   
   // Create Date objects at noon (12:00) to avoid any DST edge cases during comparison
   // Using noon ensures we're safely in the middle of the day regardless of DST transitions
@@ -335,7 +349,8 @@ export const isJourneyComplete = (totalElapsedDays: number): boolean => {
  * @returns e.g. "January 15, 2025" for 'en'
  */
 export const formatDateKeyHumanReadable = (dateKey: string, language: string): string => {
-  const [year, month, day] = dateKey.split('-').map(Number);
+  const { year, month, day } = parseDateKey(dateKey);
+
   const date = new Date(year, month - 1, day);
   if (language === 'bn') {
     const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
