@@ -394,6 +394,9 @@ export default function TaskInputScreen() {
                     <Pressable
                       onPress={handleManualSubmit}
                       disabled={!isButtonEnabled}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('task.submit')}
+                      accessibilityState={{ disabled: !isButtonEnabled }}
                       style={({ pressed }) => [
                         styles.submitButton,
                         !isButtonEnabled && styles.submitButtonDisabled,
