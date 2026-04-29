@@ -32,7 +32,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 // Bug 1 — Language Toggle Label: Inverted Ternary
 // ---------------------------------------------------------------------------
 //
-// index.tsx has: language === 'en' ? 'বাংলা' : 'EN'
+// index.tsx previously used an inverted ternary for the language toggle label.
 // This shows the TARGET language, not the CURRENT language.
 // Expected (fixed): language === 'en' ? 'EN' : 'বাংলা'
 //
@@ -177,9 +177,7 @@ describe('Bug 3 — Affirmation Language Routing: contentCycler.ts', () => {
 // Bug 4 — ProgressContext currentDayInCycle Dependency
 // ---------------------------------------------------------------------------
 //
-// ProgressContext has:
-//   const totalElapsedDays = useMemo(() => calculateTotalElapsedDays(startDate), [startDate]);
-//   const currentDayInCycle = useMemo(() => ..., [totalElapsedDays]);
+// ProgressContext previously used memoized values for totalElapsedDays and currentDayInCycle that lacked proper dependencies.
 //
 // Bug: totalElapsedDays only depends on startDate, not dailyProgress.
 // When a slot is completed (dailyProgress changes), currentDayInCycle does NOT
@@ -267,11 +265,7 @@ describe('Bug 4 — ProgressContext currentDayInCycle Dependency', () => {
 // Bug 5 — Auto-submit Button State: isCompleteMatch → isButtonEnabled
 // ---------------------------------------------------------------------------
 //
-// [slot].tsx has:
-//   const isButtonEnabled = validation.isCorrectPrefix
-//     && validation.progressPercent >= MIN_ACCURACY_PERCENT
-//     && !isSubmitting.current
-//     && !showSuccess;
+// [slot].tsx previously calculated isButtonEnabled without considering the isCompleteMatch state.
 //
 // Bug: when isCompleteMatch === true, the auto-submit timer starts (300ms),
 // but isSubmitting.current is still false during that 300ms window.
@@ -370,10 +364,7 @@ describe('Bug 5 — Auto-submit Button State: isCompleteMatch During Delay', () 
 // Bug 6 — TaskCard Bangla Overflow: Missing flexShrink/flexWrap
 // ---------------------------------------------------------------------------
 //
-// TaskCard.tsx styles:
-//   textContainer: { flex: 1 }          — missing flexShrink: 1
-//   subtitle: { fontSize: 13, ... }     — missing flexWrap: 'wrap'
-//   rightSection: { paddingLeft: 12 }   — missing flexShrink: 0
+// TaskCard.tsx previously used styles that lacked proper flex properties for handling Bangla text overflow.
 //
 // Bug: Bangla subtitle text ("সকাল ৮:০০ – দুপুর ১:০০") is longer than English
 // and overflows or pushes the rightSection badge/button.
