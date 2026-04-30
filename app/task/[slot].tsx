@@ -379,6 +379,8 @@ export default function TaskInputScreen() {
                         importantForAutofill="no"
                         dataDetectorTypes="none"
                         maxLength={1000} // Security: Prevent DoS via excessive input length
+                        accessibilityLabel={t('task.placeholder')}
+                        accessibilityHint={t('task.inputHint') || 'Enter the affirmation exactly as shown above'}
                       />
                     </Animated.View>
                   </View>
@@ -396,6 +398,7 @@ export default function TaskInputScreen() {
                       disabled={!isButtonEnabled}
                       accessibilityRole="button"
                       accessibilityLabel={t('task.submit')}
+                      accessibilityHint={t('task.submitHint') || 'Submits your current text and advances the counter'}
                       accessibilityState={{ disabled: !isButtonEnabled }}
                       style={({ pressed }) => [
                         styles.submitButton,
