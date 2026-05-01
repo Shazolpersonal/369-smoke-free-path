@@ -223,11 +223,17 @@ export default function HistoryScreen() {
         const startDow = firstDay.getDay();
         const totalDays = lastDay.getDate();
 
+        // ⚡ Bolt: Pre-calculate padded month string and use direct template
+        // concatenation inside loop instead of instantiating new Date()
+        // objects and calling formatLocalDateKey for every day in the month.
+        // This eliminates ~30 object allocations per render, reducing GC overhead.
+        const monthStr = String(viewMonth + 1).padStart(2, '0');
+
         const days: Array<{ day: number; dateKey: string } | null> = [];
         for (let i = 0; i < startDow; i++) days.push(null);
         for (let d = 1; d <= totalDays; d++) {
-            const date = new Date(viewYear, viewMonth, d);
-            days.push({ day: d, dateKey: formatLocalDateKey(date) });
+            const dayStr = String(d).padStart(2, '0');
+            days.push({ day: d, dateKey: `${viewYear}-${monthStr}-${dayStr}` });
         }
         return days;
     }, [viewYear, viewMonth]);
