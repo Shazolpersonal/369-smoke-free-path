@@ -405,6 +405,7 @@ export default function HistoryScreen() {
                                 onPress={handlePrevMonth}
                                 style={styles.navButton}
                                 activeOpacity={0.6}
+                                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                                 accessibilityRole="button"
                                 accessibilityLabel={t('history.prevMonth')}
                             >
@@ -420,6 +421,7 @@ export default function HistoryScreen() {
                                 style={styles.navButton}
                                 disabled={!canGoNext}
                                 activeOpacity={0.6}
+                                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                                 accessibilityRole="button"
                                 accessibilityLabel={t('history.nextMonth')}
                             >

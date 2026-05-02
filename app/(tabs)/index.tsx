@@ -176,6 +176,7 @@ export default function Dashboard() {
                                     <TouchableOpacity
                                         onPress={toggleLanguage}
                                         activeOpacity={0.7}
+                                        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                                         accessibilityRole="button"
                                         accessibilityLabel={t('dashboard.languageToggle')}
                                     >
@@ -189,6 +190,7 @@ export default function Dashboard() {
                                     <TouchableOpacity
                                         onPress={() => router.push('/guide')}
                                         activeOpacity={0.7}
+                                        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                                         style={styles.helpBtn}
                                         accessibilityRole="button"
                                         accessibilityLabel={t('dashboard.helpGuide')}
