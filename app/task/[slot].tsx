@@ -261,6 +261,7 @@ export default function TaskInputScreen() {
             <TouchableOpacity
               onPress={navigateBack}
               style={styles.backButton}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               accessibilityRole="button"
               accessibilityLabel={t('common.back')}
             >
