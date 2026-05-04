@@ -1,10 +1,10 @@
 /**
  * Task Input Screen — Complete Rebuild
- * 
+ *
  * The core screen where users type affirmations.
  * Dark theme with real-time highlighting, circular progress,
  * confetti animations, and donation prompt.
- * 
+ *
  * Features:
  * - Custom header with golden back button, slot emoji, counter badge
  * - Affirmation display card with dark background and left accent bar
@@ -17,8 +17,7 @@
  * - Haptic feedback on completion
  */
 
-import {
- useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -29,11 +28,11 @@ import {
   Keyboard,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Platform } from 'react-native';
-import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Platform } from "react-native";
+import { useLocalSearchParams, useRouter, Stack } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -46,22 +45,40 @@ import Animated, {
   FadeIn,
   FadeOut,
   interpolateColor,
-} from 'react-native-reanimated';
-import { ArrowLeft, CheckCircle } from 'lucide-react-native';
-import * as Haptics from 'expo-haptics';
-import { useProgress } from '../../contexts/ProgressContext';
-import { getAffirmationByLanguage } from '../../utils/contentCycler';
-import { getTargetCount } from '../../utils/repetitionTarget';
-import { getValidationInfo, getHighlightSegments, getDisplayText } from '../../utils/textValidator';
-import { RepetitionCounter } from '../../components/RepetitionCounter';
-import { ConfettiBurst } from '../../components/ConfettiBurst';
-import { DonationPrompt } from '../../components/DonationPrompt';
-import { TimeSlot } from '../../types';
-import { formatNumberByLanguage } from '../../utils/bengaliNumber';
-import { getFontFamily } from '../../utils/fonts';
-import {  COLORS, GRADIENTS, SLOT_EMOJIS, SLOT_ACCENT_COLORS, SHADOWS , SPACING } from "../../utils/theme";
-import { SPRING_CONFIG, AUTO_SUBMIT_DELAY, BRIEF_SUCCESS_DURATION, CONFETTI_PARTICLES, BRIEF_CONFETTI_DURATION, FINAL_CONFETTI_DURATION } from '../../utils/animations';
-import { useLanguage } from '../../contexts/LanguageContext';
+} from "react-native-reanimated";
+import { ArrowLeft, CheckCircle } from "lucide-react-native";
+import * as Haptics from "expo-haptics";
+import { useProgress } from "../../contexts/ProgressContext";
+import { getAffirmationByLanguage } from "../../utils/contentCycler";
+import { getTargetCount } from "../../utils/repetitionTarget";
+import {
+  getValidationInfo,
+  getHighlightSegments,
+  getDisplayText,
+} from "../../utils/textValidator";
+import { RepetitionCounter } from "../../components/RepetitionCounter";
+import { ConfettiBurst } from "../../components/ConfettiBurst";
+import { DonationPrompt } from "../../components/DonationPrompt";
+import { TimeSlot } from "../../types";
+import { formatNumberByLanguage } from "../../utils/bengaliNumber";
+import { getFontFamily } from "../../utils/fonts";
+import {
+  COLORS,
+  GRADIENTS,
+  SLOT_EMOJIS,
+  SLOT_ACCENT_COLORS,
+  SHADOWS,
+  SPACING,
+} from "../../utils/theme";
+import {
+  SPRING_CONFIG,
+  AUTO_SUBMIT_DELAY,
+  BRIEF_SUCCESS_DURATION,
+  CONFETTI_PARTICLES,
+  BRIEF_CONFETTI_DURATION,
+  FINAL_CONFETTI_DURATION,
+} from "../../utils/animations";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 // Minimum accuracy percentage to enable submit button
 const MIN_ACCURACY_PERCENT = 80;
@@ -79,11 +96,11 @@ export default function TaskInputScreen() {
   // always reflects the current app language (Bug 3 fix: language prop propagation)
   const targetText = useMemo(
     () => getAffirmationByLanguage(totalElapsedDays, timeSlot, language),
-    [totalElapsedDays, timeSlot, language]
+    [totalElapsedDays, timeSlot, language],
   );
 
   // Core states
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [completedCount, setCompletedCount] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showBriefFlash, setShowBriefFlash] = useState(false);
@@ -123,7 +140,7 @@ export default function TaskInputScreen() {
       withTiming(8, { duration: 50 }),
       withTiming(-8, { duration: 50 }),
       withTiming(8, { duration: 50 }),
-      withTiming(0, { duration: 50 })
+      withTiming(0, { duration: 50 }),
     );
   }, [shakeOffset]);
 
@@ -132,7 +149,6 @@ export default function TaskInputScreen() {
       triggerShake();
     }
   }, [validation.isCorrectPrefix, inputText.length, triggerShake]);
-
 
   // ===== BORDER COLOR ANIMATION =====
   useEffect(() => {
@@ -149,11 +165,11 @@ export default function TaskInputScreen() {
     const borderColor = interpolateColor(
       borderColorProgress.value,
       [0, 1, 2],
-      [COLORS.darkBorder, COLORS.success, COLORS.error]
+      [COLORS.darkBorder, COLORS.success, COLORS.error],
     );
-    return { 
+    return {
       borderColor,
-      transform: [{ translateX: shakeOffset.value }]
+      transform: [{ translateX: shakeOffset.value }],
     };
   });
 
@@ -168,7 +184,7 @@ export default function TaskInputScreen() {
     isSubmitting.current = true;
 
     // Clear input
-    setInputText('');
+    setInputText("");
 
     // Haptic feedback
     try {
@@ -208,11 +224,23 @@ export default function TaskInputScreen() {
         isSubmitting.current = false;
       }, BRIEF_SUCCESS_DURATION);
     }
-  }, [completedCount, targetCount, timeSlot, completeTask, contentOpacity, successOpacity, successScale]);
+  }, [
+    completedCount,
+    targetCount,
+    timeSlot,
+    completeTask,
+    contentOpacity,
+    successOpacity,
+    successScale,
+  ]);
 
   // ===== AUTO-SUBMIT ON COMPLETE MATCH =====
   useEffect(() => {
-    if (validation.isCompleteMatch && inputText.length > 0 && !isSubmitting.current) {
+    if (
+      validation.isCompleteMatch &&
+      inputText.length > 0 &&
+      !isSubmitting.current
+    ) {
       const timer = setTimeout(() => {
         if (!isSubmitting.current) {
           handleSubmission();
@@ -223,7 +251,12 @@ export default function TaskInputScreen() {
   }, [validation.isCompleteMatch, inputText.length, handleSubmission]);
 
   // Button enabled at >= 80%, but disabled when complete match triggers auto-submit
-  const isButtonEnabled = validation.isCorrectPrefix && validation.progressPercent >= MIN_ACCURACY_PERCENT && !isSubmitting.current && !showSuccess && !validation.isCompleteMatch;
+  const isButtonEnabled =
+    validation.isCorrectPrefix &&
+    validation.progressPercent >= MIN_ACCURACY_PERCENT &&
+    !isSubmitting.current &&
+    !showSuccess &&
+    !validation.isCompleteMatch;
 
   // ===== MANUAL SUBMIT =====
   const handleManualSubmit = () => {
@@ -235,15 +268,17 @@ export default function TaskInputScreen() {
   // ===== HINT MESSAGE =====
   const getHintMessage = () => {
     if (validation.progressPercent === 100 && validation.isCompleteMatch) {
-      return t('task.autoSubmitting');
+      return t("task.autoSubmitting");
     }
     if (validation.progressPercent >= MIN_ACCURACY_PERCENT) {
-      return t('task.readyToSubmit');
+      return t("task.readyToSubmit");
     }
     if (inputText.length === 0) {
-      return t('task.accuracyHint');
+      return t("task.accuracyHint");
     }
-    return t('task.needPercent', { n: formatNumberByLanguage(MIN_ACCURACY_PERCENT, language) });
+    return t("task.needPercent", {
+      n: formatNumberByLanguage(MIN_ACCURACY_PERCENT, language),
+    });
   };
 
   // ===== ACCENT COLORS =====
@@ -251,10 +286,7 @@ export default function TaskInputScreen() {
 
   return (
     <>
-      <LinearGradient
-        colors={GRADIENTS.taskScreenBg}
-        style={{ flex: 1 }}
-      >
+      <LinearGradient colors={GRADIENTS.taskScreenBg} style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }}>
           {/* ===== CUSTOM HEADER ===== */}
           <View style={styles.header}>
@@ -262,19 +294,35 @@ export default function TaskInputScreen() {
               onPress={navigateBack}
               style={styles.backButton}
               accessibilityRole="button"
-              accessibilityLabel={t('common.back')}
+              accessibilityLabel={t("common.back")}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             >
               <ArrowLeft size={24} color={COLORS.goldLight} />
             </TouchableOpacity>
             <View style={styles.headerCenter}>
               <Text style={styles.headerEmoji}>{SLOT_EMOJIS[timeSlot]}</Text>
-              <Text style={[styles.headerTitle, { fontFamily: getFontFamily('semibold', language) }]}>
-                {timeSlot === 'morning' ? t('task.morningAffirmation') : timeSlot === 'noon' ? t('task.afternoonAffirmation') : t('task.eveningAffirmation')}
+              <Text
+                style={[
+                  styles.headerTitle,
+                  { fontFamily: getFontFamily("semibold", language) },
+                ]}
+              >
+                {timeSlot === "morning"
+                  ? t("task.morningAffirmation")
+                  : timeSlot === "noon"
+                    ? t("task.afternoonAffirmation")
+                    : t("task.eveningAffirmation")}
               </Text>
             </View>
             <View style={styles.counterBadge}>
-              <Text style={[styles.counterText, { fontFamily: getFontFamily('bold', language) }]}>
-                {formatNumberByLanguage(completedCount, language)}/{formatNumberByLanguage(targetCount, language)}
+              <Text
+                style={[
+                  styles.counterText,
+                  { fontFamily: getFontFamily("bold", language) },
+                ]}
+              >
+                {formatNumberByLanguage(completedCount, language)}/
+                {formatNumberByLanguage(targetCount, language)}
               </Text>
             </View>
           </View>
@@ -293,9 +341,11 @@ export default function TaskInputScreen() {
               {/* ===== MAIN CONTENT ===== */}
               {!showSuccess && (
                 <Animated.View style={[{ flex: 1, opacity: contentOpacity }]}>
-                  
                   {/* Circular Progress Ring */}
-                  <RepetitionCounter completed={completedCount} total={targetCount} />
+                  <RepetitionCounter
+                    completed={completedCount}
+                    total={targetCount}
+                  />
 
                   {/* Affirmation Display Card */}
                   <View style={styles.cardContainer}>
@@ -306,24 +356,43 @@ export default function TaskInputScreen() {
                         style={styles.cardAccentBar}
                       />
                       <View style={styles.cardContent}>
-                        <Text style={[styles.cardLabel, { fontFamily: getFontFamily('regular', language) }]}>
-                          {t('task.instruction')}
+                        <Text
+                          style={[
+                            styles.cardLabel,
+                            { fontFamily: getFontFamily("regular", language) },
+                          ]}
+                        >
+                          {t("task.instruction")}
                         </Text>
                         {inputText.length > 0 ? (
-                          <Text style={[styles.affirmationText, { fontFamily: getFontFamily('medium', language) }]}>
-                            <Text style={styles.correctText}>{highlightSegments.correct}</Text>
+                          <Text
+                            style={[
+                              styles.affirmationText,
+                              { fontFamily: getFontFamily("medium", language) },
+                            ]}
+                          >
+                            <Text style={styles.correctText}>
+                              {highlightSegments.correct}
+                            </Text>
                             {highlightSegments.incorrect ? (
                               <Text
                                 style={styles.incorrectText}
-                                accessibilityHint={t('task.errorHint')}
+                                accessibilityHint={t("task.errorHint")}
                               >
                                 {highlightSegments.incorrect}
                               </Text>
                             ) : null}
-                            <Text style={styles.remainingText}>{highlightSegments.remaining}</Text>
+                            <Text style={styles.remainingText}>
+                              {highlightSegments.remaining}
+                            </Text>
                           </Text>
                         ) : (
-                          <Text style={[styles.affirmationText, { fontFamily: getFontFamily('medium', language) }]}>
+                          <Text
+                            style={[
+                              styles.affirmationText,
+                              { fontFamily: getFontFamily("medium", language) },
+                            ]}
+                          >
                             {displayText}
                           </Text>
                         )}
@@ -338,19 +407,41 @@ export default function TaskInputScreen() {
                       style={styles.progressFeedback}
                     >
                       {validation.isCorrectPrefix ? (
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                          {validation.progressPercent >= MIN_ACCURACY_PERCENT && (
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 6,
+                          }}
+                        >
+                          {validation.progressPercent >=
+                            MIN_ACCURACY_PERCENT && (
                             <Animated.View entering={FadeIn}>
                               <CheckCircle size={14} color={COLORS.success} />
                             </Animated.View>
                           )}
-                          <Text style={[styles.progressCorrect, { fontFamily: getFontFamily('medium', language) }]}>
-                            {t('task.accuracy')} {formatNumberByLanguage(validation.progressPercent, language)}%
+                          <Text
+                            style={[
+                              styles.progressCorrect,
+                              { fontFamily: getFontFamily("medium", language) },
+                            ]}
+                          >
+                            {t("task.accuracy")}{" "}
+                            {formatNumberByLanguage(
+                              validation.progressPercent,
+                              language,
+                            )}
+                            %
                           </Text>
                         </View>
                       ) : (
-                        <Text style={[styles.progressError, { fontFamily: getFontFamily('medium', language) }]}>
-                          {t('task.errorHint')}
+                        <Text
+                          style={[
+                            styles.progressError,
+                            { fontFamily: getFontFamily("medium", language) },
+                          ]}
+                        >
+                          {t("task.errorHint")}
                         </Text>
                       )}
                     </Animated.View>
@@ -358,10 +449,15 @@ export default function TaskInputScreen() {
 
                   {/* Text Input */}
                   <View style={styles.inputContainer}>
-                    <Animated.View style={[styles.inputWrapper, inputBorderStyle]}>
+                    <Animated.View
+                      style={[styles.inputWrapper, inputBorderStyle]}
+                    >
                       <TextInput
-                        style={[styles.textInput, { fontFamily: getFontFamily('medium', language) }]}
-                        placeholder={t('task.placeholder')}
+                        style={[
+                          styles.textInput,
+                          { fontFamily: getFontFamily("medium", language) },
+                        ]}
+                        placeholder={t("task.placeholder")}
                         placeholderTextColor="rgba(255,255,255,0.35)"
                         value={inputText}
                         onChangeText={setInputText}
@@ -379,8 +475,11 @@ export default function TaskInputScreen() {
                         importantForAutofill="no"
                         dataDetectorTypes="none"
                         maxLength={1000} // Security: Prevent DoS via excessive input length
-                        accessibilityLabel={t('task.placeholder')}
-                        accessibilityHint={t('task.inputHint') || 'Enter the affirmation exactly as shown above'}
+                        accessibilityLabel={t("task.placeholder")}
+                        accessibilityHint={
+                          t("task.inputHint") ||
+                          "Enter the affirmation exactly as shown above"
+                        }
                       />
                     </Animated.View>
                   </View>
@@ -388,7 +487,12 @@ export default function TaskInputScreen() {
                   {/* Accuracy & Submit */}
                   <View style={styles.submitArea}>
                     <View style={styles.hintContainer}>
-                      <Text style={[styles.hintText, { fontFamily: getFontFamily('regular', language) }]}>
+                      <Text
+                        style={[
+                          styles.hintText,
+                          { fontFamily: getFontFamily("regular", language) },
+                        ]}
+                      >
                         {getHintMessage()}
                       </Text>
                     </View>
@@ -397,13 +501,18 @@ export default function TaskInputScreen() {
                       onPress={handleManualSubmit}
                       disabled={!isButtonEnabled}
                       accessibilityRole="button"
-                      accessibilityLabel={t('task.submit')}
-                      accessibilityHint={t('task.submitHint') || 'Submits your current text and advances the counter'}
+                      accessibilityLabel={t("task.submit")}
+                      accessibilityHint={
+                        t("task.submitHint") ||
+                        "Submits your current text and advances the counter"
+                      }
                       accessibilityState={{ disabled: !isButtonEnabled }}
                       style={({ pressed }) => [
                         styles.submitButton,
                         !isButtonEnabled && styles.submitButtonDisabled,
-                        pressed && isButtonEnabled && styles.submitButtonPressed,
+                        pressed &&
+                          isButtonEnabled &&
+                          styles.submitButtonPressed,
                         isButtonEnabled && SHADOWS.glow,
                       ]}
                     >
@@ -412,14 +521,28 @@ export default function TaskInputScreen() {
                           colors={GRADIENTS.emerald}
                           style={styles.submitGradient}
                         >
-                          <Text style={[styles.submitText, { fontFamily: getFontFamily('semibold', language) }]}>
-                            {t('task.submit')}
+                          <Text
+                            style={[
+                              styles.submitText,
+                              {
+                                fontFamily: getFontFamily("semibold", language),
+                              },
+                            ]}
+                          >
+                            {t("task.submit")}
                           </Text>
                         </LinearGradient>
                       ) : (
                         <View style={styles.submitGradientDisabled}>
-                          <Text style={[styles.submitTextDisabled, { fontFamily: getFontFamily('semibold', language) }]}>
-                            {t('task.submit')}
+                          <Text
+                            style={[
+                              styles.submitTextDisabled,
+                              {
+                                fontFamily: getFontFamily("semibold", language),
+                              },
+                            ]}
+                          >
+                            {t("task.submit")}
                           </Text>
                         </View>
                       )}
@@ -440,11 +563,23 @@ export default function TaskInputScreen() {
               style={styles.briefFlash}
             >
               <Text style={styles.briefFlashEmoji}>✨</Text>
-              <Text style={[styles.briefFlashTitle, { fontFamily: getFontFamily('bold', language) }]}>
-                {t('task.mashaAllah')}
+              <Text
+                style={[
+                  styles.briefFlashTitle,
+                  { fontFamily: getFontFamily("bold", language) },
+                ]}
+              >
+                {t("task.mashaAllah")}
               </Text>
-              <Text style={[styles.briefFlashCounter, { fontFamily: getFontFamily('medium', language) }]}>
-                {formatNumberByLanguage(completedCount, language)}/{formatNumberByLanguage(targetCount, language)} {t('task.completedNiyyah')}
+              <Text
+                style={[
+                  styles.briefFlashCounter,
+                  { fontFamily: getFontFamily("medium", language) },
+                ]}
+              >
+                {formatNumberByLanguage(completedCount, language)}/
+                {formatNumberByLanguage(targetCount, language)}{" "}
+                {t("task.completedNiyyah")}
               </Text>
             </Animated.View>
           )}
@@ -453,7 +588,15 @@ export default function TaskInputScreen() {
           {showSuccess && (
             <Animated.View
               entering={FadeIn.duration(400)}
-              style={[StyleSheet.absoluteFill, styles.successContainer, { opacity: successOpacity, transform: [{ scale: successScale }], backgroundColor: COLORS.primary }]}
+              style={[
+                StyleSheet.absoluteFill,
+                styles.successContainer,
+                {
+                  opacity: successOpacity,
+                  transform: [{ scale: successScale }],
+                  backgroundColor: COLORS.primary,
+                },
+              ]}
             >
               <LinearGradient
                 colors={GRADIENTS.emerald}
@@ -462,29 +605,52 @@ export default function TaskInputScreen() {
                 <CheckCircle size={50} color="#FFFFFF" strokeWidth={2.5} />
               </LinearGradient>
 
-              <Text style={[styles.successTitle, { fontFamily: getFontFamily('bold', language) }]}>
-                {t('task.alhamdulillahComplete')}
+              <Text
+                style={[
+                  styles.successTitle,
+                  { fontFamily: getFontFamily("bold", language) },
+                ]}
+              >
+                {t("task.alhamdulillahComplete")}
               </Text>
 
-              <Text style={[styles.successMessage, { fontFamily: getFontFamily('medium', language) }]}>
-                {t('task.completeDua')}
+              <Text
+                style={[
+                  styles.successMessage,
+                  { fontFamily: getFontFamily("medium", language) },
+                ]}
+              >
+                {t("task.completeDua")}
               </Text>
 
-              <View style={{ flex: 1, justifyContent: 'flex-end', paddingBottom: 24, width: '100%', alignItems: 'center' }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "flex-end",
+                  paddingBottom: 24,
+                  width: "100%",
+                  alignItems: "center",
+                }}
+              >
                 <DonationPrompt />
                 <TouchableOpacity
                   style={styles.dashboardButton}
                   onPress={navigateBack}
                   activeOpacity={0.8}
                   accessibilityRole="button"
-                  accessibilityLabel={t('task.backToDashboard')}
+                  accessibilityLabel={t("task.backToDashboard")}
                 >
                   <LinearGradient
                     colors={GRADIENTS.emerald}
                     style={styles.dashboardButtonGradient}
                   >
-                    <Text style={[styles.dashboardButtonText, { fontFamily: getFontFamily('bold', language) }]}>
-                      {t('task.backToDashboard')}
+                    <Text
+                      style={[
+                        styles.dashboardButtonText,
+                        { fontFamily: getFontFamily("bold", language) },
+                      ]}
+                    >
+                      {t("task.backToDashboard")}
                     </Text>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -501,8 +667,8 @@ export default function TaskInputScreen() {
           )}
           {showFinalConfetti && (
             <ConfettiBurst
-                count={CONFETTI_PARTICLES.final}
-                duration={FINAL_CONFETTI_DURATION}
+              count={CONFETTI_PARTICLES.final}
+              duration={FINAL_CONFETTI_DURATION}
             />
           )}
         </SafeAreaView>
@@ -514,9 +680,9 @@ export default function TaskInputScreen() {
 const styles = StyleSheet.create({
   // ===== HEADER =====
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: SPACING.md,
     paddingVertical: 12,
   },
@@ -524,10 +690,10 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   headerCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   headerEmoji: {
     fontSize: 20,
@@ -538,7 +704,7 @@ const styles = StyleSheet.create({
     color: COLORS.textWhite,
   },
   counterBadge: {
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    backgroundColor: "rgba(16, 185, 129, 0.15)",
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
@@ -556,10 +722,10 @@ const styles = StyleSheet.create({
   affirmationCard: {
     backgroundColor: COLORS.darkCard,
     borderRadius: 16,
-    flexDirection: 'row',
-    overflow: 'hidden',
+    flexDirection: "row",
+    overflow: "hidden",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.06)',
+    borderColor: "rgba(255,255,255,0.06)",
     ...SHADOWS.md,
   },
   cardAccentBar: {
@@ -571,7 +737,7 @@ const styles = StyleSheet.create({
   },
   cardLabel: {
     fontSize: 12,
-    color: 'rgba(255,255,255,0.4)',
+    color: "rgba(255,255,255,0.4)",
     marginBottom: 12,
   },
   affirmationText: {
@@ -584,7 +750,7 @@ const styles = StyleSheet.create({
   },
   incorrectText: {
     color: COLORS.error,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   remainingText: {
     color: COLORS.textFadedWhite,
@@ -594,8 +760,8 @@ const styles = StyleSheet.create({
   progressFeedback: {
     paddingHorizontal: SPACING.lg,
     paddingTop: 8,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   progressCorrect: {
     fontSize: 14,
@@ -623,26 +789,26 @@ const styles = StyleSheet.create({
     color: COLORS.textWhite,
     padding: 20,
     minHeight: 130,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
 
   // ===== SUBMIT AREA =====
   submitArea: {
     paddingHorizontal: 20,
     paddingBottom: 20,
-    marginTop: 'auto' as any,
+    marginTop: "auto" as any,
   },
   hintContainer: {
     marginBottom: 12,
   },
   hintText: {
     fontSize: 13,
-    color: 'rgba(255,255,255,0.4)',
-    textAlign: 'center',
+    color: "rgba(255,255,255,0.4)",
+    textAlign: "center",
   },
   submitButton: {
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   submitButtonDisabled: {
     opacity: 0.5,
@@ -652,18 +818,18 @@ const styles = StyleSheet.create({
   },
   submitGradient: {
     paddingVertical: SPACING.md,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 16,
     minHeight: 52,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   submitGradientDisabled: {
     paddingVertical: SPACING.md,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.1)",
     borderRadius: 16,
     minHeight: 52,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   submitText: {
     fontSize: 18,
@@ -671,45 +837,45 @@ const styles = StyleSheet.create({
   },
   submitTextDisabled: {
     fontSize: 18,
-    color: 'rgba(255,255,255,0.3)',
+    color: "rgba(255,255,255,0.3)",
   },
 
   // ===== FINAL SUCCESS =====
   successContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: SPACING.lg,
   },
   successCircle: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   successTitle: {
     fontSize: 28,
     color: COLORS.textWhite,
     marginTop: SPACING.lg,
-    textAlign: 'center',
+    textAlign: "center",
   },
   successMessage: {
     fontSize: 17,
     color: COLORS.textMuted,
     marginTop: 12,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 26,
   },
   dashboardButton: {
     marginTop: 32,
-    width: '100%',
+    width: "100%",
     borderRadius: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   dashboardButtonGradient: {
     paddingVertical: SPACING.md,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 16,
   },
   dashboardButtonText: {
@@ -719,16 +885,16 @@ const styles = StyleSheet.create({
 
   // ===== BRIEF FLASH =====
   briefFlash: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(16, 185, 129, 0.92)',
+    backgroundColor: "rgba(16, 185, 129, 0.92)",
     paddingVertical: 14,
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 100,
     gap: 10,
   },
@@ -741,6 +907,6 @@ const styles = StyleSheet.create({
   },
   briefFlashCounter: {
     fontSize: 14,
-    color: 'rgba(255,255,255,0.8)',
+    color: "rgba(255,255,255,0.8)",
   },
 });
