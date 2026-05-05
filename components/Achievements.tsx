@@ -46,6 +46,8 @@ export function Achievements() {
                             <Pressable
                                 style={styles.unlockedCard}
                                 onPress={() => handlePress(badge.id)}
+                                accessibilityRole="button"
+                                accessibilityLabel={`${t(badge.titleKey)}, ${t(badge.descriptionKey)}. Unlocked.`}
                             >
                                 <LinearGradient
                                     colors={['#D4A847', '#F5D98C', '#C49B3A'] as any}
@@ -82,7 +84,11 @@ export function Achievements() {
                             </Pressable>
                         ) : (
                             /* ─── Locked: Dark frosted glass card ─── */
-                            <View style={styles.lockedCard}>
+                            <View
+                                style={styles.lockedCard}
+                                accessible={true}
+                                accessibilityLabel={`${t(badge.titleKey)}, ${t(badge.descriptionKey)}. Locked. Progress: ${badge.progress} out of ${badge.target}`}
+                            >
                                 <View style={styles.lockedIconWrapper}>
                                     <Text style={styles.lockedIcon}>🔒</Text>
                                 </View>
