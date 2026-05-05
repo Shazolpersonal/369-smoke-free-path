@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -7,10 +7,10 @@ import {
   ViewToken,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
+} from "react-native";
+import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   FadeIn,
   SlideInUp,
@@ -20,16 +20,16 @@ import Animated, {
   withSpring,
   withTiming,
   interpolateColor,
-} from 'react-native-reanimated';
-import { useProgress } from '../contexts/ProgressContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { getFontFamily } from '../utils/fonts';
-import { GRADIENTS } from '../utils/theme';
-import { SPRING_CONFIG } from '../utils/animations';
-import BatteryOptimizationGuide from '../components/BatteryOptimizationGuide';
-import { initNotificationSystem } from '../utils/notificationService';
+} from "react-native-reanimated";
+import { useProgress } from "../contexts/ProgressContext";
+import { useLanguage } from "../contexts/LanguageContext";
+import { getFontFamily } from "../utils/fonts";
+import { GRADIENTS } from "../utils/theme";
+import { SPRING_CONFIG } from "../utils/animations";
+import BatteryOptimizationGuide from "../components/BatteryOptimizationGuide";
+import { initNotificationSystem } from "../utils/notificationService";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -56,35 +56,45 @@ export default function OnboardingScreen() {
 
   const slides: Slide[] = [
     {
-      id: '1',
-      emoji: '🌿',
-      title: t('onboarding.slide1.title') || 'Welcome',
-      description: t('onboarding.slide1.description') || 'Welcome to the path of a smoke-free life.',
+      id: "1",
+      emoji: "🌿",
+      title: t("onboarding.slide1.title") || "Welcome",
+      description:
+        t("onboarding.slide1.description") ||
+        "Welcome to the path of a smoke-free life.",
     },
     {
-      id: '2',
-      emoji: '✨',
-      title: t('onboarding.slide2.title') || '369 Method',
-      description: t('onboarding.slide2.description') || 'Write positive affirmations daily.',
+      id: "2",
+      emoji: "✨",
+      title: t("onboarding.slide2.title") || "369 Method",
+      description:
+        t("onboarding.slide2.description") ||
+        "Write positive affirmations daily.",
     },
     {
-      id: '3',
-      emoji: '🚀',
-      title: t('onboarding.slide3.title') || '41 Days Transformation',
-      description: t('onboarding.slide3.description') || 'Start your journey today.',
+      id: "3",
+      emoji: "🚀",
+      title: t("onboarding.slide3.title") || "41 Days Transformation",
+      description:
+        t("onboarding.slide3.description") || "Start your journey today.",
     },
     {
-      id: '4',
-      emoji: '🕐',
-      title: t('onboarding.slide4.title') || 'Your Daily Schedule',
-      description: t('onboarding.slide4.description') || 'Three sessions unlock at set times each day.',
+      id: "4",
+      emoji: "🕐",
+      title: t("onboarding.slide4.title") || "Your Daily Schedule",
+      description:
+        t("onboarding.slide4.description") ||
+        "Three sessions unlock at set times each day.",
       showSchedule: true,
     },
     {
-      id: '5',
-      emoji: '🔔',
-      title: language === 'bn' ? 'নোটিফিকেশান সক্রিয় রাখুন' : 'Keep Notifications Active',
-      description: '',
+      id: "5",
+      emoji: "🔔",
+      title:
+        language === "bn"
+          ? "নোটিফিকেশান সক্রিয় রাখুন"
+          : "Keep Notifications Active",
+      description: "",
       showBatteryGuide: true,
     },
   ];
@@ -94,7 +104,7 @@ export default function OnboardingScreen() {
       if (viewableItems.length > 0 && viewableItems[0].index !== null) {
         setCurrentIndex(viewableItems[0].index);
       }
-    }
+    },
   ).current;
 
   const viewabilityConfig = useRef({
@@ -106,7 +116,7 @@ export default function OnboardingScreen() {
     langScale.value = withSpring(0.9, SPRING_CONFIG, () => {
       langScale.value = withSpring(1, SPRING_CONFIG);
     });
-    setLanguage(language === 'en' ? 'bn' : 'en');
+    setLanguage(language === "en" ? "bn" : "en");
   };
 
   const handleNext = () => {
@@ -118,13 +128,13 @@ export default function OnboardingScreen() {
   const handleStart = async () => {
     await completeOnboarding();
     await initNotificationSystem({ language });
-    router.replace('/');
+    router.replace("/");
   };
 
   const handleSkip = async () => {
     await completeOnboarding();
     await initNotificationSystem({ language });
-    router.replace('/');
+    router.replace("/");
   };
 
   const handleButtonPressIn = () => {
@@ -165,48 +175,100 @@ export default function OnboardingScreen() {
         {isFirstSlide ? (
           <>
             <Animated.Text
-              entering={FadeIn.duration(600).delay(0).withInitialValues({ opacity: 0 })}
+              entering={FadeIn.duration(600)
+                .delay(0)
+                .withInitialValues({ opacity: 0 })}
               style={styles.emoji}
             >
               {item.emoji}
             </Animated.Text>
             <Animated.Text
               entering={SlideInUp.duration(600).delay(100)}
-              style={[styles.title, { fontFamily: getFontFamily('bold', language) }]}
+              style={[
+                styles.title,
+                { fontFamily: getFontFamily("bold", language) },
+              ]}
             >
               {item.title}
             </Animated.Text>
             <Animated.Text
               entering={SlideInUp.duration(600).delay(200)}
-              style={[styles.description, { fontFamily: getFontFamily('regular', language) }]}
+              style={[
+                styles.description,
+                { fontFamily: getFontFamily("regular", language) },
+              ]}
             >
               {item.description}
             </Animated.Text>
           </>
         ) : (
-          <Animated.View entering={FadeIn.duration(600).delay(index * 100)} style={{ alignItems: 'center', width: '100%' }}>
+          <Animated.View
+            entering={FadeIn.duration(600).delay(index * 100)}
+            style={{ alignItems: "center", width: "100%" }}
+          >
             <Text style={styles.emoji}>{item.emoji}</Text>
-            <Text style={[styles.title, { fontFamily: getFontFamily('bold', language) }]}>{item.title}</Text>
-            <Text style={[styles.description, { fontFamily: getFontFamily('regular', language) }]}>{item.description}</Text>
+            <Text
+              style={[
+                styles.title,
+                { fontFamily: getFontFamily("bold", language) },
+              ]}
+            >
+              {item.title}
+            </Text>
+            <Text
+              style={[
+                styles.description,
+                { fontFamily: getFontFamily("regular", language) },
+              ]}
+            >
+              {item.description}
+            </Text>
             {item.showSchedule && (
               <View style={styles.scheduleContainer}>
                 <Animated.View
                   entering={FadeInDown.duration(400).delay(0)}
-                  style={[styles.timeChip, { borderColor: 'rgba(251, 191, 36, 0.4)', backgroundColor: 'rgba(251, 191, 36, 0.08)' }]}
+                  style={[
+                    styles.timeChip,
+                    {
+                      borderColor: "rgba(251, 191, 36, 0.4)",
+                      backgroundColor: "rgba(251, 191, 36, 0.08)",
+                    },
+                  ]}
                 >
-                  <Text style={styles.timeChipText}>🌅  {t('onboarding.slide4.morning') || '8:00 AM — Morning (3×)'}</Text>
+                  <Text style={styles.timeChipText}>
+                    🌅{" "}
+                    {t("onboarding.slide4.morning") || "8:00 AM — Morning (3×)"}
+                  </Text>
                 </Animated.View>
                 <Animated.View
                   entering={FadeInDown.duration(400).delay(150)}
-                  style={[styles.timeChip, { borderColor: 'rgba(16, 185, 129, 0.4)', backgroundColor: 'rgba(16, 185, 129, 0.08)' }]}
+                  style={[
+                    styles.timeChip,
+                    {
+                      borderColor: "rgba(16, 185, 129, 0.4)",
+                      backgroundColor: "rgba(16, 185, 129, 0.08)",
+                    },
+                  ]}
                 >
-                  <Text style={styles.timeChipText}>☀️  {t('onboarding.slide4.noon') || '1:00 PM — Afternoon (6×)'}</Text>
+                  <Text style={styles.timeChipText}>
+                    ☀️{" "}
+                    {t("onboarding.slide4.noon") || "1:00 PM — Afternoon (6×)"}
+                  </Text>
                 </Animated.View>
                 <Animated.View
                   entering={FadeInDown.duration(400).delay(300)}
-                  style={[styles.timeChip, { borderColor: 'rgba(99, 102, 241, 0.4)', backgroundColor: 'rgba(99, 102, 241, 0.08)' }]}
+                  style={[
+                    styles.timeChip,
+                    {
+                      borderColor: "rgba(99, 102, 241, 0.4)",
+                      backgroundColor: "rgba(99, 102, 241, 0.08)",
+                    },
+                  ]}
                 >
-                  <Text style={styles.timeChipText}>🌙  {t('onboarding.slide4.night') || '6:00 PM — Evening (9×)'}</Text>
+                  <Text style={styles.timeChipText}>
+                    🌙{" "}
+                    {t("onboarding.slide4.night") || "6:00 PM — Evening (9×)"}
+                  </Text>
                 </Animated.View>
               </View>
             )}
@@ -228,11 +290,19 @@ export default function OnboardingScreen() {
               onPress={toggleLanguage}
               activeOpacity={0.7}
               accessibilityRole="button"
-              accessibilityLabel={language === 'en' ? 'Switch to Bengali' : 'Switch to English'}
+              accessibilityLabel={
+                language === "en" ? "Switch to Bengali" : "Switch to English"
+              }
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             >
               <View style={styles.langToggle}>
-                <Text style={[styles.langText, { fontFamily: getFontFamily('semibold', language) }]}>
-                  {language === 'en' ? 'বাংলা' : 'English'}
+                <Text
+                  style={[
+                    styles.langText,
+                    { fontFamily: getFontFamily("semibold", language) },
+                  ]}
+                >
+                  {language === "en" ? "বাংলা" : "English"}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -269,11 +339,22 @@ export default function OnboardingScreen() {
             onPressOut={handleButtonPressOut}
             activeOpacity={1}
             accessibilityRole="button"
-            accessibilityLabel={isLastSlide ? t('onboarding.getStarted') || 'Start' : t('onboarding.next') || 'Next'}
+            accessibilityLabel={
+              isLastSlide
+                ? t("onboarding.getStarted") || "Start"
+                : t("onboarding.next") || "Next"
+            }
             style={[styles.primaryButton, buttonAnimStyle]}
           >
-            <Text style={[styles.primaryButtonText, { fontFamily: getFontFamily('semibold', language) }]}>
-              {isLastSlide ? t('onboarding.getStarted') || 'Start' : t('onboarding.next') || 'Next'}
+            <Text
+              style={[
+                styles.primaryButtonText,
+                { fontFamily: getFontFamily("semibold", language) },
+              ]}
+            >
+              {isLastSlide
+                ? t("onboarding.getStarted") || "Start"
+                : t("onboarding.next") || "Next"}
             </Text>
           </AnimatedTouchable>
 
@@ -282,10 +363,16 @@ export default function OnboardingScreen() {
               onPress={handleSkip}
               style={styles.skipButton}
               accessibilityRole="button"
-              accessibilityLabel={t('onboarding.skip') || 'Skip'}
+              accessibilityLabel={t("onboarding.skip") || "Skip"}
+              hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             >
-              <Text style={[styles.skipButtonText, { fontFamily: getFontFamily('regular', language) }]}>
-                {t('onboarding.skip') || 'Skip'}
+              <Text
+                style={[
+                  styles.skipButtonText,
+                  { fontFamily: getFontFamily("regular", language) },
+                ]}
+              >
+                {t("onboarding.skip") || "Skip"}
               </Text>
             </TouchableOpacity>
           )}
@@ -309,7 +396,7 @@ function AnimatedDot({ isActive }: { isActive: boolean }) {
     const backgroundColor = interpolateColor(
       colorProgress.value,
       [0, 1],
-      ['#CBD5E1', '#10B981']
+      ["#CBD5E1", "#10B981"],
     );
     return {
       transform: [{ scale: scale.value }],
@@ -325,29 +412,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   langRow: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     paddingHorizontal: 24,
     paddingTop: 8,
   },
   langToggle: {
-    backgroundColor: 'rgba(212, 168, 71, 0.12)',
+    backgroundColor: "rgba(212, 168, 71, 0.12)",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(212, 168, 71, 0.2)',
+    borderColor: "rgba(212, 168, 71, 0.2)",
   },
   langText: {
     fontSize: 14,
-    color: '#D4A847',
+    color: "#D4A847",
   },
   listContainer: {
     flex: 1,
   },
   slide: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 32,
   },
   emoji: {
@@ -355,23 +442,23 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   title: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 28,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 16,
     marginTop: 32,
   },
   description: {
-    color: '#CBD5E1',
+    color: "#CBD5E1",
     fontSize: 17,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: 16,
     lineHeight: 28,
   },
   dotsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 16,
   },
   dot: {
@@ -385,29 +472,29 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   primaryButton: {
-    backgroundColor: '#10B981',
+    backgroundColor: "#10B981",
     paddingVertical: 16,
     borderRadius: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   primaryButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   skipButton: {
     paddingVertical: 16,
     marginTop: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   skipButtonText: {
-    color: '#64748B',
-    textAlign: 'center',
+    color: "#64748B",
+    textAlign: "center",
     fontSize: 15,
   },
   scheduleContainer: {
     marginTop: 24,
-    width: '100%',
+    width: "100%",
     gap: 10,
   },
   timeChip: {
@@ -415,11 +502,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 14,
     borderWidth: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   timeChipText: {
-    color: 'rgba(255,255,255,0.85)',
+    color: "rgba(255,255,255,0.85)",
     fontSize: 15,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });
