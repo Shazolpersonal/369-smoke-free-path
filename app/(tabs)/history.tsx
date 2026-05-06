@@ -286,9 +286,12 @@ export default function HistoryScreen() {
 
     const days: Array<{ day: number; dateKey: string } | null> = [];
     for (let i = 0; i < startDow; i++) days.push(null);
+
+    // ⚡ Bolt Optimization: Avoid 28-31 Date instantiations per render by manually formatting the ISO date string
+    const formattedMonth = String(viewMonth + 1).padStart(2, "0");
     for (let d = 1; d <= totalDays; d++) {
-      const date = new Date(viewYear, viewMonth, d);
-      days.push({ day: d, dateKey: formatLocalDateKey(date) });
+      const dateKey = `${viewYear}-${formattedMonth}-${String(d).padStart(2, "0")}`;
+      days.push({ day: d, dateKey });
     }
     return days;
   }, [viewYear, viewMonth]);

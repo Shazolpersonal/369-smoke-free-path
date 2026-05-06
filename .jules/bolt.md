@@ -9,3 +9,7 @@
 ## 2026-04-26 - Redundant Date Instantiation in Render Loops
 **Learning:** Instantiating `new Date()` inside loops (like calendar grids) or frequent computations adds measurable garbage collection overhead, particularly on mobile devices.
 **Action:** Use lexicographical string comparisons on ISO-formatted dates (e.g., `YYYY-MM-DD`) directly instead of parsing them into `Date` objects for basic chronological comparisons.
+
+## 2025-06-25 - Redundant Date Instantiation in Render Loops
+**Learning:** Instantiating `new Date()` inside tight loops (like generating calendar grid data for an entire month) causes unnecessary memory allocation and garbage collection overhead, particularly detrimental on mobile devices.
+**Action:** When generating ISO-formatted date strings (e.g., `YYYY-MM-DD`) iteratively, construct the string directly via simple string interpolation (`${year}-${String(month).padStart(2, '0')}-...`) rather than creating intermediate `Date` objects solely for formatting purposes.
