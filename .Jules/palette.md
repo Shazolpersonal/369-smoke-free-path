@@ -1,6 +1,3 @@
-## 2026-04-20 - Add accessibility to TaskCard
-**Learning:** Discovered a missing accessibility label pattern on an interactive custom card component (TaskCard) using AnimatedTouchable. Because the card has different visual states (Completed, Active, Locked), screen reader users wouldn't know the card's current status.
-**Action:** Added an `accessibilityRole="button"` to the container component along with a dynamic `accessibilityLabel` and `accessibilityState={{ disabled: !isActive && !isCompleted }}` to inform screen reader users of the current interaction state.
-## 2026-04-20 - Add accessibility to Donation Components
-**Learning:** Found multiple instances of `TouchableOpacity` used for interactive elements (banners and buttons) in `DonationBanner` and `DonationPrompt` that were lacking accessibility roles and labels. Screen readers would not properly announce these components as buttons.
-**Action:** Added `accessibilityRole="button"` and `accessibilityLabel` using the existing localization `t()` translations to ensure context is provided to screen readers. Always verify that custom touch targets explicitly pass accessibility props.
+## 2024-05-18 - DailyQuote Screen Reader Grouping
+**Learning:** In React Native, `Text` elements inside a shared parent container (`View`, `Animated.View`) will be announced disjointedly by screen readers. For stylized components like `DailyQuote`, this means reading the visual quote icon, quote content, and author source as three separate focusable elements, breaking the flow.
+**Action:** Group related text elements for screen readers by adding `accessible={true}` to the common parent container and setting an aggregated `accessibilityLabel` (e.g., `accessibilityLabel={\`\${quote.text} — \${quote.source}\`}`).
