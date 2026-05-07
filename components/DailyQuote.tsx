@@ -39,7 +39,12 @@ export function DailyQuote() {
     }));
 
     return (
-        <Animated.View style={[styles.container, rStyle]}>
+        <Animated.View
+            style={[styles.container, rStyle]}
+            accessible={true}
+            accessibilityLabel={`${quote.text} — ${quote.source}`}
+            accessibilityRole="text"
+        >
             {/* Gold quote icon */}
             <View style={styles.iconContainer}>
                 <Text style={styles.quoteIcon}>❝</Text>
