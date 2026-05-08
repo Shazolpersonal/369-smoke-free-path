@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Animated, { FadeIn, SlideInUp } from 'react-native-reanimated';
 import { Heart } from 'lucide-react-native';
+import * as Clipboard from 'expo-clipboard';
 
 import { useLanguage } from '../contexts/LanguageContext';
 import { shouldShowDonationPrompt, markDonationPromptShown, PAYMENT_METHODS } from '../utils/donationConfig';
 import { getFontFamily } from '../utils/fonts';
 import { BottomSheet } from './BottomSheet';
+import { showToast } from './Toast';
 
 /**
  * A gentle donation prompt shown after task completion.
@@ -78,12 +80,25 @@ export function DonationPrompt() {
                                         {language === 'bn' ? method.labelBn : method.label}
                                     </Text>
                                 </View>
-                                <Text 
-                                    style={[styles.methodNumber, { fontFamily: f('bold') }]} 
-                                    selectable={true}
+                                <TouchableOpacity
+                                    activeOpacity={0.6}
+                                    onPress={async () => {
+                                        await Clipboard.setStringAsync(method.number);
+                                        showToast({
+                                            message: t('donation.copiedMessage').replace('{{number}}', method.number),
+                                            type: 'success'
+                                        });
+                                    }}
+                                    accessibilityRole="button"
+                                    accessibilityLabel={t('donation.numberLabel')}
+                                    accessibilityHint="Copies the number to clipboard"
                                 >
-                                    {method.number}
-                                </Text>
+                                    <Text
+                                        style={[styles.methodNumber, { fontFamily: f('bold') }]}
+                                    >
+                                        {method.number}
+                                    </Text>
+                                </TouchableOpacity>
                                 <Text style={[styles.methodType, { fontFamily: f('medium') }]}>
                                     ({language === 'bn' ? method.typeBn : method.type})
                                 </Text>

@@ -1,3 +1,3 @@
-## 2024-05-18 - DailyQuote Screen Reader Grouping
-**Learning:** In React Native, `Text` elements inside a shared parent container (`View`, `Animated.View`) will be announced disjointedly by screen readers. For stylized components like `DailyQuote`, this means reading the visual quote icon, quote content, and author source as three separate focusable elements, breaking the flow.
-**Action:** Group related text elements for screen readers by adding `accessible={true}` to the common parent container and setting an aggregated `accessibilityLabel` (e.g., `accessibilityLabel={\`\${quote.text} — \${quote.source}\`}`).
+## 2024-05-08 - Added copy-to-clipboard functionality to donation numbers
+**Learning:** Found an opportunity to improve the UX of the `DonationBanner` and `DonationPrompt` by making the donation numbers copyable using `expo-clipboard` to allow users to quickly copy and paste them into their mobile banking applications. The implementation used a simple `TouchableOpacity` wrapper. It is important to ensure that the localization variables and translation contexts are correctly defined before attempting to interpolate them into feedback toasts.
+**Action:** When adding interactive UI elements that provide feedback using string templates, always ensure that the translation contexts are fully set up before interpolating variables into them.
