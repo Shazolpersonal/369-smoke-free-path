@@ -27,7 +27,10 @@ const parseToLocalDate = (dateStr: string): Date => {
     const d = new Date(dateStr);
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
-  const [year, month, day] = dateStr.split('-').map(Number);
+  // ⚡ Bolt: Fast parsing of YYYY-MM-DD avoiding array allocations
+  const year = parseInt(dateStr.substring(0, 4), 10);
+  const month = parseInt(dateStr.substring(5, 7), 10);
+  const day = parseInt(dateStr.substring(8, 10), 10);
   return new Date(year, month - 1, day);
 };
 
