@@ -510,6 +510,7 @@ export default function HistoryScreen() {
                 disabled={!canGoNext}
                 activeOpacity={0.6}
                 accessibilityRole="button"
+                accessibilityState={{ disabled: !canGoNext }}
                 accessibilityLabel={t("history.nextMonth")}
                 hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               >
