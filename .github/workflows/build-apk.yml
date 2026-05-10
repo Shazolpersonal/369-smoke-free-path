@@ -40,7 +40,8 @@ jobs:
         run: eas build --local --non-interactive --platform android --profile preview
         env:
           EXPO_USE_PNPM: "1"
-          NPM_CONFIG_YES: "true"
+          GRADLE_OPTS: "-Xmx4g -XX:MaxMetaspaceSize=2g -XX:+HeapDumpOnOutOfMemoryError"
+          NODE_OPTIONS: "--max-old-space-size=4096"
 
       - name: 📤 Upload APK Artifact
         uses: actions/upload-artifact@v4
