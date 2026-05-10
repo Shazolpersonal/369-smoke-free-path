@@ -355,10 +355,7 @@ export default function Dashboard() {
                         { fontFamily: f("semibold") },
                       ]}
                     >
-                      {t("home.progress.cycle").replace(
-                        "{cycle}",
-                        currentCycle.toString(),
-                      )}
+                      {t("dashboard.cycle", { cycle: currentCycle })}
                     </Text>
                   )}
                 </View>
