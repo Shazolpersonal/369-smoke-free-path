@@ -138,12 +138,13 @@ export default function RootLayout() {
                         screenOptions={{
                             headerShown: false,
                             contentStyle: { backgroundColor: "#0F172A" },
+                            animation: Platform.OS === 'web' ? 'none' : undefined,
                         }}
                     >
                         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                        <Stack.Screen name="onboarding" options={{ animation: "fade_from_bottom" }} />
-                        <Stack.Screen name="guide" options={{ presentation: "modal", animation: "slide_from_bottom", animationDuration: reducedMotion ? 0 : 400 }} />
-                        <Stack.Screen name="task/[slot]" options={{ animation: "slide_from_right", animationDuration: reducedMotion ? 0 : 350 }} />
+                        <Stack.Screen name="onboarding" options={{ animation: Platform.OS === 'web' ? 'none' : "fade_from_bottom" }} />
+                        <Stack.Screen name="guide" options={{ presentation: "modal", animation: Platform.OS === 'web' ? 'none' : "slide_from_bottom", animationDuration: reducedMotion ? 0 : 400 }} />
+                        <Stack.Screen name="task/[slot]" options={{ animation: Platform.OS === 'web' ? 'none' : "slide_from_right", animationDuration: reducedMotion ? 0 : 350 }} />
                     </Stack>
                     <ToastProvider />
                 </View>

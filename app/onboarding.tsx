@@ -7,6 +7,7 @@ import {
   ViewToken,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,6 +31,7 @@ import BatteryOptimizationGuide from "../components/BatteryOptimizationGuide";
 import { initNotificationSystem } from "../utils/notificationService";
 
 const { width } = Dimensions.get("window");
+const isWeb = Platform.OS === "web";
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -170,6 +172,77 @@ export default function OnboardingScreen() {
       );
     }
 
+    // On web, skip entering animations (reanimated crashes on web with transform-based entering)
+    if (isWeb) {
+      return (
+        <View style={[styles.slide, { width }]}>
+          <Text style={styles.emoji}>{item.emoji}</Text>
+          <Text
+            style={[
+              styles.title,
+              { fontFamily: getFontFamily("bold", language) },
+            ]}
+          >
+            {item.title}
+          </Text>
+          <Text
+            style={[
+              styles.description,
+              { fontFamily: getFontFamily("regular", language) },
+            ]}
+          >
+            {item.description}
+          </Text>
+          {item.showSchedule && (
+            <View style={styles.scheduleContainer}>
+              <View
+                style={[
+                  styles.timeChip,
+                  {
+                    borderColor: "rgba(251, 191, 36, 0.4)",
+                    backgroundColor: "rgba(251, 191, 36, 0.08)",
+                  },
+                ]}
+              >
+                <Text style={styles.timeChipText}>
+                  🌅{" "}
+                  {t("onboarding.slide4.morning") || "8:00 AM — Morning (3×)"}
+                </Text>
+              </View>
+              <View
+                style={[
+                  styles.timeChip,
+                  {
+                    borderColor: "rgba(16, 185, 129, 0.4)",
+                    backgroundColor: "rgba(16, 185, 129, 0.08)",
+                  },
+                ]}
+              >
+                <Text style={styles.timeChipText}>
+                  ☀️{" "}
+                  {t("onboarding.slide4.noon") || "1:00 PM — Afternoon (6×)"}
+                </Text>
+              </View>
+              <View
+                style={[
+                  styles.timeChip,
+                  {
+                    borderColor: "rgba(99, 102, 241, 0.4)",
+                    backgroundColor: "rgba(99, 102, 241, 0.08)",
+                  },
+                ]}
+              >
+                <Text style={styles.timeChipText}>
+                  🌙{" "}
+                  {t("onboarding.slide4.night") || "6:00 PM — Evening (9×)"}
+                </Text>
+              </View>
+            </View>
+          )}
+        </View>
+      );
+    }
+
     return (
       <View style={[styles.slide, { width }]}>
         {isFirstSlide ? (
@@ -183,7 +256,7 @@ export default function OnboardingScreen() {
               {item.emoji}
             </Animated.Text>
             <Animated.Text
-              entering={SlideInUp.duration(600).delay(100)}
+              entering={FadeIn.duration(600).delay(100)}
               style={[
                 styles.title,
                 { fontFamily: getFontFamily("bold", language) },
@@ -192,7 +265,7 @@ export default function OnboardingScreen() {
               {item.title}
             </Animated.Text>
             <Animated.Text
-              entering={SlideInUp.duration(600).delay(200)}
+              entering={FadeIn.duration(600).delay(200)}
               style={[
                 styles.description,
                 { fontFamily: getFontFamily("regular", language) },
@@ -226,7 +299,7 @@ export default function OnboardingScreen() {
             {item.showSchedule && (
               <View style={styles.scheduleContainer}>
                 <Animated.View
-                  entering={FadeInDown.duration(400).delay(0)}
+                  entering={FadeIn.duration(400).delay(0)}
                   style={[
                     styles.timeChip,
                     {
@@ -241,7 +314,7 @@ export default function OnboardingScreen() {
                   </Text>
                 </Animated.View>
                 <Animated.View
-                  entering={FadeInDown.duration(400).delay(150)}
+                  entering={FadeIn.duration(400).delay(150)}
                   style={[
                     styles.timeChip,
                     {
@@ -256,7 +329,7 @@ export default function OnboardingScreen() {
                   </Text>
                 </Animated.View>
                 <Animated.View
-                  entering={FadeInDown.duration(400).delay(300)}
+                  entering={FadeIn.duration(400).delay(300)}
                   style={[
                     styles.timeChip,
                     {
@@ -384,6 +457,21 @@ export default function OnboardingScreen() {
 
 // Animated pagination dot component
 function AnimatedDot({ isActive }: { isActive: boolean }) {
+  // On web, use a simple static dot to avoid reanimated issues
+  if (isWeb) {
+    return (
+      <View
+        style={[
+          styles.dot,
+          {
+            transform: [{ scale: isActive ? 1.5 : 1 }],
+            backgroundColor: isActive ? "#10B981" : "#CBD5E1",
+          },
+        ]}
+      />
+    );
+  }
+
   const scale = useSharedValue(isActive ? 1.5 : 1);
   const colorProgress = useSharedValue(isActive ? 1 : 0);
 
@@ -447,6 +535,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 16,
     marginTop: 32,
+    transform: [{ translateY: 0 }],
   },
   description: {
     color: "#CBD5E1",
@@ -454,6 +543,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingHorizontal: 16,
     lineHeight: 28,
+    transform: [{ translateY: 0 }],
   },
   dotsContainer: {
     flexDirection: "row",
@@ -503,6 +593,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     borderWidth: 1,
     alignItems: "center",
+    transform: [{ translateY: 0 }],
   },
   timeChipText: {
     color: "rgba(255,255,255,0.85)",
