@@ -49,6 +49,7 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: t('tabs.home') || 'হোম',
+                    tabBarAccessibilityLabel: t('tabs.home') || 'Home',
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon icon={Home} color={color} focused={focused} />
                     ),
@@ -59,6 +60,7 @@ export default function TabLayout() {
                 name="history"
                 options={{
                     title: t('tabs.history') || 'আমার অগ্রগতি',
+                    tabBarAccessibilityLabel: t('tabs.history') || 'History',
                     tabBarIcon: ({ color, focused }) => (
                         <TabIcon icon={Calendar} color={color} focused={focused} />
                     ),
