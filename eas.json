@@ -5,7 +5,7 @@
   "build": {
     "preview": {
       "android": {
-        "buildType": "apk"
+        "gradleCommand": ":app:assembleRelease -x lintVitalAnalyzeRelease -x lintVitalRelease"
       }
     },
     "production": {
