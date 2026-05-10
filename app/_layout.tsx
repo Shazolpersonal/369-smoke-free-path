@@ -91,10 +91,20 @@ export default function RootLayout() {
 
                 // Security: Validate the incoming URL to prevent arbitrary navigation/deep link hijacking.
                 // We ensure the URL is a relative path to keep navigation internal.
-                // Also prevent backslash bypassing `/\` which can resolve as an absolute path.
-                const isSafeRelativeRoute = typeof url === 'string' && url.startsWith('/') && !url.startsWith('//') && !url.startsWith('/\\');
+                // Decode the URL first to prevent bypassing backslash `/\` or `//` checks using URL encoding.
+                let decodedUrl = '';
+                if (typeof url === 'string') {
+                    try {
+                        decodedUrl = decodeURIComponent(url);
+                    } catch (e) {
+                        // If decodeURIComponent fails (e.g. malformed URI), fallback to empty string which fails validation safely
+                        decodedUrl = '';
+                    }
+                }
+                const isSafeRelativeRoute = decodedUrl.startsWith('/') && !decodedUrl.startsWith('//') && !decodedUrl.startsWith('/\\');
 
                 if (isSafeRelativeRoute) {
+                    // Push the original URL if safe (router should handle decoding)
                     router.push(url as any);
                 } else {
                     router.push('/' as any);
