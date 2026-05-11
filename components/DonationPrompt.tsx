@@ -9,6 +9,7 @@ import { shouldShowDonationPrompt, markDonationPromptShown, PAYMENT_METHODS } fr
 import { getFontFamily } from '../utils/fonts';
 import { BottomSheet } from './BottomSheet';
 import { showToast } from './Toast';
+import { logError } from '../utils/logger';
 
 /**
  * A gentle donation prompt shown after task completion.
@@ -83,11 +84,19 @@ export function DonationPrompt() {
                                 <TouchableOpacity
                                     activeOpacity={0.6}
                                     onPress={async () => {
-                                        await Clipboard.setStringAsync(method.number);
-                                        showToast({
-                                            message: t('donation.copiedMessage').replace('{{number}}', method.number),
-                                            type: 'success'
-                                        });
+                                        try {
+                                            await Clipboard.setStringAsync(method.number);
+                                            showToast({
+                                                message: t('donation.copiedMessage').replace('{{number}}', method.number),
+                                                type: 'success'
+                                            });
+                                        } catch (error) {
+                                            logError('[DonationPrompt] Clipboard.setStringAsync failed', error);
+                                            showToast({
+                                                message: 'Failed to copy to clipboard',
+                                                type: 'error'
+                                            });
+                                        }
                                     }}
                                     accessibilityRole="button"
                                     accessibilityLabel={t('donation.numberLabel')}
