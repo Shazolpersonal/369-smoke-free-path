@@ -5,3 +5,7 @@
 ## 2024-05-18 - Communicating button disabled states
 **Learning:** Adding `disabled={true}` is visually and functionally correct but insufficient for screen readers unless paired with `accessibilityState={{ disabled: true }}`. Specifically found this pattern missing on navigation buttons like 'Next Month'.
 **Action:** Always pair `disabled` properties with `accessibilityState={{ disabled: condition }}` for interactive elements.
+
+## 2024-05-18 - TextInput Keyboard Appearance in Forced Dark Mode
+**Learning:** Found an opportunity to improve the UX for iOS users. The app forces a dark theme across the board, but on iOS, `TextInput` components default to the system theme's keyboard appearance. If a user is using a light system theme, the keyboard will appear as light, causing a jarring visual clash with the app's dark background.
+**Action:** When working on an application that enforces a specific theme (like dark mode), always ensure that `TextInput` components have the `keyboardAppearance` prop set appropriately (e.g., `keyboardAppearance="dark"`) so the keyboard matches the app's enforced theme rather than defaulting to the system theme.

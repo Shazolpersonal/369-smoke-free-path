@@ -475,6 +475,7 @@ export default function TaskInputScreen() {
                         importantForAutofill="no"
                         dataDetectorTypes="none"
                         maxLength={1000} // Security: Prevent DoS via excessive input length
+                        keyboardAppearance="dark"
                         accessibilityLabel={t("task.placeholder")}
                         accessibilityHint={
                           t("task.inputHint") ||
