@@ -104,8 +104,8 @@ export default function RootLayout() {
                 const isSafeRelativeRoute = decodedUrl.startsWith('/') && !decodedUrl.startsWith('//') && !decodedUrl.startsWith('/\\');
 
                 if (isSafeRelativeRoute) {
-                    // Push the original URL if safe (router should handle decoding)
-                    router.push(url as any);
+                    // Push the validated, decoded URL to prevent TOCTOU bypasses
+                    router.push(decodedUrl as any);
                 } else {
                     router.push('/' as any);
                 }

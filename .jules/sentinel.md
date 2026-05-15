@@ -10,3 +10,7 @@
 **Vulnerability:** Asynchronous calls to `Clipboard.setStringAsync` were not wrapped in a `try...catch` block. If the device clipboard API failed (e.g., due to OS restrictions, low memory, or permission changes), the unhandled promise rejection could cause the application to crash or expose internal state.
 **Learning:** Even seemingly benign system APIs like the clipboard can fail. Leaving asynchronous operations unhandled violates the "fail securely" principle and introduces Denial of Service (DoS) vectors.
 **Prevention:** Always wrap asynchronous system APIs (like `Clipboard.setStringAsync`) in a `try...catch` block. Fallback gracefully by alerting the user with a generic message and securely logging the actual error using the centralized logger.
+## 2025-02-14 - [TOCTOU URL Validation Bypass in Deep Links]
+**Vulnerability:** Deep link validation validated the decoded URL but then passed the original, encoded URL to the router. This Time-of-Check to Time-of-Use (TOCTOU) vulnerability allowed bypassing the validation if the router's internal decoding logic interpreted the original URL differently than the initial validation check.
+**Learning:** Always use the exact validated/sanitized string when executing an operation, rather than relying on the downstream component to handle the original input identically.
+**Prevention:** Push the validated, decoded string `decodedUrl` to the router rather than the original `url` string.
