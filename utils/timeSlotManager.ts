@@ -347,11 +347,13 @@ export const formatDateKeyHumanReadable = (dateKey: string, language: string): s
   const year = parseInt(dateKey.substring(0, 4), 10);
   const month = parseInt(dateKey.substring(5, 7), 10);
   const day = parseInt(dateKey.substring(8, 10), 10);
-  const date = new Date(year, month - 1, day);
+
+  // ⚡ Bolt: Use parsed integers directly instead of instantiating new Date()
+  // Reduces memory allocation and garbage collection overhead in render loops.
   if (language === 'bn') {
     const bnMonths = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
-    return `${bnMonths[date.getMonth()]} ${toBengaliNumber(date.getDate())}, ${toBengaliNumber(date.getFullYear())}`;
+    return `${bnMonths[month - 1]} ${toBengaliNumber(day)}, ${toBengaliNumber(year)}`;
   }
   const enMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  return `${enMonths[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  return `${enMonths[month - 1]} ${day}, ${year}`;
 };
