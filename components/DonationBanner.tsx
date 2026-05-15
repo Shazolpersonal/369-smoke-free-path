@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { Heart } from 'lucide-react-native';
+import { Heart, Copy } from 'lucide-react-native';
 import * as Clipboard from 'expo-clipboard';
 
 import { useLanguage } from '../contexts/LanguageContext';
@@ -97,12 +97,15 @@ export function DonationBanner() {
                                     accessibilityRole="button"
                                     accessibilityLabel={t('donation.numberLabel')}
                                     accessibilityHint="Copies the number to clipboard"
+                                    hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                                    style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
                                 >
                                     <Text
                                         style={[styles.methodNumber, { fontFamily: f('bold') }]}
                                     >
                                         {method.number}
                                     </Text>
+                                    <Copy size={14} color="rgba(255,255,255,0.6)" />
                                 </TouchableOpacity>
                                 <Text style={[styles.methodType, { fontFamily: f('medium') }]}>
                                     ({language === 'bn' ? method.typeBn : method.type})
