@@ -17,3 +17,7 @@
 ## 2025-06-25 - Redundant String Parsing in Hot Paths
 **Learning:** Using `split('-').map(Number)` for parsing 'YYYY-MM-DD' date strings creates multiple intermediate objects (an array of strings, an array of numbers) and incurs significant array allocation and garbage collection overhead when called repeatedly in hot paths.
 **Action:** When extracting components from strict, fixed-length strings like 'YYYY-MM-DD', prefer manual string extraction with `parseInt(string.substring(x, y), 10)` to skip unnecessary allocations, yielding up to a 66% performance improvement.
+
+## 2024-05-17 - Avoid PadStart in Render Loops
+**Learning:** In tight loops like `app/(tabs)/history.tsx` rendering a month of calendar days, or hot path utilities like `formatLocalDateKey`, using `String().padStart()` incurs unnecessary string allocations.
+**Action:** Use conditional string interpolations directly inside template literals to measurably reduce garbage collection overhead and object allocations.

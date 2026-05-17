@@ -39,7 +39,8 @@ export const formatNumberByLanguage = (input: number | string, lang: 'en' | 'bn'
  */
 export const toBengaliTime = (hour: number, minute: number = 0): string => {
   const bengaliHour = toBengaliNumber(hour);
-  const bengaliMinute = toBengaliNumber(minute.toString().padStart(2, '0'));
+  // ⚡ Bolt: Avoid String().padStart() allocation overhead
+  const bengaliMinute = toBengaliNumber(minute < 10 ? `0${minute}` : `${minute}`);
   return `${bengaliHour}:${bengaliMinute}`;
 };
 
@@ -47,7 +48,8 @@ export const formatTimeByLanguage = (hour: number, minute: number = 0, lang: 'en
   if (lang === 'en') {
     const period = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
-    const formattedMin = minute.toString().padStart(2, '0');
+    // ⚡ Bolt: Avoid String().padStart() allocation overhead
+    const formattedMin = minute < 10 ? `0${minute}` : `${minute}`;
     return `${displayHour}:${formattedMin} ${period}`;
   }
   return toBengaliTime(hour, minute);
