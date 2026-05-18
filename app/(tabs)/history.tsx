@@ -288,9 +288,11 @@ export default function HistoryScreen() {
     for (let i = 0; i < startDow; i++) days.push(null);
 
     // ⚡ Bolt Optimization: Avoid 28-31 Date instantiations per render by manually formatting the ISO date string
-    const formattedMonth = String(viewMonth + 1).padStart(2, "0");
+    // Avoid intermediate string creation in loops by using template literals instead of padStart
+    const m = viewMonth + 1;
+    const formattedMonth = m < 10 ? '0' + m : '' + m;
     for (let d = 1; d <= totalDays; d++) {
-      const dateKey = `${viewYear}-${formattedMonth}-${String(d).padStart(2, "0")}`;
+      const dateKey = `${viewYear}-${formattedMonth}-${d < 10 ? '0' : ''}${d}`;
       days.push({ day: d, dateKey });
     }
     return days;

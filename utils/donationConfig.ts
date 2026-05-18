@@ -63,7 +63,9 @@ interface DonationPromptTracker {
 
 function getTodayKey(): string {
     const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const m = d.getMonth() + 1;
+    const dNum = d.getDate();
+    return `${d.getFullYear()}-${m < 10 ? '0' : ''}${m}-${dNum < 10 ? '0' : ''}${dNum}`;
 }
 
 /**
