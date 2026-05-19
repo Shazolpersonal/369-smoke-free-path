@@ -1,11 +1,13 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { initNotificationSystem } from './notificationService';
+import { logError } from './logger';
 
 /**
  * Request notification permissions and set up Android channel
  */
 export async function registerForPushNotificationsAsync(): Promise<boolean> {
+  try {
   // Check existing permissions
   const { status: existingStatus } = await Notifications.getPermissionsAsync();
   let finalStatus = existingStatus;
@@ -28,12 +30,17 @@ export async function registerForPushNotificationsAsync(): Promise<boolean> {
   }
 
   return finalStatus === 'granted';
+  } catch (error) {
+    logError('[notifications] registerForPushNotificationsAsync failed:', error);
+    return false;
+  }
 }
 
 /**
  * Schedule the three daily reminder notifications
  */
 export async function scheduleDailyReminders(): Promise<void> {
+  try {
   // Cancel all existing scheduled notifications to avoid duplicates
   await Notifications.cancelAllScheduledNotificationsAsync();
 
@@ -81,6 +88,9 @@ export async function scheduleDailyReminders(): Promise<void> {
       minute: 0,
     },
   });
+  } catch (error) {
+    logError('[notifications] scheduleDailyReminders failed:', error);
+  }
 }
 
 /**
