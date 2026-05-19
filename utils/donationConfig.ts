@@ -63,7 +63,11 @@ interface DonationPromptTracker {
 
 function getTodayKey(): string {
     const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    // ⚡ Bolt: Direct conditional interpolation avoids String().padStart() allocations
+    return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 }
 
 /**
