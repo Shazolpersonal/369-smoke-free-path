@@ -574,7 +574,11 @@ export default function HistoryScreen() {
             {/* Legend inside calendar card */}
             <View style={styles.legendDivider} />
             {monthStats.total === 0 && (
-              <View style={styles.emptyState}>
+              <View
+                style={styles.emptyState}
+                accessible={true}
+                accessibilityLabel={t("history.emptyState")}
+              >
                 <Text style={styles.emptyStateEmoji}>🌱</Text>
                 <Text
                   style={[styles.emptyStateText, { fontFamily: f("medium") }]}
@@ -674,7 +678,11 @@ export default function HistoryScreen() {
               ))}
             </View>
           ) : (
-            <View style={styles.modalEmpty}>
+            <View
+              style={styles.modalEmpty}
+              accessible={true}
+              accessibilityLabel={t("history.noProgress")}
+            >
               <Text style={styles.modalEmptyEmoji}>📝</Text>
               <Text
                 style={[styles.modalEmptyText, { fontFamily: f("medium") }]}
