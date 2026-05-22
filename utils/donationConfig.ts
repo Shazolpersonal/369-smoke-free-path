@@ -93,11 +93,16 @@ export async function shouldShowDonationPrompt(): Promise<boolean> {
  * Mark the donation prompt as shown for today.
  */
 export async function markDonationPromptShown(): Promise<void> {
-    const tracker: DonationPromptTracker = {
-        date: getTodayKey(),
-        shown: true,
-    };
-    await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    try {
+        const tracker: DonationPromptTracker = {
+            date: getTodayKey(),
+            shown: true,
+        };
+        await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    } catch (error) {
+        // Silently ignore storage errors to avoid crashing the UI,
+        // but it will result in the prompt potentially showing again
+    }
 }
 
 /**
