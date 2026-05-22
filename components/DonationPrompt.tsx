@@ -132,6 +132,7 @@ export function DonationPrompt() {
                         style={styles.closeButton}
                         accessibilityRole="button"
                         accessibilityLabel={t('donation.close')}
+                        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                     >
                         <Text style={[styles.closeButtonText, { fontFamily: f('bold') }]}>
                             {t('donation.close')}
