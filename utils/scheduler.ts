@@ -1,30 +1,30 @@
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
 import {
   AndroidImportance,
   AndroidNotificationVisibility,
   SchedulableTriggerInputTypes,
-} from 'expo-notifications';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
-import { Platform } from 'react-native';
-import { getNotificationContent } from './contentRotator';
-import { Language } from '../i18n';
-import { TimeSlot } from '../types';
+} from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Constants from "expo-constants";
+import { Platform } from "react-native";
+import { getNotificationContent } from "./contentRotator";
+import { Language } from "../i18n";
+import { TimeSlot } from "../types";
 
 // ─── Guards ──────────────────────────────────────────────────────────────────
 
-const IS_EXPO_GO = Constants.appOwnership === 'expo';
+const IS_EXPO_GO = Constants.appOwnership === "expo";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const LAST_SCHEDULED_KEY = '@notification_last_scheduled';
+const LAST_SCHEDULED_KEY = "@notification_last_scheduled";
 
-const CHANNEL_ID = 'daily-reminders';
+const CHANNEL_ID = "daily-reminders";
 
 const TIME_SLOTS: Array<{ slot: TimeSlot; hour: number; minute: number }> = [
-  { slot: 'morning', hour: 8, minute: 0 },
-  { slot: 'noon', hour: 13, minute: 0 },
-  { slot: 'night', hour: 18, minute: 0 },
+  { slot: "morning", hour: 8, minute: 0 },
+  { slot: "noon", hour: 13, minute: 0 },
+  { slot: "night", hour: 18, minute: 0 },
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -38,24 +38,26 @@ export interface ScheduleResult {
 // ─── Sub-task 3.1: Android Notification Channel Setup ────────────────────────
 
 export async function setupNotificationChannel(): Promise<void> {
-  if (Platform.OS !== 'android') return;
+  if (Platform.OS !== "android") return;
 
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'Daily Reminders',
+    name: "Daily Reminders",
     importance: AndroidImportance.MAX,
     lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
-    sound: 'default',
+    sound: "default",
     vibrationPattern: [0, 250, 250, 250],
-    lightColor: '#10B981',
+    lightColor: "#10B981",
     enableVibrate: true,
   });
 }
 
 // ─── Sub-task 3.2: scheduleDailyReminders ────────────────────────────────────
 
-export async function scheduleDailyReminders(language: Language): Promise<ScheduleResult> {
+export async function scheduleDailyReminders(
+  language: Language,
+): Promise<ScheduleResult> {
   // Guard: Expo Go and web are not supported
-  if (IS_EXPO_GO || Platform.OS === 'web') {
+  if (IS_EXPO_GO || Platform.OS === "web") {
     return { success: true, scheduledAt: Date.now() };
   }
 
@@ -63,16 +65,17 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
     // Cancel all existing scheduled notifications first
     await Notifications.cancelAllScheduledNotificationsAsync();
 
-    // Schedule 3 daily notifications — one per time slot
-    for (const { slot, hour, minute } of TIME_SLOTS) {
+    // ⚡ Bolt: Parallelize independent I/O tasks to eliminate cumulative latency
+    // By using Promise.all, we reduce the total await time from (T1 + T2 + T3) to max(T1, T2, T3)
+    const schedulePromises = TIME_SLOTS.map(({ slot, hour, minute }) => {
       const content = getNotificationContent(slot, language);
 
-      await Notifications.scheduleNotificationAsync({
+      return Notifications.scheduleNotificationAsync({
         content: {
           title: content.title,
           body: content.body,
           data: { url: `/task/${slot}`, slot },
-          sound: 'default',
+          sound: "default",
           // @ts-ignore — channelId is valid on Android
           channelId: CHANNEL_ID,
         },
@@ -82,7 +85,9 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
           minute,
         },
       });
-    }
+    });
+
+    await Promise.all(schedulePromises);
 
     // Persist timestamp only on success
     const scheduledAt = Date.now();
