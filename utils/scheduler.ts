@@ -7,6 +7,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
+import { logWarn } from './logger';
 import { getNotificationContent } from './contentRotator';
 import { Language } from '../i18n';
 import { TimeSlot } from '../types';
@@ -40,15 +41,19 @@ export interface ScheduleResult {
 export async function setupNotificationChannel(): Promise<void> {
   if (Platform.OS !== 'android') return;
 
-  await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'Daily Reminders',
-    importance: AndroidImportance.MAX,
-    lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
-    sound: 'default',
-    vibrationPattern: [0, 250, 250, 250],
-    lightColor: '#10B981',
-    enableVibrate: true,
-  });
+  try {
+    await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
+      name: 'Daily Reminders',
+      importance: AndroidImportance.MAX,
+      lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
+      sound: 'default',
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#10B981',
+      enableVibrate: true,
+    });
+  } catch (error) {
+    logWarn('[Scheduler] Failed to setup notification channel:', error);
+  }
 }
 
 // ─── Sub-task 3.2: scheduleDailyReminders ────────────────────────────────────
@@ -98,21 +103,39 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
 // ─── Sub-task 3.3: Helper Functions ──────────────────────────────────────────
 
 export async function getScheduledNotificationCount(): Promise<number> {
-  const notifications = await Notifications.getAllScheduledNotificationsAsync();
-  return notifications.length;
+  try {
+    const notifications = await Notifications.getAllScheduledNotificationsAsync();
+    return notifications.length;
+  } catch (error) {
+    logWarn('[Scheduler] Failed to get scheduled notification count:', error);
+    return 0;
+  }
 }
 
 export async function getLastScheduledTimestamp(): Promise<number | null> {
-  const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
-  if (value === null) return null;
-  const parsed = Number(value);
-  return isNaN(parsed) ? null : parsed;
+  try {
+    const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
+    if (value === null) return null;
+    const parsed = Number(value);
+    return isNaN(parsed) ? null : parsed;
+  } catch (error) {
+    logWarn('[Scheduler] Failed to get last scheduled timestamp:', error);
+    return null;
+  }
 }
 
 export async function saveLastScheduledTimestamp(ts: number): Promise<void> {
-  await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  try {
+    await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  } catch (error) {
+    logWarn('[Scheduler] Failed to save last scheduled timestamp:', error);
+  }
 }
 
 export async function cancelAllNotifications(): Promise<void> {
-  await Notifications.cancelAllScheduledNotificationsAsync();
+  try {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  } catch (error) {
+    logWarn('[Scheduler] Failed to cancel all scheduled notifications:', error);
+  }
 }
