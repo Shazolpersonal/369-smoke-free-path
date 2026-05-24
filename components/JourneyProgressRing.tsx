@@ -77,8 +77,18 @@ export function JourneyProgressRing({
         opacity: glowOpacity.value,
     }));
 
+    const accessibilityLabel = language === 'bn'
+        ? `অগ্রগতি: ${totalDays} দিনের মধ্যে ${currentDay} দিন সম্পন্ন`
+        : `Progress: Day ${currentDay} of ${totalDays}`;
+
     return (
-        <View style={[{ width: size, height: size }, styles.container]}>
+        <View
+            style={[{ width: size, height: size }, styles.container]}
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: totalDays, now: currentDay }}
+            accessibilityLabel={accessibilityLabel}
+        >
             {/* Dark background circle */}
             <View style={[StyleSheet.absoluteFillObject, styles.bgCircle]} />
 
