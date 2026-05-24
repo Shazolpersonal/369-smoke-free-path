@@ -77,8 +77,18 @@ export function RepetitionCounter({
         };
     });
 
+    const accessibilityLabel = language === 'bn'
+        ? `অগ্রগতি: ${total} এর মধ্যে ${completed} সম্পন্ন`
+        : `Progress: ${completed} out of ${total} completed`;
+
     return (
-        <Animated.View style={[styles.container, animatedStyle, { width: size, height: size }]}>
+        <Animated.View
+            style={[styles.container, animatedStyle, { width: size, height: size }]}
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: total, now: completed }}
+            accessibilityLabel={accessibilityLabel}
+        >
             <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
                 {/* Background Track */}
                 <Circle
