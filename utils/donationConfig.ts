@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logWarn } from './logger';
 
 // ======================================================================
 // Donation System — Halal, Ad-Free Revenue Model
@@ -93,11 +94,15 @@ export async function shouldShowDonationPrompt(): Promise<boolean> {
  * Mark the donation prompt as shown for today.
  */
 export async function markDonationPromptShown(): Promise<void> {
-    const tracker: DonationPromptTracker = {
-        date: getTodayKey(),
-        shown: true,
-    };
-    await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    try {
+        const tracker: DonationPromptTracker = {
+            date: getTodayKey(),
+            shown: true,
+        };
+        await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    } catch (error) {
+        logWarn('[DonationConfig] markDonationPromptShown error:', error);
+    }
 }
 
 /**
