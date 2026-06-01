@@ -6,6 +6,7 @@ import { registerWatchdog, unregisterWatchdog } from './watchdog';
 import { registerBootReceiver } from './bootReceiver';
 import { startAppStateChecker } from './appStateChecker';
 import { Language } from '../i18n';
+import { logError } from './logger';
 
 // ─── Guards ───────────────────────────────────────────────────────────────────
 
@@ -29,18 +30,22 @@ let appStateCleanup: (() => void) | null = null;
 export async function initNotificationSystem(config: { language: Language }): Promise<void> {
   if (IS_EXPO_GO || Platform.OS === 'web') return;
 
-  await setupNotificationChannel();
+  try {
+    await setupNotificationChannel();
 
-  const permission = await checkAndRequestPermission();
+    const permission = await checkAndRequestPermission();
 
-  if (permission === 'granted') {
-    await scheduleDailyReminders(config.language);
+    if (permission === 'granted') {
+      await scheduleDailyReminders(config.language);
+    }
+
+    await registerWatchdog();
+    registerBootReceiver();
+
+    appStateCleanup = startAppStateChecker(config.language);
+  } catch (error) {
+    logError('[NotificationService] initNotificationSystem error:', error);
   }
-
-  await registerWatchdog();
-  registerBootReceiver();
-
-  appStateCleanup = startAppStateChecker(config.language);
 }
 
 /**
@@ -48,10 +53,14 @@ export async function initNotificationSystem(config: { language: Language }): Pr
  * Stops the app state listener and unregisters the watchdog.
  */
 export async function teardownNotificationSystem(): Promise<void> {
-  if (appStateCleanup) {
-    appStateCleanup();
-    appStateCleanup = null;
-  }
+  try {
+    if (appStateCleanup) {
+      appStateCleanup();
+      appStateCleanup = null;
+    }
 
-  await unregisterWatchdog();
+    await unregisterWatchdog();
+  } catch (error) {
+    logError('[NotificationService] teardownNotificationSystem error:', error);
+  }
 }
