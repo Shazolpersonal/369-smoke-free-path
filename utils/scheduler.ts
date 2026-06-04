@@ -10,6 +10,7 @@ import { Platform } from 'react-native';
 import { getNotificationContent } from './contentRotator';
 import { Language } from '../i18n';
 import { TimeSlot } from '../types';
+import { logError } from './logger';
 
 // ─── Guards ──────────────────────────────────────────────────────────────────
 
@@ -40,15 +41,19 @@ export interface ScheduleResult {
 export async function setupNotificationChannel(): Promise<void> {
   if (Platform.OS !== 'android') return;
 
-  await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'Daily Reminders',
-    importance: AndroidImportance.MAX,
-    lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
-    sound: 'default',
-    vibrationPattern: [0, 250, 250, 250],
-    lightColor: '#10B981',
-    enableVibrate: true,
-  });
+  try {
+    await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
+      name: 'Daily Reminders',
+      importance: AndroidImportance.MAX,
+      lockscreenVisibility: AndroidNotificationVisibility.PUBLIC,
+      sound: 'default',
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#10B981',
+      enableVibrate: true,
+    });
+  } catch (error) {
+    logError('[scheduler] setupNotificationChannel failed:', error);
+  }
 }
 
 // ─── Sub-task 3.2: scheduleDailyReminders ────────────────────────────────────
@@ -98,8 +103,13 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
 // ─── Sub-task 3.3: Helper Functions ──────────────────────────────────────────
 
 export async function getScheduledNotificationCount(): Promise<number> {
-  const notifications = await Notifications.getAllScheduledNotificationsAsync();
-  return notifications.length;
+  try {
+    const notifications = await Notifications.getAllScheduledNotificationsAsync();
+    return notifications.length;
+  } catch (error) {
+    logError('[scheduler] getScheduledNotificationCount failed:', error);
+    return 0;
+  }
 }
 
 export async function getLastScheduledTimestamp(): Promise<number | null> {
@@ -114,5 +124,9 @@ export async function saveLastScheduledTimestamp(ts: number): Promise<void> {
 }
 
 export async function cancelAllNotifications(): Promise<void> {
-  await Notifications.cancelAllScheduledNotificationsAsync();
+  try {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  } catch (error) {
+    logError('[scheduler] cancelAllNotifications failed:', error);
+  }
 }
