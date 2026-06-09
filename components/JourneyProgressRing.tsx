@@ -78,7 +78,13 @@ export function JourneyProgressRing({
     }));
 
     return (
-        <View style={[{ width: size, height: size }, styles.container]}>
+        <View
+            style={[{ width: size, height: size }, styles.container]}
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: totalDays, now: currentDay }}
+            accessibilityLabel={`Day ${currentDay} out of ${totalDays}`}
+        >
             {/* Dark background circle */}
             <View style={[StyleSheet.absoluteFillObject, styles.bgCircle]} />
 
