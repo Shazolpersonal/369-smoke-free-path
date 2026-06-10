@@ -63,11 +63,12 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
     // Cancel all existing scheduled notifications first
     await Notifications.cancelAllScheduledNotificationsAsync();
 
-    // Schedule 3 daily notifications — one per time slot
-    for (const { slot, hour, minute } of TIME_SLOTS) {
+    // ⚡ Bolt: Parallelize notification scheduling with Promise.all
+    // Avoid sequential await in loops for independent I/O tasks to eliminate
+    // cumulative latency and improve execution time
+    await Promise.all(TIME_SLOTS.map(({ slot, hour, minute }) => {
       const content = getNotificationContent(slot, language);
-
-      await Notifications.scheduleNotificationAsync({
+      return Notifications.scheduleNotificationAsync({
         content: {
           title: content.title,
           body: content.body,
@@ -82,7 +83,7 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
           minute,
         },
       });
-    }
+    }));
 
     // Persist timestamp only on success
     const scheduledAt = Date.now();
