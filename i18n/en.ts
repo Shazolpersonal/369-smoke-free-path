@@ -9,6 +9,10 @@ export const en: Record<string, string> = {
     'app.loading': 'Loading...',
     'common.back': 'Go back',
 
+    // ===== Accessibility =====
+    'accessibility.journeyProgress': 'Journey progress: {{current}} out of {{total}} days',
+    'accessibility.repetitionProgress': 'Repetition progress: {{completed}} out of {{total}}',
+
     // ===== Tabs =====
     'tabs.home': 'Home',
     'tabs.history': 'History',

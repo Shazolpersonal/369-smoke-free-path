@@ -9,6 +9,10 @@ export const bn: Record<string, string> = {
     'app.loading': 'লোড হচ্ছে...',
     'common.back': 'ফিরে যান',
 
+    // ===== Accessibility =====
+    'accessibility.journeyProgress': 'যাত্রা অগ্রগতি: {{total}} দিনের মধ্যে {{current}} দিন',
+    'accessibility.repetitionProgress': 'পুনরাবৃত্তি অগ্রগতি: {{total}} এর মধ্যে {{completed}}',
+
     // ===== ট্যাব =====
     'tabs.home': 'হোম',
     'tabs.history': 'ইতিহাস',

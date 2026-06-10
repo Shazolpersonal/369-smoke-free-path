@@ -1,3 +1,7 @@
+## 2024-05-18 - Accessibility properties for custom SVG progress rings
+**Learning:** Found an opportunity to improve the UX for screen reader users on custom SVG progress ring components (`JourneyProgressRing`, `RepetitionCounter`). These components previously lacked standard accessibility roles, making them opaque to assistive technologies.
+**Action:** Always ensure that custom interactive components serving as progress indicators include explicitly defined `accessibilityRole="progressbar"`, `accessibilityValue` (with min, max, and now), and a consolidated `accessibilityLabel` on their root container to provide proper context to screen readers.
+
 ## 2024-05-08 - Added copy-to-clipboard functionality to donation numbers
 **Learning:** Found an opportunity to improve the UX of the `DonationBanner` and `DonationPrompt` by making the donation numbers copyable using `expo-clipboard` to allow users to quickly copy and paste them into their mobile banking applications. The implementation used a simple `TouchableOpacity` wrapper. It is important to ensure that the localization variables and translation contexts are correctly defined before attempting to interpolate them into feedback toasts.
 **Action:** When adding interactive UI elements that provide feedback using string templates, always ensure that the translation contexts are fully set up before interpolating variables into them.

@@ -33,7 +33,7 @@ export function RepetitionCounter({
     size = 120,
     strokeWidth = 12,
 }: RepetitionCounterProps) {
-    const { language } = useLanguage();
+    const { t, language } = useLanguage();
     const radius = (size - strokeWidth) / 2;
     const circumference = radius * 2 * Math.PI;
 
@@ -78,7 +78,13 @@ export function RepetitionCounter({
     });
 
     return (
-        <Animated.View style={[styles.container, animatedStyle, { width: size, height: size }]}>
+        <Animated.View
+            style={[styles.container, animatedStyle, { width: size, height: size }]}
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: total, now: completed }}
+            accessibilityLabel={t('accessibility.repetitionProgress', { completed, total })}
+        >
             <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
                 {/* Background Track */}
                 <Circle
