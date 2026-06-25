@@ -132,7 +132,7 @@ export function ToastProvider() {
     };
 
     return (
-        <Animated.View
+        <Animated.View accessible={true} accessibilityRole="alert" accessibilityLiveRegion="polite" accessibilityLabel={toast.message}
             style={[
                 styles.container,
                 rStyle,
