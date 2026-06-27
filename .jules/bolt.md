@@ -17,9 +17,15 @@
 ## 2025-06-25 - Redundant String Parsing in Hot Paths
 **Learning:** Using `split('-').map(Number)` for parsing 'YYYY-MM-DD' date strings creates multiple intermediate objects (an array of strings, an array of numbers) and incurs significant array allocation and garbage collection overhead when called repeatedly in hot paths.
 **Action:** When extracting components from strict, fixed-length strings like 'YYYY-MM-DD', prefer manual string extraction with `parseInt(string.substring(x, y), 10)` to skip unnecessary allocations, yielding up to a 66% performance improvement.
+
 ## 2025-02-12 - Date String Formatting Performance Optimization
 **Learning:** Using `String(value).padStart(2, '0')` for date components (e.g. `month`, `day`) incurs significant string allocation and method invocation overhead. When called frequently (e.g. loops, render cycles), this creates unnecessary garbage collection pressure.
 **Action:** Replace `.padStart(2, '0')` with direct conditional interpolation in template literals (e.g., `${month < 10 ? '0' : ''}${month}`) to achieve an ~4x performance boost in generating ISO format date strings.
+
 ## 2025-05-19 - Conditional String Interpolation as an Anti-Pattern Micro-Optimization
 **Learning:** Replacing built-in string methods like `.padStart(2, '0')` with manual conditional ternary interpolation (`${m < 10 ? '0' : ''}${m}`) is technically faster at a CPU instruction level by avoiding function calls and intermediate object creation. However, the performance gain is in the nanosecond range and completely unmeasurable in real-world scenarios (e.g., formatting a few dates or rendering a monthly calendar of 31 days). This action directly violates guidelines against micro-optimizations that sacrifice readability for zero practical benefit.
 **Action:** Do NOT replace `String().padStart()` with manual conditional ternary logic as a performance optimization. Reserve such optimizations for operations that occur tens of thousands of times per frame in a tight game loop, not for standard UI logic. Always prioritize the readability and maintainability of standard API methods unless a measurable bottleneck is proven.
+
+## 2026-05-19 - Unnecessary Dependencies in useMemo
+**Learning:** Including heavy, frequently changing state objects (like `dailyProgress`) in a `useMemo` dependency array when the returned value (like `currentDayInCycle`) only depends on slowly changing or independent variables (like `totalElapsedDays`) causes aggressive, unnecessary re-evaluations and subsequent component re-renders. A seemingly harmless comment (`// dailyProgress is included so the ring re-computes`) disguised this anti-pattern.
+**Action:** Carefully audit the dependency array of `useMemo` hooks. Only include variables that are directly read and used within the memoized function's scope to prevent cascading performance bottlenecks.
