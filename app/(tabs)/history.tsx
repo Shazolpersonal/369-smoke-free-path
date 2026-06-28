@@ -337,6 +337,18 @@ export default function HistoryScreen() {
     );
   })();
 
+  const canGoPrev = (() => {
+    if (!startDate) return true;
+    const prevYear = viewMonth === 0 ? viewYear - 1 : viewYear;
+    const prevMonthIndex = viewMonth === 0 ? 11 : viewMonth - 1;
+    const startYear = parseInt(startDate.substring(0, 4), 10);
+    const startMonth = parseInt(startDate.substring(5, 7), 10) - 1;
+    return (
+      prevYear > startYear ||
+      (prevYear === startYear && prevMonthIndex >= startMonth)
+    );
+  })();
+
   // Stats for current month
   const monthStats = useMemo(() => {
     let complete = 0;
@@ -494,12 +506,17 @@ export default function HistoryScreen() {
               <TouchableOpacity
                 onPress={handlePrevMonth}
                 style={styles.navButton}
+                disabled={!canGoPrev}
                 activeOpacity={0.6}
                 accessibilityRole="button"
+                accessibilityState={{ disabled: !canGoPrev }}
                 accessibilityLabel={t("history.prevMonth")}
                 hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
               >
-                <ChevronLeft size={22} color="#D4A847" />
+                <ChevronLeft
+                  size={22}
+                  color={canGoPrev ? "#D4A847" : "#334155"}
+                />
               </TouchableOpacity>
               <View style={styles.monthTitleContainer}>
                 <Text style={[styles.monthTitle, { fontFamily: f("bold") }]}>
