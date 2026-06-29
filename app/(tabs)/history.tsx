@@ -110,6 +110,7 @@ function AnimatedNumber({ value }: { value: number }) {
 
 // ─── Mini Progress Ring ─────────────────────────────────────────
 function MiniProgressRing({
+  label,
   progress,
   color,
   trackColor = "rgba(255,255,255,0.15)",
@@ -121,6 +122,7 @@ function MiniProgressRing({
   trackColor?: string;
   size?: number;
   strokeWidth?: number;
+  label?: string;
 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
@@ -146,6 +148,10 @@ function MiniProgressRing({
         alignItems: "center",
         justifyContent: "center",
       }}
+      accessible={true}
+      accessibilityRole="progressbar"
+      accessibilityValue={{ min: 0, max: 100, now: progress * 100 }}
+      accessibilityLabel={label ? `${label} progress: ${Math.round(progress * 100)}%` : `${Math.round(progress * 100)}% completed`}
     >
       <Svg
         width={size}
@@ -219,6 +225,7 @@ function StatCard({
       <View style={styles.statCardInner}>
         {showRing ? (
           <MiniProgressRing
+            label={label}
             progress={progress}
             color={color}
             size={48}
