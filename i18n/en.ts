@@ -8,6 +8,7 @@ export const en: Record<string, string> = {
     'app.bismillah': 'Bismillahir Rahmanir Rahim',
     'app.loading': 'Loading...',
     'common.back': 'Go back',
+    'common.of': 'of',
 
     // ===== Tabs =====
     'tabs.home': 'Home',

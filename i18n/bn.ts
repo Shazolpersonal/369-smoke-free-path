@@ -8,6 +8,7 @@ export const bn: Record<string, string> = {
     'app.bismillah': 'বিসমিল্লাহির রাহমানির রাহিম',
     'app.loading': 'লোড হচ্ছে...',
     'common.back': 'ফিরে যান',
+    'common.of': 'এর মধ্যে',
 
     // ===== ট্যাব =====
     'tabs.home': 'হোম',

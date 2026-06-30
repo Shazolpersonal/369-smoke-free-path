@@ -77,8 +77,17 @@ export function JourneyProgressRing({
         opacity: glowOpacity.value,
     }));
 
+    // Create a localized accessibility label for the progress ring
+    const a11yLabel = `${t('dashboard.dayLabel') || 'Day'} ${currentDay} ${t('common.of') || 'of'} ${totalDays}`;
+
     return (
-        <View style={[{ width: size, height: size }, styles.container]}>
+        <View
+            style={[{ width: size, height: size }, styles.container]}
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityValue={{ min: 0, max: totalDays, now: currentDay }}
+            accessibilityLabel={a11yLabel}
+        >
             {/* Dark background circle */}
             <View style={[StyleSheet.absoluteFillObject, styles.bgCircle]} />
 
