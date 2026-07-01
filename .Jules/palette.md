@@ -10,3 +10,7 @@
 **Learning:** Found an opportunity to improve the UX for iOS users. The app forces a dark theme across the board, but on iOS, `TextInput` components default to the system theme's keyboard appearance. If a user is using a light system theme, the keyboard will appear as light, causing a jarring visual clash with the app's dark background.
 **Action:** When working on an application that enforces a specific theme (like dark mode), always ensure that `TextInput` components have the `keyboardAppearance` prop set appropriately (e.g., `keyboardAppearance="dark"`) so the keyboard matches the app's enforced theme rather than defaulting to the system theme.
 ## 2025-05-12 - Adding Copy Icons to Donation Forms\n**Learning:** By adding explicit copy icons using lucide-react-native inside the TouchableOpacity, and setting hitSlop correctly, we significantly improve the intuitive nature of copy-to-clipboard interactions.\n**Action:** Use icon combinations combined with sufficient hitSlop areas for any custom text-based actionable item to clearly communicate intent.
+
+## 2026-07-01 - Toast component accessibility
+**Learning:** React Native toast/alert notifications are visually apparent but ignored by screen readers by default.
+**Action:** For React Native toast or alert notification components, always ensure they are properly announced to screen readers by adding `accessible={true}`, `accessibilityRole="alert"`, `accessibilityLiveRegion="polite"`, and a comprehensive `accessibilityLabel` containing the notification message to the root container.
