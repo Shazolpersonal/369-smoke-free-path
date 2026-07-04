@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 import Animated, { FadeInRight, useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { useProgress } from '../contexts/ProgressContext';
@@ -16,7 +16,13 @@ export function Achievements() {
     const [activeBadgeId, setActiveBadgeId] = useState<string | null>(null);
     const f = (weight: 'regular' | 'medium' | 'semibold' | 'bold') => getFontFamily(language, weight);
 
-    const badges = getAchievements(dailyProgress, trueStreak, totalElapsedDays);
+    // ⚡ Bolt: Memoize achievements calculation to prevent O(N) recalculation
+    // on every render (e.g., when activeBadgeId state changes for animations).
+    // Expected Impact: Prevents unnecessary array allocation and loop execution
+    // when interacting with badges.
+    const badges = useMemo(() => {
+        return getAchievements(dailyProgress, trueStreak, totalElapsedDays);
+    }, [dailyProgress, trueStreak, totalElapsedDays]);
 
     const handlePress = (badgeId: string) => {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
