@@ -162,15 +162,14 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
     const totalElapsedDays = useMemo(() => calculateTotalElapsedDays(startDate), [startDate]);
     
     // Cycle-specific calculations (based on 41-day spiritual arc)
-    // dailyProgress is included so the ring re-computes when any slot is completed
     const currentDayInCycle = useMemo(() => {
         if (isJourneyComplete(totalElapsedDays)) return 41;
         return ((totalElapsedDays - 1) % 41) + 1;
-    }, [totalElapsedDays, dailyProgress]);
+    }, [totalElapsedDays]);
     const currentCycle = useMemo(() => {
         if (isJourneyComplete(totalElapsedDays)) return 9;
         return Math.floor((totalElapsedDays - 1) / 41) + 1;
-    }, [totalElapsedDays, dailyProgress]);
+    }, [totalElapsedDays]);
 
     const trueStreak = useMemo(() => calculateTrueStreak(dailyProgress, startDate, new Date()), [dailyProgress, startDate]);
 
