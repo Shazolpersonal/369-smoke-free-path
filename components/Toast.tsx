@@ -143,6 +143,10 @@ export function ToastProvider() {
                     borderWidth: 1,
                 },
             ]}
+            accessible={true}
+            accessibilityRole="alert"
+            accessibilityLiveRegion="polite"
+            accessibilityLabel={toast.message}
         >
             <View style={styles.content}>
                 {getIcon()}
