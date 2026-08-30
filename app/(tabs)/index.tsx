@@ -190,13 +190,13 @@ export default function Dashboard() {
           style={styles.skeletonContainer}
         >
           <View style={styles.skeletonProgressSection}>
-            <SkeletonLoader variant="progressRing" />
+            <SkeletonLoader variant="progressRing" accessibilityLabel={t("app.loading") || "Loading..."} />
           </View>
           <View style={{ paddingHorizontal: SPACING.lg }}>
-            <SkeletonLoader variant="taskCard" count={3} />
+            <SkeletonLoader variant="taskCard" count={3} accessibilityLabel={t("app.loading") || "Loading..."} />
           </View>
           <View style={{ paddingHorizontal: SPACING.lg, marginTop: 8 }}>
-            <SkeletonLoader variant="quote" />
+            <SkeletonLoader variant="quote" accessibilityLabel={t("app.loading") || "Loading..."} />
           </View>
         </Animated.View>
       </View>
