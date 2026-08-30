@@ -16,6 +16,7 @@ const { width: screenWidth } = Dimensions.get('window');
 interface SkeletonLoaderProps {
     variant: 'taskCard' | 'progressRing' | 'quote';
     count?: number;
+    accessibilityLabel?: string;
 }
 
 // Animated LinearGradient wrapper
@@ -95,22 +96,35 @@ function QuoteSkeleton() {
     );
 }
 
-export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
-    if (variant === 'taskCard') {
-        return (
-            <View>
-                {Array.from({ length: count }).map((_, i) => (
-                    <TaskCardSkeleton key={i} />
-                ))}
-            </View>
-        );
-    }
+export function SkeletonLoader({ variant, count = 1, accessibilityLabel }: SkeletonLoaderProps) {
+    const renderContent = () => {
+        if (variant === 'taskCard') {
+            return (
+                <View>
+                    {Array.from({ length: count }).map((_, i) => (
+                        <TaskCardSkeleton key={i} />
+                    ))}
+                </View>
+            );
+        }
 
-    if (variant === 'progressRing') {
-        return <ProgressRingSkeleton />;
-    }
+        if (variant === 'progressRing') {
+            return <ProgressRingSkeleton />;
+        }
 
-    return <QuoteSkeleton />;
+        return <QuoteSkeleton />;
+    };
+
+    return (
+        <View
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityState={{ busy: true }}
+            accessibilityLabel={accessibilityLabel}
+        >
+            {renderContent()}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
