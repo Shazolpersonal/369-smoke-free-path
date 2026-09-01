@@ -7,8 +7,10 @@ import {
   StyleSheet,
   Linking,
   Platform,
+  Alert,
 } from 'react-native';
 import { Language } from '../i18n';
+import { logError } from '../utils/logger';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -199,10 +201,16 @@ export default function BatteryOptimizationGuide({ language, onSkip, onDone }: P
   const manufacturer = detectManufacturer();
   const guide = getManufacturerGuide(manufacturer, language);
 
-  const handleOpenSettings = () => {
-    Linking.openSettings().catch(() => {
-      // Fallback: silently ignore if openSettings is unavailable
-    });
+  const handleOpenSettings = async () => {
+    try {
+      await Linking.openSettings();
+    } catch (error) {
+      logError('[BatteryOptimizationGuide] Linking.openSettings failed', error);
+      Alert.alert(
+        language === 'bn' ? 'ত্রুটি' : 'Error',
+        language === 'bn' ? 'সেটিংস খুলতে ব্যর্থ হয়েছে।' : 'Failed to open settings.'
+      );
+    }
   };
 
   return (
