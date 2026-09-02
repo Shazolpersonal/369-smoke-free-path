@@ -97,7 +97,11 @@ export async function markDonationPromptShown(): Promise<void> {
         date: getTodayKey(),
         shown: true,
     };
-    await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    try {
+        await AsyncStorage.setItem(DONATION_PROMPT_KEY, JSON.stringify(tracker));
+    } catch (error) {
+        // Silently ignore storage errors
+    }
 }
 
 /**

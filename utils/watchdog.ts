@@ -31,8 +31,13 @@ TaskManager.defineTask(TASK_NAME, async () => {
     }
 
     // Need to reschedule
-    const rawLang = await AsyncStorage.getItem(APP_LANGUAGE_KEY);
-    const language: Language = (rawLang === 'bn' ? 'bn' : 'en') as Language;
+    let language: Language = 'en';
+    try {
+      const rawLang = await AsyncStorage.getItem(APP_LANGUAGE_KEY);
+      language = (rawLang === 'bn' ? 'bn' : 'en') as Language;
+    } catch (e) {
+      // Fallback to english on storage error
+    }
 
     await scheduleDailyReminders(language);
     await appendWatchdogLog({ timestamp: now, action: 'rescheduled', count });
