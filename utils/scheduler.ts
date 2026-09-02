@@ -103,14 +103,22 @@ export async function getScheduledNotificationCount(): Promise<number> {
 }
 
 export async function getLastScheduledTimestamp(): Promise<number | null> {
-  const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
-  if (value === null) return null;
-  const parsed = Number(value);
-  return isNaN(parsed) ? null : parsed;
+  try {
+    const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
+    if (value === null) return null;
+    const parsed = Number(value);
+    return isNaN(parsed) ? null : parsed;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function saveLastScheduledTimestamp(ts: number): Promise<void> {
-  await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  try {
+    await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  } catch (error) {
+    // Silently ignore storage errors
+  }
 }
 
 export async function cancelAllNotifications(): Promise<void> {
