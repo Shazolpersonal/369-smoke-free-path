@@ -96,9 +96,20 @@ function QuoteSkeleton() {
 }
 
 export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
+    const getAccessibilityLabel = () => {
+        if (variant === 'taskCard') return 'Loading tasks';
+        if (variant === 'progressRing') return 'Loading progress';
+        return 'Loading quote';
+    };
+
     if (variant === 'taskCard') {
         return (
-            <View>
+            <View
+                accessible={true}
+                accessibilityRole="progressbar"
+                accessibilityState={{ busy: true }}
+                accessibilityLabel={getAccessibilityLabel()}
+            >
                 {Array.from({ length: count }).map((_, i) => (
                     <TaskCardSkeleton key={i} />
                 ))}
@@ -107,10 +118,28 @@ export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
     }
 
     if (variant === 'progressRing') {
-        return <ProgressRingSkeleton />;
+        return (
+            <View
+                accessible={true}
+                accessibilityRole="progressbar"
+                accessibilityState={{ busy: true }}
+                accessibilityLabel={getAccessibilityLabel()}
+            >
+                <ProgressRingSkeleton />
+            </View>
+        );
     }
 
-    return <QuoteSkeleton />;
+    return (
+        <View
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityState={{ busy: true }}
+            accessibilityLabel={getAccessibilityLabel()}
+        >
+            <QuoteSkeleton />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
