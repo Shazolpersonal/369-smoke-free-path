@@ -44,50 +44,53 @@ export async function scheduleDailyReminders(): Promise<void> {
   // Cancel all existing scheduled notifications to avoid duplicates
   await Notifications.cancelAllScheduledNotificationsAsync();
 
-  // Morning notification - 08:00 AM
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: 'সকালের শপথ',
-      body: 'আজকের দিনের শুরুটা হোক পবিত্র। ৩ বার শপথ নেওয়ার সময় হয়েছে।',
-      data: { url: '/task/morning' },
-      sound: 'default',
-    },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 8,
-      minute: 0,
-    },
-  });
+  // Schedule notifications concurrently
+  await Promise.all([
+    // Morning notification - 08:00 AM
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "সকালের শপথ",
+        body: "আজকের দিনের শুরুটা হোক পবিত্র। ৩ বার শপথ নেওয়ার সময় হয়েছে।",
+        data: { url: "/task/morning" },
+        sound: "default",
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DAILY,
+        hour: 8,
+        minute: 0,
+      },
+    }),
 
-  // Noon notification - 01:00 PM (13:00)
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: 'দুপুরের শপথ',
-      body: 'আল্লাহ দেখছেন। দুপুরের ৬টি শপথ পূর্ণ করো।',
-      data: { url: '/task/noon' },
-      sound: 'default',
-    },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 13,
-      minute: 0,
-    },
-  });
+    // Noon notification - 01:00 PM (13:00)
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "দুপুরের শপথ",
+        body: "আল্লাহ দেখছেন। দুপুরের ৬টি শপথ পূর্ণ করো।",
+        data: { url: "/task/noon" },
+        sound: "default",
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DAILY,
+        hour: 13,
+        minute: 0,
+      },
+    }),
 
-  // Night notification - 06:00 PM (18:00)
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: 'রাতের শপথ',
-      body: 'সারাদিন সফল ছিলে, আলহামদুলিল্লাহ। ঘুমানোর আগে ৯ বার শুকরিয়া আদায় করো।',
-      data: { url: '/task/night' },
-      sound: 'default',
-    },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 18,
-      minute: 0,
-    },
-  });
+    // Night notification - 06:00 PM (18:00)
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "রাতের শপথ",
+        body: "সারাদিন সফল ছিলে, আলহামদুলিল্লাহ। ঘুমানোর আগে ৯ বার শুকরিয়া আদায় করো।",
+        data: { url: "/task/night" },
+        sound: "default",
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DAILY,
+        hour: 18,
+        minute: 0,
+      },
+    })
+  ]);
   } catch (error) {
     logError('[notifications] scheduleDailyReminders failed:', error);
   }
