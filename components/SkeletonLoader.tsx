@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS } from '../utils/theme';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -96,9 +97,15 @@ function QuoteSkeleton() {
 }
 
 export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
+    const { t } = useLanguage();
     if (variant === 'taskCard') {
         return (
-            <View>
+            <View
+                accessible={true}
+                accessibilityRole="progressbar"
+                accessibilityState={{ busy: true }}
+                accessibilityLabel={t('app.loading')}
+            >
                 {Array.from({ length: count }).map((_, i) => (
                     <TaskCardSkeleton key={i} />
                 ))}
@@ -107,10 +114,28 @@ export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
     }
 
     if (variant === 'progressRing') {
-        return <ProgressRingSkeleton />;
+        return (
+            <View
+                accessible={true}
+                accessibilityRole="progressbar"
+                accessibilityState={{ busy: true }}
+                accessibilityLabel={t('app.loading')}
+            >
+                <ProgressRingSkeleton />
+            </View>
+        );
     }
 
-    return <QuoteSkeleton />;
+    return (
+        <View
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityState={{ busy: true }}
+            accessibilityLabel={t('app.loading')}
+        >
+            <QuoteSkeleton />
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
