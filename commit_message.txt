@@ -1,0 +1,7 @@
+🛡️ Sentinel: [MEDIUM] Fix unhandled promise rejections in expo-notifications
+
+🚨 Severity: MEDIUM
+💡 Vulnerability: Asynchronous calls to native `expo-notifications` APIs were not wrapped in `try...catch` blocks. If the native push service fails transiently or if OS permissions tightly restrict background operations, the unhandled promise rejection could crash the application.
+🎯 Impact: This could result in a Denial of Service (DoS) where the app crashes unexpectedly instead of failing gracefully.
+🔧 Fix: Wrapped `Notifications.setNotificationChannelAsync`, `Notifications.getAllScheduledNotificationsAsync`, and `Notifications.cancelAllScheduledNotificationsAsync` in `try...catch` blocks within `utils/scheduler.ts`. Errors are now caught and safely logged using `logWarn`.
+✅ Verification: Review `utils/scheduler.ts` to ensure the asynchronous notifications calls are safely bounded by try/catch constructs.
