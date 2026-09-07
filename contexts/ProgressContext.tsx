@@ -232,7 +232,11 @@ export function ProgressProvider({ children }: ProgressProviderProps) {
                         const effectiveStart = getEffectiveStartDateFromTime(referenceTime);
                         setStartDate(effectiveStart);
                         setDailyProgress({});
-                        await AsyncStorage.removeItem(STORAGE_KEY);
+                        try {
+                            await AsyncStorage.removeItem(STORAGE_KEY);
+                        } catch {
+                            // Safe failure
+                        }
                     }
                 } else if (!isFirst) {
                     // Not first launch but no data — initialize
