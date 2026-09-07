@@ -98,21 +98,38 @@ export async function scheduleDailyReminders(language: Language): Promise<Schedu
 // ─── Sub-task 3.3: Helper Functions ──────────────────────────────────────────
 
 export async function getScheduledNotificationCount(): Promise<number> {
-  const notifications = await Notifications.getAllScheduledNotificationsAsync();
-  return notifications.length;
+  try {
+    const notifications = await Notifications.getAllScheduledNotificationsAsync();
+    return notifications.length;
+  } catch (error) {
+    // Fail securely by assuming 0 notifications
+    return 0;
+  }
 }
 
 export async function getLastScheduledTimestamp(): Promise<number | null> {
-  const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
-  if (value === null) return null;
-  const parsed = Number(value);
-  return isNaN(parsed) ? null : parsed;
+  try {
+    const value = await AsyncStorage.getItem(LAST_SCHEDULED_KEY);
+    if (value === null) return null;
+    const parsed = Number(value);
+    return isNaN(parsed) ? null : parsed;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function saveLastScheduledTimestamp(ts: number): Promise<void> {
-  await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  try {
+    await AsyncStorage.setItem(LAST_SCHEDULED_KEY, String(ts));
+  } catch (error) {
+    // Fail securely
+  }
 }
 
 export async function cancelAllNotifications(): Promise<void> {
-  await Notifications.cancelAllScheduledNotificationsAsync();
+  try {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  } catch (error) {
+    // Fail securely
+  }
 }
