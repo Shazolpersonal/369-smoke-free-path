@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS } from '../utils/theme';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -96,6 +97,9 @@ function QuoteSkeleton() {
 }
 
 export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
+    const { t } = useLanguage();
+
+    const renderContent = () => {
     if (variant === 'taskCard') {
         return (
             <View>
@@ -111,6 +115,18 @@ export function SkeletonLoader({ variant, count = 1 }: SkeletonLoaderProps) {
     }
 
     return <QuoteSkeleton />;
+    };
+
+    return (
+        <View
+            accessible={true}
+            accessibilityRole="progressbar"
+            accessibilityState={{ busy: true }}
+            accessibilityLabel={t('app.loading') || 'Loading...'}
+        >
+            {renderContent()}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
